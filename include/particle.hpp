@@ -14,4 +14,4 @@ private:
 	double m_vy;
 };
 
-#endif
+#endif // PARTICLE_HPP
