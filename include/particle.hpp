@@ -6,7 +6,7 @@
 class Particle
 {
 public:
-	Particle(double x, double y, double vx, double vy);
+	Particle(double y0, double v0x, double v0y);
 
 private:
 	Point m_p;
