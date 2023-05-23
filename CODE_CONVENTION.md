@@ -2,7 +2,7 @@ Do:
 ~~~c++
 const float GLOBAL_CONSTANT_VALUE{3.14f};
 
-void someFuncition(const std::string& s)
+void someFunction(const std::string& s)
 {
     int someVariableName{};
     ...
@@ -24,7 +24,7 @@ Don't do:
 ~~~c++
 const float globalConstantValue{3.14};
 
-void some_funcition(std::string const& s) {
+void some_function(std::string const& s) {
     int some_variable_name{};
     ...
 }
