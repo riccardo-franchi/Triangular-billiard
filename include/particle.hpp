@@ -12,4 +12,4 @@ private:
 	Point m_p0;
 };
 
-#endif
+#endif // PARTICLE_HPP
