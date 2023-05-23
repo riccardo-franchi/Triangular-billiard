@@ -1,3 +1,6 @@
+#ifndef BILLIARD_HPP
+#define BILLIARD_HPP
+
 #include <stdexcept>
 
 class Billiard
@@ -12,8 +15,14 @@ public:
 		}
 	}
 
+	double r1() const { return m_r1; }
+	double r2() const { return m_r2; }
+	double l() const { return m_l; }
+
 private:
 	double m_r1{};
 	double m_r2{};
 	double m_l{};
 };
+
+#endif // BILLIARD_HPP
