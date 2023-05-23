@@ -24,10 +24,10 @@ string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " -fsanitize=address,undefined -fno-o
 #   per disabilitare il testing, passare -DBUILD_TESTING=OFF a cmake durante la fase di configurazione
 if (BUILD_TESTING)
 
-  # aggiungi l'eseguibile statistics.t
- # add_executable(spring.test spring.test.cpp)
-  # aggiungi l'eseguibile statistics.t alla lista dei test
-#  add_test(NAME spring.test COMMAND spring.test)
+  # aggiungi l'eseguibile billiard.test
+  add_executable(billiard.test tests/billiard.test.cpp)
+  # aggiungi l'eseguibile billiard.test alla lista dei test
+  add_test(NAME billiard.test COMMAND billiard.test)
 
 endif()
 
