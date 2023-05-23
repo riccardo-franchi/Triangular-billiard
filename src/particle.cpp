@@ -1,6 +1,7 @@
 #include "particle.hpp"
+#include "billiard.hpp"
 #include "point.hpp"
 
-Particle::Particle(double y0) : m_p0{0, y0} {}
+Particle::Particle(double x, double y, double vx, double vy) : m_p{x, y}, m_vx{vx}, m_vy{vy} {}
 
-Particle collision() {}
+Particle collision(Particle particle, Billiard billiard) {}

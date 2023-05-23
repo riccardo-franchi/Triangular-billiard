@@ -6,10 +6,12 @@
 class Particle
 {
 public:
-	Particle(double y0);
+	Particle(double x, double y, double vx, double vy);
 
 private:
-	Point m_p0;
+	Point m_p;
+	double m_vx;
+	double m_vy;
 };
 
 #endif
