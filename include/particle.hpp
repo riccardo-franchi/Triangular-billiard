@@ -1,7 +1,15 @@
+#ifndef PARTICLE_HPP
+#define PARTICLE_HPP
+
+#include "point.hpp"
+
 class Particle
 {
 public:
+	Particle(double y0);
+
 private:
-	double m_x0;
-	double m_y0;
+	Point m_p0;
 };
+
+#endif
