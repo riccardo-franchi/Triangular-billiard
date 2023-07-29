@@ -13,7 +13,7 @@ $$y = \frac{r_2 - r_1}{l}\ x + r_1$$
 $$y = -\frac{r_2 - r_1}{l}\ x - r_1$$
 
 3. Initial trajectory of the particle:
-$$ y = \frac{v_y}{v_x}\ x + y_0$$
+$$y = \frac{v_y}{v_x}\ x + y_0 $$
 with $v_x$, $v_y$ components of the initial velocity and $y_0$ initial position of the particle ($x_0 =0$).
 
 5. Position of the first collision of a particle (with $v_y>0$):
