@@ -15,9 +15,9 @@ public:
 		}
 	}
 
-	double r1() const { return m_r1; }
-	double r2() const { return m_r2; }
-	double l() const { return m_l; }
+	double getR1() const { return m_r1; }
+	double getR2() const { return m_r2; }
+	double getL() const { return m_l; }
 
 private:
 	double m_r1{};
