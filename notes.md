@@ -8,9 +8,9 @@ $$(x_i, y_i, v_{x_i}, v_{y_i}) $$
 ## Equations
 
 1. Equation of the upper edge:
-\[ y = \frac{r_2 - r_1}{l}\ x + r_1 \]
+$$y = \frac{r_2 - r_1}{l}\ x + r_1$$
 2. Equation of the lower edge:
-\[ y = -\frac{r_2 - r_1}{l}\ x - r_1 \]
+$$y = -\frac{r_2 - r_1}{l}\ x - r_1$$
 
 3. Initial trajectory of the particle:
 $$ y = \frac{v_y}{v_x}\ x + y_0$$
