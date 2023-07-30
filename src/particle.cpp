@@ -1,4 +1,3 @@
-#include "particle.hpp"
-#include "point.hpp"
+#include "../include/particle.hpp"
 
-Particle::Particle(double y0) : m_p0{0, y0} {}
+Particle::Particle(double y0) : m_x0{0}, m_y0{y0} {}
