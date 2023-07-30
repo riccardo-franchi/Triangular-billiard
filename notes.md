@@ -16,7 +16,7 @@ The simplest approach is to store the three parameters $r_1, r_2, l$ as members 
 
 ### 2. Storing all the particles
 
-The first approach is to handle a single particle (`Particle m_particle`) as a member of class `Billiard`, and then proceeding to point 3. To do that, we must define a header-only class `Particle`. 
+The first approach is to handle a single particle (`Particle m_particle`) as a member of class `Billiard`, and then proceeding to point 3. To do that, we must define a struct `Particle` (we can eventually change it to a class). 
 
 After that we have set that up working correctly we can proceed to the next step, which is to handle multiple particles (`std::vector<Particle> m_particles`).
 
