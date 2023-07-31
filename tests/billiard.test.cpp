@@ -6,8 +6,8 @@
 
 TEST_CASE("Testing the Billiard class")
 {
-	// CHECK_THROWS(Billiard{-1., 1., 1.});
-	// CHECK_THROWS(Billiard{1., -1., 1.});
+	CHECK_THROWS(Billiard{-1., 1., 1.});
+	CHECK_THROWS(Billiard{1., -1., 1.});
 	CHECK_THROWS(Billiard{1., 1., -1.});
 }
 
