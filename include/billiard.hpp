@@ -6,8 +6,8 @@
 class Billiard
 {
 public:
-	Billiard(double r1, double r2, double l) //
-		: m_r1{r1}, m_r2{r2}, m_l{l}		 //
+	Billiard(const double r1, const double r2, const double l) //
+		: m_r1{r1}, m_r2{r2}, m_l{l}						   //
 	{
 		if (m_r1 < 0 || m_r2 < 0 || m_l < 0)
 		{
@@ -15,9 +15,9 @@ public:
 		}
 	}
 
-	double getR1() const { return m_r1; }
-	double getR2() const { return m_r2; }
-	double getL() const { return m_l; }
+	const double getR1() { return m_r1; }
+	const double getR2() { return m_r2; }
+	const double getL() { return m_l; }
 
 private:
 	double m_r1{};

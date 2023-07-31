@@ -12,12 +12,12 @@ Particle::Particle(double y0, double theta) : m_x{0}, m_y{y0}, m_theta{theta} //
 	}
 };
 
-bool collide(Particle particle, Billiard billiard)
+bool collide(Particle particle, Billiard billiard) // Billiard should be const
 {
 	// check if the particle stays in the billiard
-	double theta_min{billiard.getR2() * particle.getY() / (billiard.getL() - particle.getX())};
-	double theta_max{billiard.getR1() * particle.getY() / (billiard.getL() - particle.getX())};
-	if (particle.getTheta() < theta_max || particle.getTheta() > theta_min)
+	double coeff_min{billiard.getR2() * particle.getY() / (billiard.getL() - particle.getX())};
+	double coeff_max{billiard.getR1() * particle.getY() / (billiard.getL() - particle.getX())};
+	if (tan(particle.getTheta()) < coeff_max || tan(particle.getTheta()) > coeff_min)
 	{
 		return false;
 	}
@@ -27,11 +27,25 @@ bool collide(Particle particle, Billiard billiard)
 	}
 }
 
-void runSimulation(Particle particle, Billiard billiard)
+void trajectory(Particle& particle, Billiard billiard) // Billiard should be const
+{
+	Particle particleF{particle};
+	double xu{(tan(particle.getTheta()) * particle.getX() + billiard.getR1() - particle.getY()) /
+			  (tan(particle.getTheta()) + ((billiard.getR1() - billiard.getR2()) / billiard.getL()))};
+	double yu{};
+	particleF.setX(xu);
+	particleF.setY(yu);
+	double theta{
+		// da fare
+	};
+	particleF.setTheta(theta);
+	particle = particleF;
+}
+
+void runSimulation(Particle& particle, const Billiard billiard)
 {
 	while (collide(particle, billiard))
 	{
-		// trajectory function
-		collide(particle, billiard);
+		trajectory(particle, billiard);
 	}
 }
