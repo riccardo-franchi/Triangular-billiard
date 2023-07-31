@@ -6,22 +6,19 @@
 class Particle
 {
 public:
-	Particle(double y0, double v0x, double v0y);
+	Particle(double y0, double theta);
 	Point getPoint() const { return m_p; }
-	double getVx() const { return m_vx; }
-	double getVy() const { return m_vy; }
+	double getTheta() const { return m_theta; }
 	void setPoint(double x, double y)
 	{
 		m_p.x = x;
 		m_p.y = y;
 	}
-	void setVx(double vx) { m_vx = vx; }
-	void setVy(double vy) { m_vy = vy; }
+	void setTheta(double theta) { m_theta = theta; }
 
 private:
 	Point m_p;
-	double m_vx;
-	double m_vy;
+	double m_theta;
 };
 
 #endif // PARTICLE_HPP
