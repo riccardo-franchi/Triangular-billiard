@@ -15,8 +15,7 @@ Particle::Particle(double y0, double theta) : m_p{0., y0}, m_theta{theta} //
 
 bool collide(Particle particle, Billiard billiard)
 {
-
-	// check if the particle excapes the billiard
+	// check if the particle stays in the billiard
 	double theta_min{billiard.getR2() * particle.getPoint().y / (billiard.getL() - particle.getPoint().x)};
 	double theta_max{billiard.getR1() * particle.getPoint().y / (billiard.getL() - particle.getPoint().x)};
 	if (particle.getTheta() < theta_max || particle.getTheta() > theta_min)
@@ -26,5 +25,14 @@ bool collide(Particle particle, Billiard billiard)
 	else
 	{
 		return true;
+	}
+}
+
+void runSimulation(Particle particle, Billiard billiard)
+{
+	while (collide(particle, billiard))
+	{
+		// trajectory function
+		collide(particle, billiard);
 	}
 }

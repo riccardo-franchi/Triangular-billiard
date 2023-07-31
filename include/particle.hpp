@@ -21,4 +21,6 @@ private:
 	double m_theta;
 };
 
+bool collide(Particle particle, Billiard billiard){};
+
 #endif // PARTICLE_HPP
