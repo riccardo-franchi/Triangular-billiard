@@ -5,9 +5,9 @@ class Particle
 {
 public:
 	Particle(double y0, double theta);
-	const double getX() { return m_x; }
-	const double getY() { return m_y; }
-	const double getTheta() { return m_theta; }
+	double getX() const { return m_x; }
+	double getY() const { return m_y; }
+	double getTheta() const { return m_theta; }
 	void setX(double x) { m_x = x; }
 	void setY(double y) { m_y = y; }
 	void setTheta(double theta) { m_theta = theta; }
