@@ -13,13 +13,13 @@ Billiard::Billiard(double r1, double r2, double l) //
 
 void Billiard::runSimulation()
 {
-	while (collide())
+	while (willCollide())
 	{
-		trajectory();
+		calcTrajectory();
 	}
 }
 
-bool Billiard::collide()
+bool Billiard::willCollide()
 {
 	double coeff_min{m_r2 * m_particle.getY() / (m_l - m_particle.getX())};
 	double coeff_max{m_r1 * m_particle.getY() / (m_l - m_particle.getX())};
@@ -31,7 +31,7 @@ bool Billiard::collide()
 	return true;
 }
 
-void Billiard::trajectory()
+void Billiard::calcTrajectory()
 {
 	Particle m_particleF{m_particle};
 	double xu{(std::tan(m_particle.getTheta()) * m_particle.getX() + m_r1 - m_particle.getY()) /

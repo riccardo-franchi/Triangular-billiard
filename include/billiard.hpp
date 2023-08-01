@@ -17,8 +17,8 @@ public:
 	void runSimulation();
 
 private:
-	bool collide();
-	void trajectory();
+	bool willCollide();
+	void calcTrajectory();
 
 	double m_r1{};
 	double m_r2{};
