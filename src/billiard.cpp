@@ -41,11 +41,11 @@ void Billiard::calcTrajectory()
 	const double coeff{std::tan(m_particle.getTheta())};
 
 	double xu{(coeff * m_particle.getX() + m_r1 - m_particle.getY()) / (coeff + ((m_r1 - m_r2) / m_l))};
-	double yu{};
+	double yu{coeff * (xu - m_particle.getX()) + m_particle.getY()};
 	m_particleF.setX(xu);
 	m_particleF.setY(yu);
 	double theta{
-		// da fare
+		// credo sia - theta_iniz + 2*alpha, con alpha angolo del biliardo
 	};
 	m_particleF.setTheta(theta);
 	m_particle = m_particleF;

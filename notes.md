@@ -23,3 +23,8 @@ obtained by considering equations (1) and (3).
 6. Trajectory of the particle after the $i$-th collision:
 $$y = \mp \frac{l}{r_2-r_1}\ (x - x_i) + y_i \quad (\bigstar)$$
 check this equation! It's odd that the angular coefficient is not influenced by the direction of the particle. On the other hand, informations about the previous trajectories are found in $x_i$.
+
+7. Theta after a collision
+
+It SHOULD be $$\theta_f = -\theta_i + 2\alpha$$
+where $\alpha$ is the angle of the edge, and all angles are referred to the x axis
