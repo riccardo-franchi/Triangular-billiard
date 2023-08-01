@@ -1,4 +1,4 @@
-#include "billiard.hpp"
+#include "../include/billiard.hpp"
 
 Billiard::Billiard(const double r1, const double r2, const double l) //
 	: m_r1{r1}, m_r2{r2}, m_l{l}									 //
