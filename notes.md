@@ -6,8 +6,8 @@ We want to have a class `Billiard` that handles the main functionality of the si
 1. Storing the coordinates of the two walls
 2. Storing all the particles
 3. Calculating the trajectory of the particle (calculation every collision for every particle)
-4. Calculating statistics
 
+We than have a class that handles the calculation the stats of the simulation.
 
 ### 1. Storing the coordinates of the two walls
 
@@ -23,16 +23,6 @@ After that we have set that up working correctly we can proceed to the next step
 
 ### 3. Calculating the trajectory of the particles 
 
-To calculate the final trajectory of the particle we need to calculate the trajectory of the particle after every collision, by using a private method `bool collide()`. This method will return `true` if the particle collides with the wall, `false` if the particle doesn't collide with any wall: this means we can determine its final position and angle.
+To calculate the final trajectory of the particle we need to calculate the trajectory of the particle after every collision. We first use a private method `bool willCollide()`. This method will return `true` if the particle collides with the wall, `false` if the particle doesn't collide with any wall: now we can determine its final position and angle with the private method `void calcTrajectory()`.
 
-We may use a public method `void runSimulation()`, that calls `collide()` for every particle until it eventually returns `false`, at that point we determine its final angle and position and move to point 4.
-
-> **Note:** I am not 100% sure about this approach, we may change it a little bit.
-
-
-### 4. Calculating statistics
-
-[...]
-
-
-
+We may use a public method `void runSimulation()`, that calls `willCollide()` and `calcTrajectory()` for every particle until it eventually returns `false`, at that point we determine its final angle and position.
