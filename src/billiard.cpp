@@ -39,14 +39,14 @@ void Billiard::calcTrajectory()
 {
 	Particle m_particleF{m_particle};
 	const double coeff{std::tan(m_particle.getTheta())};
+	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
 	double xu{(coeff * m_particle.getX() + m_r1 - m_particle.getY()) / (coeff + ((m_r1 - m_r2) / m_l))};
 	double yu{coeff * (xu - m_particle.getX()) + m_particle.getY()};
 	m_particleF.setX(xu);
 	m_particleF.setY(yu);
-	double theta{
-		// credo sia - theta_iniz + 2*alpha, con alpha angolo del biliardo
-	};
+
+	double theta{2 * alpha - m_particle.getTheta()}; // double-check signs
 	m_particleF.setTheta(theta);
 	m_particle = m_particleF;
 }

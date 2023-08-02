@@ -26,5 +26,5 @@ check this equation! It's odd that the angular coefficient is not influenced by 
 
 7. Theta after a collision
 
-It SHOULD be $$\theta_f = -\theta_i + 2\alpha$$
+It SHOULD be $$\theta_f = -\theta_0 + 2\alpha$$
 where $\alpha$ is the angle of the edge, and all angles are referred to the x axis
