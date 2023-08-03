@@ -7,7 +7,7 @@ Billiard::Billiard(double r1, double r2, double l) //
 {
 	if (m_r1 < 0 || m_r2 < 0 || m_l < 0)
 	{
-		throw std::domain_error("Negative argument in constructor");
+		throw std::domain_error{"Negative argument in constructor"};
 	}
 }
 
