@@ -1,5 +1,6 @@
 #include "../include/billiard.hpp"
 
+#include <cmath>
 #include <stdexcept>
 
 Billiard::Billiard(double r1, double r2, double l) //
