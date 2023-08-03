@@ -43,7 +43,7 @@ void Billiard::calcTrajectory()
 	// These expressions are correct only for the upper wall
 	const double xi{(coeff * m_particle.x + m_r1 - m_particle.y) / (coeff + ((m_r1 - m_r2) / m_l))};
 	const double yi{coeff * (xi - m_particle.x) + m_particle.y};
-	const double theta{-2. * alpha - m_particle.theta};
+	const double theta{2. * alpha - m_particle.theta};
 
 	m_particle = {xi, yi, theta};
 }
