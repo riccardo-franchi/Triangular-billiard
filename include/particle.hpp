@@ -4,29 +4,15 @@
 #include <cmath>
 #include <stdexcept>
 
-class Particle
+struct Particle
 {
 public:
-	Particle(double y0, double theta) : m_x{0}, m_y{y0}, m_theta{theta}
-	{
-		if (theta > M_PI / 2 || theta < -M_PI / 2)
-		{
-			throw std::domain_error("Invalid angle");
-		}
-	}
+	Particle(double y0, double theta) : x{0}, y{y0}, theta{theta} {}
+	Particle(double x0, double y0, double theta) : x{x0}, y{y0}, theta{theta} {}
 
-	double getX() const { return m_x; }
-	double getY() const { return m_y; }
-	double getTheta() const { return m_theta; }
-
-	void setX(double x) { m_x = x; }
-	void setY(double y) { m_y = y; }
-	void setTheta(double theta) { m_theta = theta; }
-
-private:
-	double m_x{};
-	double m_y{};
-	double m_theta{};
+	double x{};
+	double y{};
+	double theta{};
 };
 
 #endif // PARTICLE_HPP

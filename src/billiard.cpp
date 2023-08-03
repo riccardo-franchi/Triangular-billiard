@@ -21,11 +21,11 @@ void Billiard::runSimulation()
 
 bool Billiard::willCollide()
 {
-	const double d{m_l - m_particle.getX()};
-	const double coeff_min{m_r2 * m_particle.getY() / d};
-	const double coeff_max{m_r1 * m_particle.getY() / d};
+	const double d{m_l - m_particle.x};
+	const double coeff_min{m_r2 * m_particle.y / d};
+	const double coeff_max{m_r1 * m_particle.y / d};
 
-	const double coeff{std::tan(m_particle.getTheta())};
+	const double coeff{std::tan(m_particle.theta)};
 
 	if (coeff < coeff_max || coeff > coeff_min)
 	{
@@ -37,16 +37,12 @@ bool Billiard::willCollide()
 
 void Billiard::calcTrajectory()
 {
-	Particle m_particleF{m_particle};
-	const double coeff{std::tan(m_particle.getTheta())};
+	const double coeff{std::tan(m_particle.theta)};
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
-	double xu{(coeff * m_particle.getX() + m_r1 - m_particle.getY()) / (coeff + ((m_r1 - m_r2) / m_l))};
-	double yu{coeff * (xu - m_particle.getX()) + m_particle.getY()};
-	m_particleF.setX(xu);
-	m_particleF.setY(yu);
+	const double xi{(coeff * m_particle.x + m_r1 - m_particle.y) / (coeff + ((m_r1 - m_r2) / m_l))};
+	const double yi{coeff * (xi - m_particle.x) + m_particle.y};
+	const double theta{2 * alpha - m_particle.theta}; // double-check signs
 
-	double theta{2 * alpha - m_particle.getTheta()}; // double-check signs
-	m_particleF.setTheta(theta);
-	m_particle = m_particleF;
+	m_particle = {xi, yi, theta};
 }
