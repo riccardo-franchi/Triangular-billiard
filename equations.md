@@ -40,7 +40,7 @@ $$y_{i+1} = \tan\theta_i\ (x_{i+1}-x_i) + y_i $$
 Upper wall:
 $$\theta_{i+1} = -\theta_i + 2\alpha$$
 
-Lorwer wall:
+Lower wall:
 $$\theta_{i+1} = -\theta_i - 2\alpha$$
 
 where $\alpha$ is the angle of the edge, defined as $\arctan(\frac{r_2-r_1}{l})$, and all angles are referred to the $x$ axis.
