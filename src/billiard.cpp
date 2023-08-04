@@ -33,6 +33,13 @@ bool Billiard::willCollide()
 		return false;
 	}
 
+	double yl{tan(m_particle.theta) * (m_l - m_particle.x) + m_particle.y};
+
+	if (-m_r2 < yl < m_r2)
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -42,9 +49,19 @@ void Billiard::calcTrajectory()
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
 	// These expressions are correct only for the upper wall
-	const double xi{(coeff * m_particle.x + m_r1 - m_particle.y) / (coeff + ((m_r1 - m_r2) / m_l))};
+	double yl{tan(m_particle.theta) * (m_l - m_particle.x) + m_particle.y};
+
+	double xi{m_particle.x};
+
+	if (yl > m_r2)
+	{
+		xi = (coeff * m_particle.x + m_r1 - m_particle.y) / (coeff + ((m_r1 - m_r2) / m_l));
+	}
+	else
+	{
+		xi = (coeff * m_particle.x - m_r1 - m_particle.y) / (coeff + ((m_r2 - m_r1) / m_l));
+	}
 	const double yi{coeff * (xi - m_particle.x) + m_particle.y};
 	const double theta{2. * alpha - m_particle.theta};
-
 	m_particle = {xi, yi, theta};
 }
