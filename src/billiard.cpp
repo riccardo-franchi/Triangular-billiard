@@ -48,20 +48,21 @@ void Billiard::calcTrajectory()
 	const double coeff{std::tan(m_particle.theta)};
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
-	// These expressions are correct only for the upper wall
 	double yl{tan(m_particle.theta) * (m_l - m_particle.x) + m_particle.y};
 
 	double xi{m_particle.x};
+	double theta{};
 
-	if (yl > m_r2)
+	if (yl > m_r2) // the particle hits the upper edge
 	{
 		xi = (coeff * m_particle.x + m_r1 - m_particle.y) / (coeff + ((m_r1 - m_r2) / m_l));
+		theta = 2. * alpha - m_particle.theta;
 	}
-	else
+	else // the particle hits the lower edge
 	{
 		xi = (coeff * m_particle.x - m_r1 - m_particle.y) / (coeff + ((m_r2 - m_r1) / m_l));
+		theta = -2. * alpha - m_particle.theta;
 	}
 	const double yi{coeff * (xi - m_particle.x) + m_particle.y};
-	const double theta{2. * alpha - m_particle.theta};
 	m_particle = {xi, yi, theta};
 }
