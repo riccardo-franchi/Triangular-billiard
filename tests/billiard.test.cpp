@@ -3,7 +3,13 @@
 
 #include "../include/billiard.hpp"
 
-TEST_CASE("Testing the Billiard class")
+bool approx_eq(const Particle& particle1, const Particle& particle2)
+{
+	return particle1.x == doctest::Approx(particle2.x) && particle1.y == doctest::Approx(particle2.y) &&
+		   particle1.theta == doctest::Approx(particle2.theta);
+}
+
+TEST_CASE("Testing the Billiard constructor")
 {
 	SUBCASE("Negative r1 throws")
 	{
@@ -16,5 +22,18 @@ TEST_CASE("Testing the Billiard class")
 	SUBCASE("Negative l throws")
 	{
 		CHECK_THROWS(Billiard{1., 1., -1.});
+	}
+}
+
+TEST_CASE("Three collisions, theta>0")
+{
+	Billiard billiard(5, 3, 13);
+	Particle particle(2.6, 0.561298);
+	billiard.setParticle(particle);
+
+	SUBCASE("Testing the runSimulation() function")
+	{
+		billiard.runSimulation();
+		CHECK(approx_eq(billiard.getParticle(), {13, -1.19, 1.477194}));
 	}
 }

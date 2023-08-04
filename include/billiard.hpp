@@ -9,6 +9,7 @@ public:
 	Billiard(double r1, double r2, double l);
 
 	void setParticle(const Particle& particle) { m_particle = particle; }
+	Particle getParticle() { return m_particle; }
 
 	double getR1() const { return m_r1; }
 	double getR2() const { return m_r2; }
