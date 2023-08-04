@@ -50,8 +50,6 @@ bool Billiard::willCollide(const double yl)
 
 void Billiard::calcTrajectory(const double coeff, const double alpha, const double yl)
 {
-	const double yl{tan(m_particle.theta) * (m_l - m_particle.x) + m_particle.y};
-
 	// True if the the collision happens with the upper wall, false with the lower wall
 	const double xi{(yl > m_r2) ? (coeff * m_particle.x + m_r1 - m_particle.y) / (coeff + ((m_r1 - m_r2) / m_l))
 								: (coeff * m_particle.x - m_r1 - m_particle.y) / (coeff + ((m_r2 - m_r1) / m_l))};
