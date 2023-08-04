@@ -25,10 +25,10 @@ $$y = \tan\theta_i\ (x-x_i) + y_i $$
 5. Equation for $x_{i+1}$ after a collision:
 
 Upper wall:
-$$x_{i+1}=\frac{r_1+\tan\theta_i\ x_i-y_i}{m+\frac{r_1-r_2}{l}}$$
+$$x_{i+1}=\frac{r_1+\tan\theta_i\ x_i-y_i}{\tan\theta_i+\frac{r_1-r_2}{l}}$$
 
 Lower wall:
-$$x_{i+1}=\frac{-r_1+\tan\theta_i\ x_i-y_i}{m+\frac{r_2-r_1}{l}}$$
+$$x_{i+1}=\frac{-r_1+\tan\theta_i\ x_i-y_i}{\tan\theta_i+\frac{r_2-r_1}{l}}$$
 
 6. Equation for $y_{i+1}$ after a collision:
 
