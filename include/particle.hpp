@@ -1,6 +1,8 @@
 #ifndef PARTICLE_HPP
 #define PARTICLE_HPP
+
 #include <cmath>
+#include <stdexcept>
 
 struct Particle
 {
@@ -12,13 +14,8 @@ public:
 			throw std::domain_error{"Invalid angle"};
 		}
 	}
-	Particle(double y0, double theta) : Particle(0, y0, theta)
-	{
-		if (std::abs(theta) > M_PI / 2)
-		{
-			throw std::domain_error{"Invalid angle"};
-		}
-	}
+
+	Particle(double y0, double theta) : Particle(0, y0, theta) {}
 
 	double x{};
 	double y{};
