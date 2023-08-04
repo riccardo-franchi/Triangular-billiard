@@ -47,18 +47,14 @@ bool Billiard::willCollide(const double yl)
 
 void Billiard::calcTrajectory(const double coeff, const double alpha, const double yl)
 {
-	if (yl > m_r2) // the particle hits the upper edge
-	{
-		const double xi{(coeff * m_particle.x + m_r1 - m_particle.y) / (coeff + ((m_r1 - m_r2) / m_l))};
-		const double theta{2. * alpha - m_particle.theta};
-		const double yi{coeff * (xi - m_particle.x) + m_particle.y};
-		m_particle = {xi, yi, theta};
-	}
-	else // the particle hits the lower edge
-	{
-		const double xi{(coeff * m_particle.x - m_r1 - m_particle.y) / (coeff + ((m_r2 - m_r1) / m_l))};
-		const double theta{-2. * alpha - m_particle.theta};
-		const double yi{coeff * (xi - m_particle.x) + m_particle.y};
-		m_particle = {xi, yi, theta};
-	}
+	// True if the the collision happens with the upper wall, false with the lower wall
+	const double xi{(yl > m_r2) ? (coeff * m_particle.x + m_r1 - m_particle.y) / (coeff + ((m_r1 - m_r2) / m_l))
+								: (coeff * m_particle.x - m_r1 - m_particle.y) / (coeff + ((m_r2 - m_r1) / m_l))};
+
+	const double theta{(yl > m_r2) ? 2. * alpha - m_particle.theta //
+								   : -2. * alpha - m_particle.theta};
+
+	const double yi{coeff * (xi - m_particle.x) + m_particle.y};
+
+	m_particle = {xi, yi, theta};
 }
