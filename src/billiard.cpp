@@ -14,8 +14,9 @@ Billiard::Billiard(double r1, double r2, double l) //
 
 void Billiard::runSimulation()
 {
-	const double coeff{std::tan(m_particle.theta)};
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
+
+	double coeff{std::tan(m_particle.theta)};
 
 	while (willCollide(coeff))
 	{
@@ -26,13 +27,14 @@ void Billiard::runSimulation()
 		}
 
 		calcTrajectory(coeff, alpha);
+		coeff = std::tan(m_particle.theta);
 	}
 }
 
 bool Billiard::willCollide(const double coeff)
 {
 
-	const double yl{tan(m_particle.theta) * (m_l - m_particle.x) + m_particle.y};
+	const double yl{coeff * (m_l - m_particle.x) + m_particle.y};
 
 	if (std::abs(yl) < m_r2)
 	{
