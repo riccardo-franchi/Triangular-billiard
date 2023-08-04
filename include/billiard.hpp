@@ -17,8 +17,8 @@ public:
 	void runSimulation();
 
 private:
-	bool willCollide(const double coeff);
-	void calcTrajectory(const double coeff, const double alpha);
+	bool willCollide(const double yl);
+	void calcTrajectory(const double coeff, const double alpha, const double yl);
 
 	double m_r1{};
 	double m_r2{};
