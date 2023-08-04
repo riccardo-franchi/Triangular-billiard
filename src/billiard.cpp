@@ -28,6 +28,10 @@ bool Billiard::willCollide()
 
 	if (std::abs(yl) < m_r2)
 	{
+		// Set the final coords
+		m_particle.x = m_l;
+		m_particle.y = yl;
+
 		return false;
 	}
 
