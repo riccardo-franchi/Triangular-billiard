@@ -50,19 +50,18 @@ void Billiard::calcTrajectory()
 
 	double yl{tan(m_particle.theta) * (m_l - m_particle.x) + m_particle.y};
 
-	double xi{m_particle.x};
-	double theta{};
-
 	if (yl > m_r2) // the particle hits the upper edge
 	{
-		xi = (coeff * m_particle.x + m_r1 - m_particle.y) / (coeff + ((m_r1 - m_r2) / m_l));
-		theta = 2. * alpha - m_particle.theta;
+		const double xi{(coeff * m_particle.x + m_r1 - m_particle.y) / (coeff + ((m_r1 - m_r2) / m_l))};
+		const double theta{2. * alpha - m_particle.theta};
+		const double yi{coeff * (xi - m_particle.x) + m_particle.y};
+		m_particle = {xi, yi, theta};
 	}
 	else // the particle hits the lower edge
 	{
-		xi = (coeff * m_particle.x - m_r1 - m_particle.y) / (coeff + ((m_r2 - m_r1) / m_l));
-		theta = -2. * alpha - m_particle.theta;
+		const double xi{(coeff * m_particle.x - m_r1 - m_particle.y) / (coeff + ((m_r2 - m_r1) / m_l))};
+		const double theta{-2. * alpha - m_particle.theta};
+		const double yi{coeff * (xi - m_particle.x) + m_particle.y};
+		m_particle = {xi, yi, theta};
 	}
-	const double yi{coeff * (xi - m_particle.x) + m_particle.y};
-	m_particle = {xi, yi, theta};
 }
