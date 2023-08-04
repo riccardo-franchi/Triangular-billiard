@@ -20,7 +20,7 @@ TEST_CASE("Testing the Billiard constructor")
 TEST_CASE("Three collisions, theta>0")
 {
 	Billiard billiard{5., 3., 13.};
-	billiard.setParticle({2.6, 0.561298});
+	billiard.setParticle({2.63, 0.561298});
 
 	SUBCASE("Testing the runSimulation() function")
 	{
