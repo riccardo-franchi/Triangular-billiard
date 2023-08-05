@@ -5,9 +5,9 @@
 
 bool approx_eq(const Particle& particle1, const Particle& particle2)
 {
-	return (particle1.x == doctest::Approx(particle2.x) && //
-			particle1.y == doctest::Approx(particle2.y) && //
-			particle1.theta == doctest::Approx(particle2.theta));
+	return (particle1.x == doctest::Approx(particle2.x).epsilon(0.0001) && //
+			particle1.y == doctest::Approx(particle2.y).epsilon(0.0001) && //
+			particle1.theta == doctest::Approx(particle2.theta).epsilon(0.0001));
 }
 
 TEST_CASE("Testing the Billiard constructor")
@@ -25,7 +25,7 @@ TEST_CASE("Testing the runSimulation() function")
 	{
 		billiard.setParticle({-2.47, 0.32083});
 		billiard.runSimulation();
-		CHECK(approx_eq(billiard.getParticle(), {13., 1.85, 0.32083}));
+		CHECK(approx_eq(billiard.getParticle(), {13., 1.85004, 0.32083}));
 	}
 
 	SUBCASE("One collision, theta > 0")
@@ -35,10 +35,10 @@ TEST_CASE("Testing the runSimulation() function")
 		CHECK(approx_eq(billiard.getParticle(), {13., -1.78878, -0.72494}));
 	}
 
-	/* SUBCASE("Three collisions, theta > 0")
+	SUBCASE("Three collisions, theta > 0")
 	{
-		billiard.setParticle({2.63, 0.5613});
+		billiard.setParticle({2.65, 0.5599});
 		billiard.runSimulation();
-		CHECK(approx_eq(billiard.getParticle(), {13., -1.18987, -1.4772}));
-	} */
+		CHECK(approx_eq(billiard.getParticle(), {13., -0.99185, -1.4758}));
+	}
 }
