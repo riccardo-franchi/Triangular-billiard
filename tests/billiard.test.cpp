@@ -5,9 +5,10 @@
 
 bool approx_eq(const Particle& particle1, const Particle& particle2)
 {
-	return (particle1.x == doctest::Approx(particle2.x).epsilon(0.0001) && //
-			particle1.y == doctest::Approx(particle2.y).epsilon(0.0001) && //
-			particle1.theta == doctest::Approx(particle2.theta).epsilon(0.0001));
+	const double epsilon{0.0001};
+	return (particle1.x == doctest::Approx(particle2.x).epsilon(epsilon) && //
+			particle1.y == doctest::Approx(particle2.y).epsilon(epsilon) && //
+			particle1.theta == doctest::Approx(particle2.theta).epsilon(epsilon));
 }
 
 TEST_CASE("Testing the Billiard constructor")
