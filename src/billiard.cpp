@@ -25,7 +25,7 @@ void Billiard::calcTrajectory(const double alpha)
 		const double theta{(yl > m_r2) ? 2. * alpha - m_particle.theta //
 									   : -2. * alpha - m_particle.theta};
 
-		if (std::abs(theta) >= M_PI_2)
+		if (std::abs(theta) > M_PI_2)
 		{
 			// end loop if the particle is going to move backwards
 			return;
