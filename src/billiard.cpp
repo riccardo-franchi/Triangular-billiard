@@ -12,10 +12,9 @@ Billiard::Billiard(double r1, double r2, double l) //
 void Billiard::runSimulation()
 {
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
-	for (auto i{m_vector.begin()}; i != m_vector.end(); i++)
+	for (auto i{m_particles.begin()}; i != m_particles.end(); i++)
 	{
-		Particle& particle{*i};
-		calcTrajectory(particle, alpha);
+		calcTrajectory(*i, alpha);
 	}
 }
 

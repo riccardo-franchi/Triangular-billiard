@@ -9,9 +9,8 @@ class Billiard
 public:
 	Billiard(double r1, double r2, double l);
 
-	bool empty();
-	void pushback(const Particle& particle) { m_vector.push_back(particle); }
-	std::vector<Particle> getVector() const { return m_vector; }
+	void push_back(const Particle& particle) { m_particles.push_back(particle); }
+	const std::vector<Particle>& getVector() const { return m_particles; }
 
 	double getR1() const { return m_r1; }
 	double getR2() const { return m_r2; }
@@ -26,7 +25,7 @@ private:
 	double m_r2{};
 	double m_l{};
 
-	std::vector<Particle> m_vector;
+	std::vector<Particle> m_particles;
 };
 
 #endif // BILLIARD_HPP
