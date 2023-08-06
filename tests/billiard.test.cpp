@@ -65,7 +65,7 @@ TEST_CASE("Testing the runSimulation() function")
 
 	SUBCASE("Two collisions, alpha > 0")
 	{
-		billiard.setParticle({0.8113483394, -1.1240743979});
+		billiard.setParticle({1.8113483394, -1.1240743979});
 		billiard.runSimulation();
 		CHECK(approx_eq(billiard.getParticle(), {13, 2.760673806, -0.5134770843}));
 	}
