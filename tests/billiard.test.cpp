@@ -23,28 +23,14 @@ TEST_CASE("Testing the runSimulation() function")
 
 	SUBCASE("Check throw for invalid angle input")
 	{
-		CHECK_THROWS(billiard.setParticle({1.1, -13}));
+		CHECK_THROWS(billiard.setParticle({1.1, -13.}));
 	}
 
-	SUBCASE("No collisions")
+	SUBCASE("No collisions, theta > 0")
 	{
 		billiard.setParticle({-2.47, 0.32083});
 		billiard.runSimulation();
 		CHECK(approx_eq(billiard.getParticle(), {13., 1.85004, 0.32083}));
-	}
-
-	SUBCASE("One collision, theta > 0")
-	{
-		billiard.setParticle({1.12534, 0.41964});
-		billiard.runSimulation();
-		CHECK(approx_eq(billiard.getParticle(), {13., -1.78878, -0.72494}));
-	}
-
-	SUBCASE("Three collisions, theta > 0")
-	{
-		billiard.setParticle({2.65, 0.5599});
-		billiard.runSimulation();
-		CHECK(approx_eq(billiard.getParticle(), {13., -0.99185, -1.4758}));
 	}
 
 	SUBCASE("No collisions, theta < 0")
@@ -54,11 +40,25 @@ TEST_CASE("Testing the runSimulation() function")
 		CHECK(approx_eq(billiard.getParticle(), {13., 1., -0.178837928}));
 	}
 
+	SUBCASE("One collision, theta > 0")
+	{
+		billiard.setParticle({1.12534, 0.41964});
+		billiard.runSimulation();
+		CHECK(approx_eq(billiard.getParticle(), {13., -1.78878, -0.72494}));
+	}
+
 	SUBCASE("Two collisions, theta < 0")
 	{
 		billiard.setParticle({2.43, -0.7001164822});
 		billiard.runSimulation();
 		CHECK(approx_eq(billiard.getParticle(), {13, -0.923140923, -1.3107137958}));
+	}
+
+	SUBCASE("Three collisions, theta > 0")
+	{
+		billiard.setParticle({2.65, 0.5599});
+		billiard.runSimulation();
+		CHECK(approx_eq(billiard.getParticle(), {13., -0.99185, -1.4758}));
 	}
 
 	SUBCASE("One collision, the particle comes back and reaches x = 0")
@@ -69,12 +69,11 @@ TEST_CASE("Testing the runSimulation() function")
 						{1.1128901734, 4.8287861272, -1.7574857247})); // coordinates of the last collision point
 	}
 
-	billiard = {3, 5, 13};
-
 	SUBCASE("Two collisions, alpha > 0")
 	{
+		billiard = {3., 5., 13.};
 		billiard.setParticle({1.8113483394, -1.1240743979});
 		billiard.runSimulation();
-		CHECK(approx_eq(billiard.getParticle(), {13, 2.760673806, -0.5134770843}));
+		CHECK(approx_eq(billiard.getParticle(), {13., 2.760673806, -0.5134770843}));
 	}
 }
