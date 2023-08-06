@@ -44,6 +44,3 @@ Lower wall:
 $$\theta_{i+1} = -\theta_i - 2\alpha$$
 
 where $\alpha$ is the angle of the edge, defined as $\arctan(\frac{r_2-r_1}{l})$, and all angles are referred to the $x$ axis.
-
-8. Condition for a particle to go back ($v_x <0$):
-$$|\theta_i| \ge \frac{\pi}{2} + \alpha.$$
