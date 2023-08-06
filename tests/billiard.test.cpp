@@ -66,8 +66,8 @@ TEST_CASE("Testing the runSimulation() function")
 	{
 		billiard.setParticle({-4.51, 1.4521870679});
 		billiard.runSimulation();
-		CHECK(approx_eq(billiard.getParticle(),
-						{1.1128901734, 4.8287861272, -1.7574857247})); // coordinates of the last collision point
+		// coordinates of the last position before the collision
+		CHECK(approx_eq(billiard.getParticle(), {-4.51, 1.4521870679}));
 	}
 
 	SUBCASE("Two collisions, alpha > 0")

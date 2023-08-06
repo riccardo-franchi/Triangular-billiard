@@ -9,7 +9,7 @@ struct Particle
 public:
 	Particle(double x0, double y0, double theta) : x{x0}, y{y0}, theta{theta}
 	{
-		if (std::abs(theta) > M_PI / 2)
+		if (std::abs(theta) > M_PI_2)
 		{
 			throw std::domain_error{"Invalid angle"};
 		}
