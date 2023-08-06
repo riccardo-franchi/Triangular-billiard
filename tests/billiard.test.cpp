@@ -42,6 +42,13 @@ TEST_CASE("Testing the runSimulation() function")
 		CHECK(approx_eq(billiard.getParticle(), {13., -0.99185, -1.4758}));
 	}
 
+	SUBCASE("No collisions, theta < 0")
+	{
+		billiard.setParticle({3.35, -0.178837928});
+		billiard.runSimulation();
+		CHECK(approx_eq(billiard.getParticle(), {13., 1., -0.178837928}));
+	}
+
 	SUBCASE("Two collisions, theta < 0")
 	{
 		billiard.setParticle({2.43, -0.70012});
