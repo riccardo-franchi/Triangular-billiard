@@ -2,14 +2,16 @@
 #define BILLIARD_HPP
 
 #include "particle.hpp"
+#include <vector>
 
 class Billiard
 {
 public:
 	Billiard(double r1, double r2, double l);
 
-	void setParticle(const Particle& particle) { m_particle = particle; }
-	Particle getParticle() const { return m_particle; }
+	bool empty();
+	void pushback(const Particle& particle) { m_vector.push_back(particle); }
+	std::vector<Particle> getVector() const { return m_vector; }
 
 	double getR1() const { return m_r1; }
 	double getR2() const { return m_r2; }
@@ -18,13 +20,13 @@ public:
 	void runSimulation();
 
 private:
-	void calcTrajectory(const double alpha);
+	void calcTrajectory(Particle& particle, const double alpha);
 
 	double m_r1{};
 	double m_r2{};
 	double m_l{};
 
-	Particle m_particle{0, 0};
+	std::vector<Particle> m_vector;
 };
 
 #endif // BILLIARD_HPP
