@@ -25,8 +25,9 @@ void Billiard::runSimulation()
 {
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
-	std::transform(std::execution::par_unseq, m_particles.begin(), m_particles.end(), std::back_inserter(m_particles),
-				   [&](const Particle& particle) { return calcTrajectory(particle, alpha); });
+	/* std::transform(std::execution::par_unseq, m_particles.begin(), m_particles.end(),
+	   std::back_inserter(m_particles),
+				   [&](const Particle& particle) { return calcTrajectory(particle, alpha); }); */
 }
 
 Particle Billiard::calcTrajectory(const Particle& p, const double alpha)
