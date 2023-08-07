@@ -1,5 +1,8 @@
 #include "../include/billiard.hpp"
 
+#include <algorithm>
+#include <execution>
+
 Billiard::Billiard(double r1, double r2, double l) //
 	: m_r1{r1}, m_r2{r2}, m_l{l}
 {
@@ -22,14 +25,13 @@ void Billiard::runSimulation()
 {
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
-	for (auto i{m_particles.begin()}; i != m_particles.end(); i++)
-	{
-		calcTrajectory(*i, alpha);
-	}
+	std::transform(std::execution::par_unseq, m_particles.begin(), m_particles.end(), std::back_inserter(m_particles),
+				   [&](const Particle& particle) { return calcTrajectory(particle, alpha); });
 }
 
-void Billiard::calcTrajectory(Particle& particle, const double alpha)
+Particle Billiard::calcTrajectory(const Particle& p, const double alpha)
 {
+	Particle particle{p};
 	double coeff{std::tan(particle.theta)};
 	double yl{coeff * (m_l - particle.x) + particle.y};
 
@@ -38,7 +40,7 @@ void Billiard::calcTrajectory(Particle& particle, const double alpha)
 		if (std::abs(particle.theta) >= M_PI + alpha)
 		{
 			// end loop if the particle is going to move backwards
-			return;
+			return particle;
 		}
 
 		// True if the the collision happens with the upper wall, false with the lower wall
@@ -59,4 +61,6 @@ void Billiard::calcTrajectory(Particle& particle, const double alpha)
 	// Set the final coords
 	particle.x = m_l;
 	particle.y = yl;
+
+	return particle;
 }

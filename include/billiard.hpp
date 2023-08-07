@@ -23,7 +23,7 @@ public:
 	void runSimulation();
 
 private:
-	void calcTrajectory(Particle& particle, const double alpha);
+	Particle calcTrajectory(const Particle& p, const double alpha);
 
 	double m_r1{};
 	double m_r2{};
