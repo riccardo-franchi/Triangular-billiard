@@ -37,7 +37,10 @@ Particle Billiard::calcTrajectory(const Particle& p, const double alpha)
 
 	while (std::abs(yl) > m_r2)
 	{
-		if (std::abs(particle.theta) >= M_PI + alpha)
+		const double theta{(yl > m_r2) ? 2. * alpha - m_particle.theta //
+									   : -2. * alpha - m_particle.theta};
+
+		if (std::abs(theta) > M_PI_2)
 		{
 			// end loop if the particle is going to move backwards
 			return particle;
@@ -47,10 +50,7 @@ Particle Billiard::calcTrajectory(const Particle& p, const double alpha)
 		const double xi{(yl > m_r2) ? (coeff * particle.x + m_r1 - particle.y) / (coeff + ((m_r1 - m_r2) / m_l))
 									: (coeff * particle.x - m_r1 - particle.y) / (coeff + ((m_r2 - m_r1) / m_l))};
 
-		const double theta{(yl > m_r2) ? 2. * alpha - particle.theta //
-									   : -2. * alpha - particle.theta};
-
-		const double yi{coeff * (xi - particle.x) + particle.y};
+		const double yi{coeff * (xi - m_particle.x) + m_particle.y};
 
 		particle = {xi, yi, theta};
 
