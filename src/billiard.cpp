@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <execution>
 #include <numeric>
 #include <stdexcept>
 
@@ -27,7 +28,7 @@ void Billiard::runSimulation()
 {
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
-	std::transform(m_particles.begin(), m_particles.end(), m_particles.begin(),
+	std::transform(std::execution::par_unseq, m_particles.begin(), m_particles.end(), m_particles.begin(),
 				   [&](const Particle& p) { return calcTrajectory(p, alpha); });
 }
 
