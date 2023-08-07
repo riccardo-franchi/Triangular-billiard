@@ -2,29 +2,34 @@
 #define BILLIARD_HPP
 
 #include "particle.hpp"
+#include <vector>
 
 class Billiard
 {
 public:
 	Billiard(double r1, double r2, double l);
 
-	void setParticle(const Particle& particle) { m_particle = particle; }
-	Particle getParticle() const { return m_particle; }
+	// Needed to use std::generate
+	using value_type = Particle;
+	void push_back(const Particle& particle);
 
-	double getR1() const { return m_r1; }
-	double getR2() const { return m_r2; }
-	double getL() const { return m_l; }
+	const std::vector<Particle>& getParticles() const { return m_particles; }
+	const Particle& getParticle(int i) const { return m_particles.at(i); }
+
+	bool empty() const { return m_particles.empty(); }
+	int size() const { return m_particles.size(); }
+	void clear() { m_particles.clear(); }
 
 	void runSimulation();
 
 private:
-	void calcTrajectory(const double alpha);
+	Particle calcTrajectory(const Particle& p, const double alpha);
 
 	double m_r1{};
 	double m_r2{};
 	double m_l{};
 
-	Particle m_particle{0, 0};
+	std::vector<Particle> m_particles{};
 };
 
 #endif // BILLIARD_HPP
