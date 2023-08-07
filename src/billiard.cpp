@@ -1,6 +1,7 @@
 #include "../include/billiard.hpp"
 
 #include <algorithm>
+#include <execution>
 
 Billiard::Billiard(double r1, double r2, double l) //
 	: m_r1{r1}, m_r2{r2}, m_l{l}
@@ -24,7 +25,7 @@ void Billiard::runSimulation()
 {
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
-	std::transform(m_particles.begin(), m_particles.end(), m_particles.begin(),
+	std::transform(std::execution::par_unseq, m_particles.begin(), m_particles.end(), m_particles.begin(),
 				   [&](const Particle& p) { return calcTrajectory(p, alpha); });
 }
 
