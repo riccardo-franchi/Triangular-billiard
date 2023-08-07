@@ -7,12 +7,11 @@
 class Billiard
 {
 public:
-	// Needed to use std::generate
-	using value_type = Particle;
-
 	Billiard(double r1, double r2, double l);
 
-	void push_back(const Particle& particle) { m_particles.push_back(particle); }
+	// Needed to use std::generate
+	using value_type = Particle;
+	void push_back(const Particle& particle);
 
 	const std::vector<Particle>& getParticles() const { return m_particles; }
 	const Particle& getParticle(int i) const { return m_particles.at(i); }

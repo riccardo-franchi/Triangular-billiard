@@ -9,6 +9,15 @@ Billiard::Billiard(double r1, double r2, double l) //
 	}
 }
 
+void Billiard::push_back(const Particle& particle)
+{
+	if (std::abs(particle.theta) > M_PI_2)
+	{
+		throw std::domain_error{"Invalid angle"};
+	}
+	m_particles.push_back(particle);
+}
+
 void Billiard::runSimulation()
 {
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
