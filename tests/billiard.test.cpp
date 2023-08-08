@@ -78,3 +78,19 @@ TEST_CASE("Testing the runSimulation() function")
 		CHECK(approx_eq(billiard.getParticle(0), {13., 2.760673806, -0.5134770843}));
 	}
 }
+
+TEST_CASE("Testing statistics")
+{
+	Billiard billiard{5., 3., 13.};
+
+	SUBCASE("Testing throws - no particles")
+	{
+		CHECK_THROWS(billiard.statistics());
+	}
+
+	SUBCASE("Testing throws - one particle")
+	{
+		billiard.push_back({1., 1.});
+		CHECK_THROWS(billiard.statistics());
+	}
+}
