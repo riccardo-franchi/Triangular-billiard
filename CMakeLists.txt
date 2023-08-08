@@ -30,11 +30,12 @@ if (BUILD_TESTING)
   # aggiungi gli eseguibili billiard.test e statistics.test
   add_executable(billiard.test tests/billiard.test.cpp src/billiard.cpp)
   add_executable(statistics.test tests/statistics.test.cpp src/billiard.cpp)
+  
   # aggiungi l'eseguibile billiard.test alla lista dei test
-
   add_test(NAME billiard.test COMMAND billiard.test)
   add_test(NAME statistics.test COMMAND statistics.test)
   target_link_libraries(billiard.test PRIVATE TBB::tbb)
+  target_link_libraries(statistics.test PRIVATE TBB::tbb)
 
 endif()
 
