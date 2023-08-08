@@ -7,10 +7,10 @@
 bool statisticsApproxEq(const Statistics& stat1, const Statistics& stat2)
 {
 	const double epsilon{0.0001};
-	return (stat1.mean == doctest::Approx(stat2.mean).epsilon(epsilon) &&
-			stat1.mean_err == doctest::Approx(stat2.mean_err).epsilon(epsilon) &&
-			stat1.median == doctest::Approx(stat2.median).epsilon(epsilon) &&
-			stat1.sigma == doctest::Approx(stat2.sigma).epsilon(epsilon));
+	return (stat1.mean_y == doctest::Approx(stat2.mean_y).epsilon(epsilon) &&
+			stat1.sigma_y == doctest::Approx(stat2.sigma_y).epsilon(epsilon) &&
+			stat1.mean_theta == doctest::Approx(stat2.mean_theta).epsilon(epsilon) &&
+			stat1.sigma_theta == doctest::Approx(stat2.sigma_theta).epsilon(epsilon));
 }
 
 TEST_CASE("Testing statistics() throws")
