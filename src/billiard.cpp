@@ -68,7 +68,7 @@ Particle Billiard::calcTrajectory(const Particle& p, const double alpha)
 	return particle;
 }
 
-Statistics Billiard::statistics() const
+Statistics Billiard::statistics(Sums const sums) const
 {
 	int const N{m_particles.size()};
 
@@ -77,19 +77,13 @@ Statistics Billiard::statistics() const
 		throw std::runtime_error{"Not enough entries to run a statistics"};
 	}
 
-	struct Sums
-	{
-		double x;
-		double x2;
-	};
-
-	auto const sums = std::accumulate(m_particles.begin(), m_particles.end(), Sums{},
-									  [](Sums s, double x)
-									  {
-										  s.x += x;
-										  s.x2 += x * x;
-										  return s;
-									  });
+	sums = std::accumulate(m_particles.begin(), m_particles.end(), Sums{},
+						   [](Sums s, double x)
+						   {
+							   s.x += x;
+							   s.x2 += x * x;
+							   return s;
+						   });
 
 	double const mean = sums.x / N;
 	double const sigma = std::sqrt((sums.x2 - N * mean * mean) / (N - 1));

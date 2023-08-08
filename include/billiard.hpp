@@ -12,6 +12,12 @@ struct Statistics
 	double median{};
 };
 
+struct Sums
+{
+	double x;
+	double x2;
+};
+
 class Billiard
 {
 public:
@@ -30,7 +36,7 @@ public:
 
 	void runSimulation();
 
-	Statistics statistics() const;
+	Statistics statistics(Sums sums) const;
 
 private:
 	Particle calcTrajectory(const Particle& p, const double alpha);
