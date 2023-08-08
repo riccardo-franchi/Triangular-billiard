@@ -4,20 +4,6 @@
 #include "particle.hpp"
 #include <vector>
 
-struct Statistics
-{
-	double mean{};
-	double sigma{};
-	double mean_err{};
-	double median{};
-};
-
-struct Sums
-{
-	double x;
-	double x2;
-};
-
 class Billiard
 {
 public:
@@ -35,8 +21,6 @@ public:
 	void clear() { m_particles.clear(); }
 
 	void runSimulation();
-
-	Statistics statistics(Sums sums) const;
 
 private:
 	Particle calcTrajectory(const Particle& p, const double alpha);

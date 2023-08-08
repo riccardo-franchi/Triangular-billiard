@@ -67,27 +67,3 @@ Particle Billiard::calcTrajectory(const Particle& p, const double alpha)
 
 	return particle;
 }
-
-Statistics Billiard::statistics(Sums const sums) const
-{
-	int const N{m_particles.size()};
-
-	if (N < 2)
-	{
-		throw std::runtime_error{"Not enough entries to run a statistics"};
-	}
-
-	sums = std::accumulate(m_particles.begin(), m_particles.end(), Sums{},
-						   [](Sums s, double x)
-						   {
-							   s.x += x;
-							   s.x2 += x * x;
-							   return s;
-						   });
-
-	double const mean = sums.x / N;
-	double const sigma = std::sqrt((sums.x2 - N * mean * mean) / (N - 1));
-	double const mean_err = sigma / std::sqrt(N);
-
-	return {mean, sigma, mean_err};
-}
