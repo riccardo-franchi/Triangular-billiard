@@ -28,7 +28,7 @@ Statistics statistics(const std::vector<Particle>& particles)
 {
 	Sums sums{};
 
-	int const N{particles.size()};
+	int const N{static_cast<int>(particles.size())};
 
 	if (N < 2)
 	{
