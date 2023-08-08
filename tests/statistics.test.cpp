@@ -29,7 +29,7 @@ TEST_CASE("Testing statistics() throws")
 	}
 }
 
-/* TEST_CASE("Testing statistics() numerical values")
+TEST_CASE("Testing statistics() numerical values")
 {
 
 	Billiard billiard{5., 3., 13.};
@@ -41,6 +41,7 @@ TEST_CASE("Testing statistics() throws")
 		billiard.push_back({1.12534, 0.41964});	  // one collision
 		billiard.runSimulation();
 
-		CHECK(statisticsApproxEq(statistics(billiard.getParticles())));
+		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
+								 Statistics{0.3537533333, 1.90354, -0.194315976, 0.523057}));
 	}
-} */
+}
