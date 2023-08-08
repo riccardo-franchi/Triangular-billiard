@@ -25,7 +25,7 @@ TEST_CASE("Testing statistics() throws")
 	SUBCASE("One particle")
 	{
 		billiard.push_back({1., 1.});
-		CHECK_THROWS(billiard.getParticles());
+		CHECK_THROWS(statistics(billiard.getParticles()));
 	}
 }
 
