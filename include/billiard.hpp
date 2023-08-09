@@ -21,7 +21,7 @@ public:
 	int size() const { return m_particles.size(); }
 	void clear() { m_particles.clear(); }
 
-	void runSimulation();
+	const std::vector<Particle>& runSimulation();
 
 private:
 	Particle calcTrajectory(const Particle& p, const double alpha);
