@@ -22,19 +22,19 @@ int main()
 	std::random_device r;
 	std::default_random_engine engine(r());
 
-	double mu_y{};
-	double sigma_y{};
+	double mu_y0{};
+	double sigma_y0{};
 	std::cout << "Provide the mean and sigma of the normal distribution of y_0: ";
-	std::cin >> mu_y;
-	std::cin >> sigma_y;
-	std::normal_distribution<double> dist_y(mu_y, sigma_y);
+	std::cin >> mu_y0;
+	std::cin >> sigma_y0;
+	std::normal_distribution<double> dist_y(mu_y0, sigma_y0);
 
-	double mu_th{};
-	double sigma_th{};
+	double mu_th0{};
+	double sigma_th0{};
 	std::cout << "Provide the mean and sigma of the normal distribution of theta_0: ";
-	std::cin >> mu_th;
-	std::cin >> sigma_th;
-	std::normal_distribution<double> dist_th(mu_th, sigma_th);
+	std::cin >> mu_th0;
+	std::cin >> sigma_th0;
+	std::normal_distribution<double> dist_th(mu_th0, sigma_th0);
 
 	int N{};
 	std::cout << "Provide the number of particles in the simulation: ";
@@ -47,8 +47,8 @@ int main()
 	}
 
 	const auto stat{statistics(billiard.getParticles())};
-	std::cout << "y_f mean: " << stat.mean_y << '\n'; // add << "y_0 mean was ..." etc.
-	std::cout << "y_f sigma: " << stat.sigma_y << '\n';
-	std::cout << "theta_f mean: " << stat.mean_theta << '\n';
-	std::cout << "theta_f sigma: " << stat.sigma_theta << '\n';
+	std::cout << "y_f mean: " << stat.mean_y << ", y_0 mean was " << mu_y0 << '\n';
+	std::cout << "y_f sigma: " << stat.sigma_y << ", y_0 sigma was " << sigma_y0 << '\n';
+	std::cout << "theta_f mean: " << stat.mean_theta << ", theta_0 mean was " << mu_th0 << '\n';
+	std::cout << "theta_f sigma: " << stat.sigma_theta << " , theta_0 sigma was " << sigma_th0 << '\n';
 }
