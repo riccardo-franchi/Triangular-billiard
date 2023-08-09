@@ -7,7 +7,9 @@
 
 int main()
 {
-	std::cout << "Provide the y-value of the left and right verteces of the billiard" double r1{};
+	std::cout << "Provide the y-value of the left and right vertices of the billiard, and its lenght. Separate the "
+				 "inputs with a space: ";
+	double r1{};
 	double r2{};
 	double l{};
 
@@ -22,12 +24,20 @@ int main()
 
 	double mu_y{};
 	double sigma_y{};
+	std::cout << "Provide the mean and sigma of the normal distribution of y_0: ";
+	std::cin >> mu_y;
+	std::cin >> sigma_y;
 	std::normal_distribution<double> dist_y(mu_y, sigma_y);
+
 	double mu_th{};
 	double sigma_th{};
+	std::cout << "Provide the mean and sigma of the normal distribution of theta_0: ";
+	std::cin >> mu_th;
+	std::cin >> sigma_th;
 	std::normal_distribution<double> dist_th(mu_th, sigma_th);
 
 	int N{};
+	std::cout << "Provide the number of particles in the simulation: ";
 	std::cin >> N;
 
 	for (int n{0}; n != N; ++n)
