@@ -2,6 +2,7 @@
 #define BILLIARD_HPP
 
 #include "particle.hpp"
+
 #include <vector>
 
 class Billiard
