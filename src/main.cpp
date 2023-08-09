@@ -18,14 +18,19 @@ int main()
 	Billiard billiard{r1, r2, l};
 	std::random_device r;
 	std::default_random_engine engine(r());
-	std::normal_distribution<double> dist;
+	double mu_y{};
+	double sigma_y{};
+	std::normal_distribution<double> dist_y(mu_y, sigma_y);
+	double mu_th{};
+	double sigma_th{};
+	std::normal_distribution<double> dist_th(mu_th, sigma_th);
 
 	int N{};
 	std::cin >> N;
 
 	for (int n{0}; n != N; ++n)
 	{
-		Particle particle{dist(engine), dist(engine)};
+		Particle particle{dist_y(engine), dist_th(engine)};
 		billiard.push_back(particle);
 	}
 
