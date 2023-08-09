@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <random>
+#include <stdexcept>
 
 #include "../include/billiard.hpp"
 #include "../include/statistics.hpp"
@@ -26,8 +27,12 @@ int main()
 	double sigma_y0{};
 	std::cout << "Provide the mean and sigma of the normal distribution of y_0: ";
 	std::cin >> mu_y0;
+	if (std::abs(mu_y0) > r1)
+	{
+		throw std::domain_error{"y0 mean has to be between -r1 and +r1"};
+	}
 	std::cin >> sigma_y0;
-	std::normal_distribution<double> dist_y(mu_y0, sigma_y0);
+	std::normal_distribution<double> dist_y(mu_y0, std::abs(sigma_y0));
 
 	double mu_th0{};
 	double sigma_th0{};
