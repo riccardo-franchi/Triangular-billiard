@@ -7,7 +7,7 @@
 
 int main()
 {
-	double r1{};
+	std::cout << "Provide the y-value of the left and right verteces of the billiard" double r1{};
 	double r2{};
 	double l{};
 
@@ -16,8 +16,10 @@ int main()
 	std::cin >> l;
 
 	Billiard billiard{r1, r2, l};
+
 	std::random_device r;
 	std::default_random_engine engine(r());
+
 	double mu_y{};
 	double sigma_y{};
 	std::normal_distribution<double> dist_y(mu_y, sigma_y);
