@@ -30,5 +30,8 @@ int main()
 	}
 
 	const auto stat{statistics(billiard.getParticles())};
-	std::cout << "- mean: " << stat.mean << '\n' << "- sigma: " << stat.sigma << '\n';
+	std::cout << "y_f mean: " << stat.mean_y << '\n'; // add << "y_0 mean was ..." etc.
+	std::cout << "y_f sigma: " << stat.sigma_y << '\n';
+	std::cout << "theta_f mean: " << stat.mean_theta << '\n';
+	std::cout << "theta_f sigma: " << stat.sigma_theta << '\n';
 }

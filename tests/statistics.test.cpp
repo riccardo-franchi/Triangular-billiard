@@ -7,10 +7,10 @@
 bool statisticsApproxEq(const Statistics& stat1, const Statistics& stat2)
 {
 	const double epsilon{0.0001};
-	return (stat1.mean == doctest::Approx(stat2.mean).epsilon(epsilon) &&
-			stat1.mean_err == doctest::Approx(stat2.mean_err).epsilon(epsilon) &&
-			stat1.median == doctest::Approx(stat2.median).epsilon(epsilon) &&
-			stat1.sigma == doctest::Approx(stat2.sigma).epsilon(epsilon));
+	return (stat1.mean_y == doctest::Approx(stat2.mean_y).epsilon(epsilon) &&
+			stat1.sigma_y == doctest::Approx(stat2.sigma_y).epsilon(epsilon) &&
+			stat1.mean_theta == doctest::Approx(stat2.mean_theta).epsilon(epsilon) &&
+			stat1.sigma_theta == doctest::Approx(stat2.sigma_theta).epsilon(epsilon));
 }
 
 TEST_CASE("Testing statistics() throws")
@@ -25,11 +25,11 @@ TEST_CASE("Testing statistics() throws")
 	SUBCASE("One particle")
 	{
 		billiard.push_back({1., 1.});
-		CHECK_THROWS(billiard.getParticles());
+		CHECK_THROWS(statistics(billiard.getParticles()));
 	}
 }
 
-/* TEST_CASE("Testing statistics() numerical values")
+TEST_CASE("Testing statistics() numerical values")
 {
 
 	Billiard billiard{5., 3., 13.};
@@ -41,6 +41,7 @@ TEST_CASE("Testing statistics() throws")
 		billiard.push_back({1.12534, 0.41964});	  // one collision
 		billiard.runSimulation();
 
-		CHECK(statisticsApproxEq(statistics(billiard.getParticles())));
+		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
+								 Statistics{0.3537533333, 1.90354, -0.194315976, 0.523057}));
 	}
-} */
+}
