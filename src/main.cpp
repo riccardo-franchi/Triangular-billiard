@@ -46,6 +46,8 @@ int main()
 		billiard.push_back(particle);
 	}
 
+	billiard.runSimulation();
+
 	const auto stat{statistics(billiard.getParticles())};
 	std::cout << "y_f mean: " << stat.mean_y << ", y_0 mean was " << mu_y0 << '\n';
 	std::cout << "y_f sigma: " << stat.sigma_y << ", y_0 sigma was " << sigma_y0 << '\n';
