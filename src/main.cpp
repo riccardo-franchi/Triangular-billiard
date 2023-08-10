@@ -84,12 +84,12 @@ int main()
 
 	billiard.runSimulation();
 
-	int esc_part{static_cast<int>(std::count_if(std::execution::par_unseq,
+	int escParts{static_cast<int>(std::count_if(std::execution::par_unseq,
 												billiard.getParticles().begin(), //
 												billiard.getParticles().end(),	 //
 												[l](const Particle& p) { return p.x == l; }))};
 
-	const float perc_esc{static_cast<float>(esc_part * 100 / billiard.size())};
+	const float escPerc{static_cast<float>(escParts * 100 / billiard.size())};
 
 	const auto stat{statistics(billiard.getParticles())};
 	std::cout << "***\n";
@@ -98,6 +98,6 @@ int main()
 	std::cout << "theta_f mean: " << stat.mean_theta << ", theta_0 mean was " << mu_th0 << '\n';
 	std::cout << "theta_f sigma: " << stat.sigma_theta << ", theta_0 sigma was " << sigma_th0 << '\n';
 	std::cout << "Out of " << N << " particles, " << billiard.size() << " were generated with valid parameters.\n";
-	std::cout << "Of those, " << esc_part << " escaped the billiard (" << perc_esc << "%).\n";
+	std::cout << "Of those, " << escParts << " escaped the billiard (" << escPerc << "%).\n";
 	std::cout << "***\n";
 }
