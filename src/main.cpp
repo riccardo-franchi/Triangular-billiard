@@ -54,7 +54,7 @@ int main()
 	billiard.runSimulation();
 
 	// check if there is an algorithm to do this
-	int esc_part{0}; // particles that excape the billiard
+	int esc_part{0}; // number of particles that excape the billiard
 	auto it{billiard.getParticles().begin()};
 	while (it != billiard.getParticles().end())
 	{
