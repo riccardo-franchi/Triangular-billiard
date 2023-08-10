@@ -32,8 +32,7 @@ int main()
 
 	Billiard billiard{r1, r2, l};
 
-	std::random_device r;
-	std::default_random_engine engine(r());
+	std::default_random_engine engine{std::random_device{}()};
 
 	double mu_y0{};
 	double sigma_y0{};
@@ -49,7 +48,7 @@ int main()
 
 	getInput(sigma_y0);
 
-	std::normal_distribution<double> dist_y(mu_y0, std::abs(sigma_y0));
+	std::normal_distribution<double> dist_y{mu_y0, std::abs(sigma_y0)};
 
 	double mu_th0{};
 	double sigma_th0{};
@@ -65,7 +64,7 @@ int main()
 
 	getInput(sigma_th0);
 
-	std::normal_distribution<double> dist_th(mu_th0, sigma_th0);
+	std::normal_distribution<double> dist_th{mu_th0, sigma_th0};
 
 	int N{};
 	std::cout << "Insert the number of particles in the simulation: ";
