@@ -8,7 +8,7 @@
 
 int main()
 {
-	std::cout << "Provide the y-value of the left and right vertices of the billiard, and its lenght. Separate the "
+	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its lenght. Separate the "
 				 "inputs with a space: ";
 	double r1{};
 	double r2{};
@@ -25,7 +25,7 @@ int main()
 
 	double mu_y0{};
 	double sigma_y0{};
-	std::cout << "Provide the mean and sigma of the normal distribution of y_0: ";
+	std::cout << "Insert the mean and sigma of the normal distribution of y_0: ";
 	std::cin >> mu_y0;
 	if (std::abs(mu_y0) > r1)
 	{
@@ -36,13 +36,13 @@ int main()
 
 	double mu_th0{};
 	double sigma_th0{};
-	std::cout << "Provide the mean and sigma of the normal distribution of theta_0: ";
+	std::cout << "Insert the mean and sigma of the normal distribution of theta_0: ";
 	std::cin >> mu_th0;
 	std::cin >> sigma_th0;
 	std::normal_distribution<double> dist_th(mu_th0, sigma_th0);
 
 	int N{};
-	std::cout << "Provide the number of particles in the simulation: ";
+	std::cout << "Insert the number of particles in the simulation: ";
 	std::cin >> N;
 
 	for (int n{0}; n != N; ++n)
@@ -67,9 +67,11 @@ int main()
 	const float perc_esc{static_cast<float>(esc_part * 100 / N)};
 
 	const auto stat{statistics(billiard.getParticles())};
+	std::cout << "***\n";
 	std::cout << "y_f mean: " << stat.mean_y << ", y_0 mean was " << mu_y0 << '\n';
 	std::cout << "y_f sigma: " << stat.sigma_y << ", y_0 sigma was " << sigma_y0 << '\n';
 	std::cout << "theta_f mean: " << stat.mean_theta << ", theta_0 mean was " << mu_th0 << '\n';
 	std::cout << "theta_f sigma: " << stat.sigma_theta << ", theta_0 sigma was " << sigma_th0 << '\n';
 	std::cout << esc_part << " particles escaped the billiard, out of " << N << " (" << perc_esc << "%).\n";
+	std::cout << "***\n";
 }
