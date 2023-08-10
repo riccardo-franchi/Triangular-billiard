@@ -6,6 +6,18 @@
 #include "../include/billiard.hpp"
 #include "../include/statistics.hpp"
 
+template <typename T>
+void getInput(T& input)
+{
+	std::cin >> input;
+	if (!std::cin)
+	{
+		std::cin.clear();
+		std::cin.ignore(1000, '\n');
+		throw std::runtime_error{"input error"};
+	}
+}
+
 int main()
 {
 	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its lenght. Separate the "
@@ -14,9 +26,9 @@ int main()
 	double r2{};
 	double l{};
 
-	std::cin >> r1;
-	std::cin >> r2;
-	std::cin >> l;
+	getInput(r1);
+	getInput(r2);
+	getInput(l);
 
 	Billiard billiard{r1, r2, l};
 
@@ -25,29 +37,40 @@ int main()
 
 	double mu_y0{};
 	double sigma_y0{};
+
 	std::cout << "Insert the mean and sigma of the normal distribution of y_0: ";
-	std::cin >> mu_y0;
+
+	getInput(mu_y0);
+
 	if (std::abs(mu_y0) > r1)
 	{
 		throw std::domain_error{"y0 mean has to be between -r1 and +r1"};
 	}
-	std::cin >> sigma_y0;
+
+	getInput(sigma_y0);
+
 	std::normal_distribution<double> dist_y(mu_y0, std::abs(sigma_y0));
 
 	double mu_th0{};
 	double sigma_th0{};
+
 	std::cout << "Insert the mean and sigma of the normal distribution of theta_0: ";
+
+	getInput(mu_th0);
+
 	if (std::abs(mu_th0) > M_PI_2)
 	{
 		throw std::domain_error{"theta0 mean has to be between -pi/2 and +pi/2"};
 	}
-	std::cin >> mu_th0;
-	std::cin >> sigma_th0;
+
+	getInput(sigma_th0);
+
 	std::normal_distribution<double> dist_th(mu_th0, sigma_th0);
 
 	int N{};
 	std::cout << "Insert the number of particles in the simulation: ";
-	std::cin >> N;
+
+	getInput(N);
 
 	for (int n{0}; n != N; ++n)
 	{
