@@ -69,6 +69,6 @@ int main()
 	std::cout << "y_f mean: " << stat.mean_y << ", y_0 mean was " << mu_y0 << '\n';
 	std::cout << "y_f sigma: " << stat.sigma_y << ", y_0 sigma was " << sigma_y0 << '\n';
 	std::cout << "theta_f mean: " << stat.mean_theta << ", theta_0 mean was " << mu_th0 << '\n';
-	std::cout << "theta_f sigma: " << stat.sigma_theta << " , theta_0 sigma was " << sigma_th0 << '\n';
+	std::cout << "theta_f sigma: " << stat.sigma_theta << ", theta_0 sigma was " << sigma_th0 << '\n';
 	std::cout << esc_part << " particles escaped the billiard, out of " << N << ".\n";
 }
