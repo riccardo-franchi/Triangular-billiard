@@ -53,9 +53,21 @@ int main()
 
 	billiard.runSimulation();
 
+	int esc_part{0}; // particles that excape the billiard
+	auto it{billiard.getParticles().begin()};
+	while (it != billiard.getParticles().end())
+	{
+		if ((*it).x == 13)
+		{
+			++esc_part;
+		}
+		++it;
+	}
+
 	const auto stat{statistics(billiard.getParticles())};
 	std::cout << "y_f mean: " << stat.mean_y << ", y_0 mean was " << mu_y0 << '\n';
 	std::cout << "y_f sigma: " << stat.sigma_y << ", y_0 sigma was " << sigma_y0 << '\n';
 	std::cout << "theta_f mean: " << stat.mean_theta << ", theta_0 mean was " << mu_th0 << '\n';
 	std::cout << "theta_f sigma: " << stat.sigma_theta << " , theta_0 sigma was " << sigma_th0 << '\n';
+	std::cout << esc_part << " particles escaped the billiard, out of " << N << ".\n";
 }
