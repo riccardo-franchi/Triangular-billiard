@@ -20,8 +20,8 @@ string(APPEND CMAKE_CXX_FLAGS " -Wall -Wextra")
 string(APPEND CMAKE_CXX_FLAGS_DEBUG " -fsanitize=address,undefined -fno-omit-frame-pointer")
 string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " -fsanitize=address,undefined -fno-omit-frame-pointer")
 
-#add_executable(main main.cpp)
-#target_link_libraries(billiard.test PRIVATE TBB::tbb)
+add_executable(main src/main.cpp src/billiard.cpp)
+target_link_libraries(main PRIVATE TBB::tbb)
 
 # se il testing e' abilitato...
 #   per disabilitare il testing, passare -DBUILD_TESTING=OFF a cmake durante la fase di configurazione

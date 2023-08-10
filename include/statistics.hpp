@@ -46,7 +46,7 @@ Statistics statistics(const std::vector<Particle>& particles)
 						   });
 
 	double const mean_y{sums.yf / N};
-	double const sigma_y{std::sqrt((sums.yf2 - N * mean_y * mean_y) / (N - 1))}; // why not mean sigma?
+	double const sigma_y{std::sqrt((sums.yf2 - N * mean_y * mean_y) / (N - 1))};	// why not mean sigma?
 	double const mean_th{sums.th / N};
 	double const sigma_th{std::sqrt((sums.th2 - N * mean_th * mean_th) / (N - 1))}; // idem
 	// double const mean_err = sigma / std::sqrt(N);

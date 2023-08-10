@@ -3,8 +3,7 @@
 #include <algorithm>
 #include <execution>
 
-Billiard::Billiard(double r1, double r2, double l) //
-	: m_r1{r1}, m_r2{r2}, m_l{l}
+Billiard::Billiard(double r1, double r2, double l) : m_r1{r1}, m_r2{r2}, m_l{l}
 {
 	if (m_r1 < 0 || m_r2 < 0 || m_l < 0)
 	{
@@ -18,6 +17,11 @@ void Billiard::push_back(const Particle& particle)
 	{
 		throw std::domain_error{"Invalid angle"};
 	}
+	if (std::abs(particle.y) > m_r1)
+	{
+		throw std::domain_error{"Invalid y coordinate"};
+	}
+
 	m_particles.push_back(particle);
 }
 
