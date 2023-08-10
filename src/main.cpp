@@ -1,3 +1,4 @@
+#include <execution>
 #include <fstream>
 #include <iostream>
 #include <random>
@@ -83,17 +84,11 @@ int main()
 
 	billiard.runSimulation();
 
-	// check if there is an algorithm to do this
-	int esc_part{0}; // number of particles that excape the billiard
-	auto it{billiard.getParticles().begin()};
-	while (it != billiard.getParticles().end())
-	{
-		if ((*it).x == l)
-		{
-			++esc_part;
-		}
-		++it;
-	}
+	int esc_part{static_cast<int>(std::count_if(std::execution::par_unseq,
+												billiard.getParticles().begin(), //
+												billiard.getParticles().end(),	 //
+												[l](const Particle& p) { return p.x == l; }))};
+
 	const float perc_esc{static_cast<float>(esc_part * 100 / billiard.size())};
 
 	const auto stat{statistics(billiard.getParticles())};
