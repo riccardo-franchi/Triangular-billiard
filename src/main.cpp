@@ -48,7 +48,7 @@ int main()
 
 	getInput(sigma_y0);
 
-	std::normal_distribution<double> dist_y{mu_y0, std::abs(sigma_y0)};
+	std::normal_distribution dist_y{mu_y0, std::abs(sigma_y0)};
 
 	double mu_th0{};
 	double sigma_th0{};
@@ -64,7 +64,7 @@ int main()
 
 	getInput(sigma_th0);
 
-	std::normal_distribution<double> dist_th{mu_th0, sigma_th0};
+	std::normal_distribution dist_th{mu_th0, sigma_th0};
 
 	int N{};
 	std::cout << "Insert the number of particles in the simulation: ";
