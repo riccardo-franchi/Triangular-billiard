@@ -20,7 +20,6 @@ public:
 	bool empty() const { return m_particles.empty(); }
 	int size() const { return m_particles.size(); }
 	void clear() { m_particles.clear(); }
-	double getL() { return m_l; }
 
 	void runSimulation();
 

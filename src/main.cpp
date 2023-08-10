@@ -37,6 +37,10 @@ int main()
 	double mu_th0{};
 	double sigma_th0{};
 	std::cout << "Insert the mean and sigma of the normal distribution of theta_0: ";
+	if (std::abs(mu_th0) > M_PI_2)
+	{
+		throw std::domain_error{"theta0 mean has to be between -pi/2 and +pi/2"};
+	}
 	std::cin >> mu_th0;
 	std::cin >> sigma_th0;
 	std::normal_distribution<double> dist_th(mu_th0, sigma_th0);
@@ -58,7 +62,7 @@ int main()
 	auto it{billiard.getParticles().begin()};
 	while (it != billiard.getParticles().end())
 	{
-		if ((*it).x == billiard.getL())
+		if ((*it).x == l)
 		{
 			++esc_part;
 		}

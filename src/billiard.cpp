@@ -17,7 +17,10 @@ void Billiard::push_back(const Particle& particle)
 	{
 		throw std::domain_error{"Invalid angle"};
 	}*/
-	m_particles.push_back(particle);
+	if ((std::abs(particle.theta) < M_PI_2) && (std::abs(particle.y) < m_r1))
+	{
+		m_particles.push_back(particle);
+	}
 }
 
 void Billiard::runSimulation()
