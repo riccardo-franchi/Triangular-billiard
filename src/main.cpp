@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <execution>
 #include <fstream>
 #include <iostream>
@@ -49,7 +50,7 @@ int main()
 
 	getInput(sigma_y0);
 
-	std::normal_distribution dist_y{mu_y0, std::abs(sigma_y0)};
+	std::normal_distribution<double> dist_y{mu_y0, std::abs(sigma_y0)};
 
 	double mu_th0{};
 	double sigma_th0{};
@@ -65,7 +66,7 @@ int main()
 
 	getInput(sigma_th0);
 
-	std::normal_distribution dist_th{mu_th0, sigma_th0};
+	std::normal_distribution<double> dist_th{mu_th0, sigma_th0};
 
 	int N{};
 	std::cout << "Insert the number of particles in the simulation: ";
@@ -84,7 +85,7 @@ int main()
 
 	billiard.runSimulation();
 
-	int escParts{static_cast<int>(std::count_if(std::execution::par_unseq,
+	int escParts{static_cast<int>(std::count_if(								 /*std::execution::par_unseq,*/
 												billiard.getParticles().begin(), //
 												billiard.getParticles().end(),	 //
 												[l](const Particle& p) { return p.x == l; }))};
