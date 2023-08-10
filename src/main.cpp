@@ -74,7 +74,11 @@ int main()
 	for (int n{0}; n != N; ++n)
 	{
 		Particle particle{dist_y(engine), dist_th(engine)};
-		billiard.push_back(particle);
+
+		if (std::abs(particle.y) < r1 && std::abs(particle.theta) < M_PI_2)
+		{
+			billiard.push_back(particle);
+		}
 	}
 
 	billiard.runSimulation();

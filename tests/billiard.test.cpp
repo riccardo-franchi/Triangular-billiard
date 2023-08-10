@@ -22,10 +22,10 @@ TEST_CASE("Testing the runSimulation() function")
 {
 	Billiard billiard{5., 3., 13.};
 
-	/*SUBCASE("Check throw for invalid angle input")
+	SUBCASE("Check throw for invalid angle input")
 	{
 		CHECK_THROWS(billiard.push_back({1.1, -13.}));
-	}*/
+	}
 
 	SUBCASE("No collisions, theta > 0")
 	{
