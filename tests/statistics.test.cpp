@@ -34,6 +34,15 @@ TEST_CASE("Testing statistics() numerical values")
 
 	Billiard billiard{5., 3., 13.};
 
+	SUBCASE("Two particles")
+	{
+		billiard.push_back({1.85, 0.});		   // no collisions
+		billiard.push_back({1., 0.652916774}); // no collisions
+		billiard.runSimulation();
+
+		CHECK(statisticsApproxEq(statistics(billiard.getParticles()), Statistics{1.85, 0., 0.326458387, 0.461681878}));
+	}
+
 	SUBCASE("Three particles")
 	{
 		billiard.push_back({-2.47, 0.32083});	  // no collisions
@@ -43,5 +52,17 @@ TEST_CASE("Testing statistics() numerical values")
 
 		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
 								 Statistics{0.3537533333, 1.90354, -0.194315976, 0.523057}));
+	}
+
+	SUBCASE("Four particles")
+	{
+		billiard.push_back({0., 0.});			 // no collisions
+		billiard.push_back({1., 0.4357084939});	 // one collision
+		billiard.push_back({2., -0.6654199111}); // two collisions
+		billiard.push_back({2.65, 0.55655});	 // three collision
+		billiard.runSimulation();
+
+		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
+								 Statistics{-0.383814827, 1.106869648, 0.234359982, 1.172706578}));
 	}
 }
