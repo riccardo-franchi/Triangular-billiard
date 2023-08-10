@@ -68,7 +68,7 @@ int main()
 		}
 		++it;
 	}
-	const float perc_esc{static_cast<float>(esc_part * 100 / N)};
+	const float perc_esc{static_cast<float>(esc_part * 100 / billiard.size())};
 
 	const auto stat{statistics(billiard.getParticles())};
 	std::cout << "***\n";
@@ -76,6 +76,7 @@ int main()
 	std::cout << "y_f sigma: " << stat.sigma_y << ", y_0 sigma was " << sigma_y0 << '\n';
 	std::cout << "theta_f mean: " << stat.mean_theta << ", theta_0 mean was " << mu_th0 << '\n';
 	std::cout << "theta_f sigma: " << stat.sigma_theta << ", theta_0 sigma was " << sigma_th0 << '\n';
-	std::cout << esc_part << " particles escaped the billiard, out of " << N << " (" << perc_esc << "%).\n";
+	std::cout << "Out of " << N << " particles, " << billiard.size() << " were generated with valid parameters.\n";
+	std::cout << "Of those, " << esc_part << " escaped the billiard (" << perc_esc << "%).\n";
 	std::cout << "***\n";
 }
