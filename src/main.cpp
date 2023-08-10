@@ -64,7 +64,7 @@ int main()
 		}
 		++it;
 	}
-	float const perc_esc{esc_part * 100 / N};
+	const float perc_esc{static_cast<float>(esc_part * 100 / N)};
 
 	const auto stat{statistics(billiard.getParticles())};
 	std::cout << "y_f mean: " << stat.mean_y << ", y_0 mean was " << mu_y0 << '\n';
