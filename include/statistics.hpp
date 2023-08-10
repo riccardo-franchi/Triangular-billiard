@@ -51,14 +51,6 @@ Statistics statistics(const std::vector<Particle>& particles)
 	double const sigma_th{std::sqrt((sums.th2 - N * mean_th * mean_th) / (N - 1))}; // idem
 	// double const mean_err = sigma / std::sqrt(N);
 
-	std::vector<double> particlesY{};
-	std::sort(particlesY.begin(), particlesY.end());
-	const double median_y = N % 2 == 0 ? (particlesY[N / 2 - 1] + particlesY[N / 2]) * 0.5 : particlesY[N / 2];
-	std::vector<double> particlesTheta{};
-	std::sort(particlesTheta.begin(), particlesTheta.end());
-	const double median_th =
-		N % 2 == 0 ? (particlesTheta[N / 2 - 1] + particlesTheta[N / 2]) * 0.5 : particlesTheta[N / 2];
-
 	return {mean_y, sigma_y, mean_th, sigma_th};
 }
 
