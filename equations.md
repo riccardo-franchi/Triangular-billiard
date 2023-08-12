@@ -45,9 +45,9 @@ $$\theta_{i+1} = -\theta_i - 2\alpha$$
 
 where $\alpha$ is the angle of the edge, defined as $\arctan(\frac{r_2-r_1}{l})$, and all angles are referred to the $x$ axis.
 
-8. Skewness coefficient and kurtosis coefficient
+8. Skewness coefficient:
 $$ b_1 = \frac{\frac{1}{n}\sum{(x_i-\mu)^3}}{\sigma^3}$$
-
+kurtosis coefficient:
 $$ b_2 = \frac{\frac{1}{n}\sum{(x_i-\mu)^4}}{\sigma^4}$$
 
 Note that it can be useful to calculate the excess kurtosis $\gamma_2$, defined as $\gamma_2 = b_2 - 3$.
