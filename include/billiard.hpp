@@ -17,6 +17,8 @@ public:
 	const std::vector<Particle>& getParticles() const { return m_particles; }
 	const Particle& getParticle(int i) const { return m_particles.at(i); }
 
+	double getL() const { return m_l; }
+
 	bool empty() const { return m_particles.empty(); }
 	int size() const { return m_particles.size(); }
 	void clear() { m_particles.clear(); }

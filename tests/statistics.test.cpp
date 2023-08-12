@@ -19,13 +19,13 @@ TEST_CASE("Testing statistics() throws")
 
 	SUBCASE("No particles")
 	{
-		CHECK_THROWS(statistics(billiard.getParticles()));
+		CHECK_THROWS(statistics(billiard.getParticles(), billiard.getL()));
 	}
 
 	SUBCASE("One particle")
 	{
 		billiard.push_back({1., 1.});
-		CHECK_THROWS(statistics(billiard.getParticles()));
+		CHECK_THROWS(statistics(billiard.getParticles(), billiard.getL()));
 	}
 }
 
@@ -39,7 +39,7 @@ TEST_CASE("Testing statistics() numerical values")
 		billiard.push_back({1.85, 0.});		   // no collisions
 		billiard.push_back({1, 0.0767718913}); // no collisions, y_f = 2
 
-		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
+		CHECK(statisticsApproxEq(statistics(billiard.runSimulation(), billiard.getL()),
 								 Statistics{1.925, 0.106066, 0.03838594565, 0.0542859}));
 	}
 
@@ -48,7 +48,8 @@ TEST_CASE("Testing statistics() numerical values")
 		billiard.push_back({-2., 0.2267988481}); // no collisions
 		billiard.push_back({-2., 0.2267988481}); // no collisions
 
-		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()), Statistics{1., 0., 0.2267988481, 0.}));
+		CHECK(statisticsApproxEq(statistics(billiard.runSimulation(), billiard.getL()),
+								 Statistics{1., 0., 0.2267988481, 0.}));
 	}
 
 	SUBCASE("Three particles")
@@ -57,7 +58,7 @@ TEST_CASE("Testing statistics() numerical values")
 		billiard.push_back({3.35, -0.178837928}); // no collisions
 		billiard.push_back({1.12534, 0.41964});	  // one collision
 
-		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
+		CHECK(statisticsApproxEq(statistics(billiard.runSimulation(), billiard.getL()),
 								 Statistics{0.3537533333, 1.90354, -0.194315976, 0.523057}));
 	}
 
@@ -68,7 +69,7 @@ TEST_CASE("Testing statistics() numerical values")
 		billiard.push_back({2., -0.6654199111});  // two collisions, fin. (0.5749856482, -1.2760172247)
 		billiard.push_back({2.65, 0.5565549784}); // three collision, fin. (-0.1311178052, -1.4724509487)
 
-		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
+		CHECK(statisticsApproxEq(statistics(billiard.runSimulation(), billiard.getL()),
 								 Statistics{-0.383814280325, 1.10687, -0.872368831025, 0.658613}));
 	}
 }

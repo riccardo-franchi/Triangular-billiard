@@ -36,18 +36,25 @@ struct Gaps
 	double th4;
 };
 
-Statistics statistics(const std::vector<Particle>& particles)
+Statistics statistics(const std::vector<Particle>& particles, const double l)
 {
 	Sums sums{};
 
-	int const N{static_cast<int>(particles.size())};
+	// Copy all the particles that have escaped the billiard
+	std::vector<Particle> escParts{};
+	escParts.reserve(particles.size());
+	std::remove_copy_if(particles.begin(), particles.end(), std::back_inserter(escParts),
+						[l](const Particle& p) { return p.x < l; });
+	escParts.shrink_to_fit();
+
+	int const N{static_cast<int>(escParts.size())};
 
 	if (N < 2)
 	{
 		throw std::runtime_error{"Not enough entries to run a statistics"};
 	}
 
-	sums = std::accumulate(particles.begin(), particles.end(), Sums{0., 0., 0., 0.},
+	sums = std::accumulate(escParts.begin(), escParts.end(), Sums{0., 0., 0., 0.},
 						   [](Sums s, Particle p)
 						   {
 							   s.yf += p.y;
@@ -64,7 +71,7 @@ Statistics statistics(const std::vector<Particle>& particles)
 	// double const mean_err = sigma / std::sqrt(N);
 
 	Gaps gaps{};
-	for (auto i{particles.begin()}; i != particles.end(); i++)
+	for (auto i{escParts.begin()}; i != escParts.end(); i++)
 	{
 		Particle p{*i};
 		gaps.y3 += (p.y - mean_y) * (p.y - mean_y) * (p.y - mean_y);
@@ -74,7 +81,7 @@ Statistics statistics(const std::vector<Particle>& particles)
 	}
 
 	/* cannot use mean_y and mean_th
-		gaps = std::accumulate(particles.begin(), particles.end(), Gaps{0., 0., 0., 0.}, [](Gaps g, Particle p),
+		gaps = std::accumulate(p.begin(), p.end(), Gaps{0., 0., 0., 0.}, [](Gaps g, Particle p),
 							   [=](mean_y, mean_th)
 							   {
 								   g.y2 += (p.y - mean_y) * (p.y - mean_y);

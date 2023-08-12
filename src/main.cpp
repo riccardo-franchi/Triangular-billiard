@@ -92,7 +92,7 @@ int main()
 
 	const float escPerc{static_cast<float>(escParts * 100 / billiard.size())};
 
-	const auto stat{statistics(billiard.getParticles())};
+	const auto stat{statistics(billiard.getParticles(), l)};
 	std::cout << "***\n";
 	std::cout << "y_f mean: " << stat.mean_y << ", y_0 mean was " << mu_y0 << '\n';
 	std::cout << "y_f sigma: " << stat.sigma_y << ", y_0 sigma was " << sigma_y0 << '\n';
