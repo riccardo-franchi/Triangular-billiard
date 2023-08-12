@@ -30,10 +30,10 @@ struct Sums
 
 struct Gaps
 {
-	double y2;
-	double th2;
 	double y3;
 	double th3;
+	double y4;
+	double th4;
 };
 
 Statistics statistics(const std::vector<Particle>& particles)
@@ -67,10 +67,10 @@ Statistics statistics(const std::vector<Particle>& particles)
 	for (auto i{particles.begin()}; i != particles.end(); i++)
 	{
 		Particle p{*i};
-		gaps.y2 += (p.y - mean_y) * (p.y - mean_y);
 		gaps.y3 += (p.y - mean_y) * (p.y - mean_y) * (p.y - mean_y);
-		gaps.th2 += (p.theta - mean_th) * (p.theta - mean_th);
+		gaps.y4 += (p.y - mean_y) * (p.y - mean_y) * (p.y - mean_y) * (p.y - mean_y);
 		gaps.th3 += (p.theta - mean_th) * (p.theta - mean_th) * (p.theta - mean_th);
+		gaps.th4 += (p.theta - mean_th) * (p.theta - mean_th) * (p.theta - mean_th) * (p.theta - mean_th);
 	}
 
 	/*
@@ -85,13 +85,10 @@ Statistics statistics(const std::vector<Particle>& particles)
 							   });
 							   */
 
-	double const skewness_y{(std::sqrt(N) * gaps.y3) / (gaps.y2 * std::sqrt(gaps.y2))};
-	double const skewness_th{(std::sqrt(N) * gaps.th3) / (gaps.th2 * std::sqrt(gaps.th2))};
-
-	double const mu_y{};
-	double const mu_th{};
-	double const kurtosis_y{mu_y / (sigma_y * sigma_y * sigma_y * sigma_y)};
-	double const kurtosis_th{mu_th / (sigma_th * sigma_th * sigma_th * sigma_th)};
+	double const skewness_y{gaps.y3 / (N * sigma_y * sigma_y * sigma_y)};
+	double const skewness_th{gaps.th3 / (N * sigma_th * sigma_th * sigma_th)};
+	double const kurtosis_y{gaps.y4 / (N * sigma_y * sigma_y * sigma_y * sigma_y)};
+	double const kurtosis_th{gaps.th4 / (N * sigma_th * sigma_th * sigma_th * sigma_th)};
 
 	return {mean_y, sigma_y, mean_th, sigma_th, skewness_y, skewness_th, kurtosis_y, kurtosis_th};
 }
