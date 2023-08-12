@@ -14,6 +14,7 @@ struct Statistics
 	double sigma_y{};
 	double mean_theta{};
 	double sigma_theta{};
+	double asimmetry_y{};
 };
 
 struct Sums
@@ -22,6 +23,14 @@ struct Sums
 	double yf2;
 	double th;
 	double th2;
+};
+
+struct Gaps
+{
+	double y2;
+	double th2;
+	double y3;
+	double th3;
 };
 
 Statistics statistics(const std::vector<Particle>& particles)
@@ -51,7 +60,31 @@ Statistics statistics(const std::vector<Particle>& particles)
 	double const sigma_th{std::sqrt((sums.th2 - N * mean_th * mean_th) / (N - 1))}; // idem
 	// double const mean_err = sigma / std::sqrt(N);
 
-	return {mean_y, sigma_y, mean_th, sigma_th};
+	Gaps gaps{};
+	for (auto i{particles.begin()}; i != particles.end(); i++)
+	{
+		Particle p{*i};
+		gaps.y2 += (p.y - mean_y) * (p.y - mean_y);
+		gaps.y3 += (p.y - mean_y) * (p.y - mean_y) * (p.y - mean_y);
+		gaps.th2 += (p.theta - mean_th) * (p.theta - mean_th);
+		gaps.th3 += (p.theta - mean_th) * (p.theta - mean_th) * (p.theta - mean_th);
+	}
+
+	double const asimmetry_y{(std::sqrt(N) * gaps.y3) / (gaps.y2 * std::sqrt(gaps.y2))};
+
+	/* cannot use mean_y and mean_theta
+	gaps = std::accumulate(particles.begin(), particles.end(), Gaps{0., 0., 0., 0.},
+						   [](Gaps g, Particle p)
+						   {
+							   g.y2 += (p.y - mean_y)*(p.y - mean_y);
+							   g.y2 += (p.y - mean_y)*(p.y - mean_y)*(p.y - mean_y);
+							   g.th2 += (p.theta - mean_th)*(p.theta - mean_th);
+							   g.th3 += (p.theta - mean_th)*(p.theta - mean_th)*(p.theta - mean_th);
+							   return g;
+						   });
+	*/
+
+	return {mean_y, sigma_y, mean_th, sigma_th, asimmetry_y};
 }
 
 #endif // STATISTICS_HPP
