@@ -98,6 +98,10 @@ int main()
 	std::cout << "y_f sigma: " << stat.sigma_y << ", y_0 sigma was " << sigma_y0 << '\n';
 	std::cout << "theta_f mean: " << stat.mean_theta << ", theta_0 mean was " << mu_th0 << '\n';
 	std::cout << "theta_f sigma: " << stat.sigma_theta << ", theta_0 sigma was " << sigma_th0 << '\n';
+	std::cout << "y_f skewness: " << stat.skewness_y;
+	std::cout << "theta_f skewness: " << stat.skewness_th;
+	std::cout << "y_f kurtosis: " << stat.kurtosis_y;
+	std::cout << "theta_f kurtosis: " << stat.kurtosis_th;
 	std::cout << "Out of " << N << " particles, " << billiard.size() << " were generated with valid parameters.\n";
 	std::cout << "Of those, " << escParts << " escaped the billiard (" << escPerc << "%).\n";
 	std::cout << "***\n";
