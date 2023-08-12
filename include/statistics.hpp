@@ -16,6 +16,8 @@ struct Statistics
 	double sigma_theta{};
 	double skewness_y{};
 	double skewness_th{};
+	double kurtosis_y{};
+	double kurtosis_th{};
 };
 
 struct Sums
@@ -71,20 +73,22 @@ Statistics statistics(const std::vector<Particle>& particles)
 		gaps.th3 += (p.theta - mean_th) * (p.theta - mean_th) * (p.theta - mean_th);
 	}
 
+	/*
+	gaps = std::accumulate(particles.begin(), particles.end(), Gaps{0., 0., 0., 0.},
+							   [](Gaps g, Particle p)
+							   {
+								   g.y2 += (p.y - mean_y)*(p.y - mean_y);
+								   g.y2 += (p.y - mean_y)*(p.y - mean_y)*(p.y - mean_y);
+								   g.th2 += (p.theta - mean_th)*(p.theta - mean_th);
+								   g.th3 += (p.theta - mean_th)*(p.theta - mean_th)*(p.theta - mean_th);
+								   return g;
+							   });
+							   */
+
 	double const skewness_y{(std::sqrt(N) * gaps.y3) / (gaps.y2 * std::sqrt(gaps.y2))};
 	double const skewness_th{(std::sqrt(N) * gaps.th3) / (gaps.th2 * std::sqrt(gaps.th2))};
-
-	/* cannot use mean_y and mean_theta
-	gaps = std::accumulate(particles.begin(), particles.end(), Gaps{0., 0., 0., 0.},
-						   [](Gaps g, Particle p)
-						   {
-							   g.y2 += (p.y - mean_y)*(p.y - mean_y);
-							   g.y2 += (p.y - mean_y)*(p.y - mean_y)*(p.y - mean_y);
-							   g.th2 += (p.theta - mean_th)*(p.theta - mean_th);
-							   g.th3 += (p.theta - mean_th)*(p.theta - mean_th)*(p.theta - mean_th);
-							   return g;
-						   });
-	*/
+	double const kurtosis_y{};
+	double const kurtosis_th{};
 
 	return {mean_y, sigma_y, mean_th, sigma_th, skewness_y, skewness_th};
 }
