@@ -87,10 +87,13 @@ Statistics statistics(const std::vector<Particle>& particles)
 
 	double const skewness_y{(std::sqrt(N) * gaps.y3) / (gaps.y2 * std::sqrt(gaps.y2))};
 	double const skewness_th{(std::sqrt(N) * gaps.th3) / (gaps.th2 * std::sqrt(gaps.th2))};
-	double const kurtosis_y{};
-	double const kurtosis_th{};
 
-	return {mean_y, sigma_y, mean_th, sigma_th, skewness_y, skewness_th};
+	double const mu_y{};
+	double const mu_th{};
+	double const kurtosis_y{mu_y / (sigma_y * sigma_y * sigma_y * sigma_y)};
+	double const kurtosis_th{mu_th / (sigma_th * sigma_th * sigma_th * sigma_th)};
+
+	return {mean_y, sigma_y, mean_th, sigma_th, skewness_y, skewness_th, kurtosis_y, kurtosis_th};
 }
 
 #endif // STATISTICS_HPP
