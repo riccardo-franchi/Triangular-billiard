@@ -45,11 +45,11 @@ TEST_CASE("Testing statistics() numerical values")
 
 	SUBCASE("Same particles")
 	{
-		billiard.push_back({2., 1.}); // no collisions
-		billiard.push_back({2., 1.}); // no collisions
+		billiard.push_back({-2., 0.2267988481}); // no collisions
+		billiard.push_back({-2., 0.2267988481}); // no collisions
 		billiard.runSimulation();
 
-		CHECK(statisticsApproxEq(statistics(billiard.getParticles()), Statistics{2., 0., 1., 0.}));
+		CHECK(statisticsApproxEq(statistics(billiard.getParticles()), Statistics{1., 0., 0.2267988481, 0.}));
 	}
 
 	SUBCASE("Three particles")
