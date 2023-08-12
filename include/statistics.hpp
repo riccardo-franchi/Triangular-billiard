@@ -73,14 +73,14 @@ Statistics statistics(const std::vector<Particle>& particles)
 		gaps.th4 += (p.theta - mean_th) * (p.theta - mean_th) * (p.theta - mean_th) * (p.theta - mean_th);
 	}
 
-	/*
-	gaps = std::accumulate(particles.begin(), particles.end(), Gaps{0., 0., 0., 0.},
-							   [](Gaps g, Particle p)
+	/* cannot use mean_y and mean_th
+		gaps = std::accumulate(particles.begin(), particles.end(), Gaps{0., 0., 0., 0.}, [](Gaps g, Particle p),
+							   [=](mean_y, mean_th)
 							   {
-								   g.y2 += (p.y - mean_y)*(p.y - mean_y);
-								   g.y2 += (p.y - mean_y)*(p.y - mean_y)*(p.y - mean_y);
-								   g.th2 += (p.theta - mean_th)*(p.theta - mean_th);
-								   g.th3 += (p.theta - mean_th)*(p.theta - mean_th)*(p.theta - mean_th);
+								   g.y2 += (p.y - mean_y) * (p.y - mean_y);
+								   g.y2 += (p.y - mean_y) * (p.y - mean_y) * (p.y - mean_y);
+								   g.th2 += (p.theta - mean_th) * (p.theta - mean_th);
+								   g.th3 += (p.theta - mean_th) * (p.theta - mean_th) * (p.theta - mean_th);
 								   return g;
 							   });
 							   */
