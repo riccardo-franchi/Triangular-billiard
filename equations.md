@@ -44,3 +44,14 @@ Lower wall:
 $$\theta_{i+1} = -\theta_i - 2\alpha$$
 
 where $\alpha$ is the angle of the edge, defined as $\arctan(\frac{r_2-r_1}{l})$, and all angles are referred to the $x$ axis.
+
+8. Skewness coefficient and kurtosis coefficient
+$$ b_1 = \frac{\frac{1}{n}\sum{(x_i-\mu)^3}}{\sigma^3}$$
+
+$$ b_2 = \frac{\frac{1}{n}\sum{(x_i-\mu)^4}}{\sigma^4}$$
+
+Note that it can be useful to calculate the excess kurtosis $\gamma_2$, defined as $\gamma_2 = b_2 - 3$.
+
+Note that $\sigma$ is the standard deviation, defined as $\sigma = \sqrt{\frac{1}{n-1}\sum{(x_i-\mu)^2}}$.
+
+[Source](https://en.wikipedia.org/wiki/Skewness#Fisher's_moment_coefficient_of_skewness)
