@@ -14,8 +14,8 @@ struct Statistics
 	double sigma_y{};
 	double mean_theta{};
 	double sigma_theta{};
-	double asimmetry_y{};
-	double asimmetry_th{};
+	double skewness_y{};
+	double skewness_th{};
 };
 
 struct Sums
@@ -71,8 +71,8 @@ Statistics statistics(const std::vector<Particle>& particles)
 		gaps.th3 += (p.theta - mean_th) * (p.theta - mean_th) * (p.theta - mean_th);
 	}
 
-	double const asimmetry_y{(std::sqrt(N) * gaps.y3) / (gaps.y2 * std::sqrt(gaps.y2))};
-	double const asimmetry_th{(std::sqrt(N) * gaps.th3) / (gaps.th2 * std::sqrt(gaps.th2))};
+	double const skewness_y{(std::sqrt(N) * gaps.y3) / (gaps.y2 * std::sqrt(gaps.y2))};
+	double const skewness_th{(std::sqrt(N) * gaps.th3) / (gaps.th2 * std::sqrt(gaps.th2))};
 
 	/* cannot use mean_y and mean_theta
 	gaps = std::accumulate(particles.begin(), particles.end(), Gaps{0., 0., 0., 0.},
@@ -86,7 +86,7 @@ Statistics statistics(const std::vector<Particle>& particles)
 						   });
 	*/
 
-	return {mean_y, sigma_y, mean_th, sigma_th, asimmetry_y, asimmetry_th};
+	return {mean_y, sigma_y, mean_th, sigma_th, skewness_y, skewness_th};
 }
 
 #endif // STATISTICS_HPP
