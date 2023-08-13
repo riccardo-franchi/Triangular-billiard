@@ -27,6 +27,14 @@ TEST_CASE("Testing statistics() throws")
 		billiard.push_back({1., 1.});
 		CHECK_THROWS(statistics(billiard.getParticles(), billiard.getL()));
 	}
+
+	SUBCASE("Two particles, one does not escape the billiard")
+	{
+		billiard.push_back({2., 0.7});
+		billiard.push_back({-4.51, 1.4521870679}); // does not escape
+		billiard.runSimulation();
+		CHECK_THROWS(statistics(billiard.getParticles(), billiard.getL()));
+	}
 }
 
 TEST_CASE("Testing statistics() numerical values, alfa < 0")
@@ -106,8 +114,7 @@ TEST_CASE("Testing correct behaviour for particles which don't exit the billiard
 		billiard.push_back({-2.47, 0.32083});
 		billiard.push_back({3.35, -0.178837928});
 		billiard.push_back({1.12534, 0.41964});
-		billiard.push_back({-4.51, 1.4521870679}); // this particle doesn't exit, should not be considered
-												   // in statistics
+		billiard.push_back({-4.51, 1.4521870679}); // doesn't exit, should not be considered in statistics
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation(), billiard.getL()),
 								 Statistics{0.3537533333, 1.90354, -0.194315976, 0.523057}));
