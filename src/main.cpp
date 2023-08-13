@@ -68,20 +68,6 @@ int main()
 
 	std::normal_distribution<double> dist_th{mu_th0, sigma_th0};
 
-	int N{};
-	std::cout << "Insert the number of particles in the simulation: ";
-	getInput(N);
-
-	for (int n{0}; n != N; ++n)
-	{
-		Particle particle{dist_y(engine), dist_th(engine)};
-
-		if (std::abs(particle.y) < r1 && std::abs(particle.theta) < M_PI_2)
-		{
-			billiard.push_back(particle);
-		}
-	}
-
 	std::cout << "Enter a command:\n"
 			  << "g = generate a sample of N particles and run the simulation\n"
 			  << "r = read the sample's particles from a file and run the simulation\n"
@@ -90,26 +76,23 @@ int main()
 			  << "q = quit the program\n"
 			  << "h = list of commands\n";
 
-	/*
+	int N{};
 	char command{};
 	switch (command)
 	{
+	case 'h':
+		std::cout << "Commands:\n"
+				  << "g = generate a sample of N particles and run the simulation\n"
+				  << "r = read the sample's particles from a file and run the simulation\n"
+				  << "s = print results' statistics onscreen\n"
+				  << "f = save results' statistics on a file\n"
+				  << "q = quit the program\n";
+		break;
 	case 'g':
-
-		std::cout << "Insert the y-value of the left and right vertices of the billiard, and its lenght. Separate the "
-				 "inputs with a space: ";
-	double r1{};
-	double r2{};
-	double l{};
-
-	getInput(r1);
-	getInput(r2);
-	getInput(l);
-
-	Billiard billiard{r1, r2, l};
-		int N{};
 		std::cout << "Insert the number of particles in the simulation: ";
-		getInput(N);
+		int k{};
+		getInput(k);
+		N = k;
 
 		for (int n{0}; n != N; ++n)
 		{
@@ -124,25 +107,47 @@ int main()
 		billiard.runSimulation();
 
 		std::cout << "Simulation of " << N << " particles successfully run.\n";
-		std::cout << "Type \'s\' to print onscreen statistics, or 'f' to save them on a file.\n";
-		break
-
-		return N;
+		std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
+		break;
 	case 'r':
+	/*
+	std::ifstream in_file("data.txt");
+  if (!in_file) {
+	throw std::runtime_error{"Impossible to open file!"};
+  }
+  double x;
+  while (in_file >> x) {
+	data.add(x);
+  }
+  std::cout << "Input file read successfully" << '\n';
+  const auto stat{data.statistics()};
+  std::cout << "- mean: " << stat.mean << '\n'
+			<< "- mean error: " << stat.mean_err << '\n'
+			<< "- sigma: " << stat.sigma << '\n'
+			<< "- median: " << stat.median << '\n';
+
+  std::ofstream out_file{"results.txt"};
+  if (!out_file) {
+	throw std::runtime_error{"Impossible to open file!"};
+  }
+  out_file << "- Read data:" << data.size() << '\n';
+  out_file << "- mean: " << stat.mean << '\n'
+		   << "- sigma: " << stat.sigma << '\n'
+		   << "- mean error: " << stat.mean_err << '\n'
+		   << "- median: " << stat.median << '\n';
+  std::cout << "Output file written successfully" << '\n';
 		return;
+		*/
 	case 's':
 		return;
 	case 'f':
 		return;
-
 	case 'q':
 		return 0;
-	}
-
 	default:
-		std::cout << "Invalid input. Type \'h\' to see a list of commands.\n"
-		break
-	*/
+		std::cout << "Invalid input. Type \'h\' to see a list of commands.\n";
+		break;
+	}
 
 	billiard.runSimulation();
 
