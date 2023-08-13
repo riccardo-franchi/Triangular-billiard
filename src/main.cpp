@@ -105,4 +105,20 @@ int main()
 	std::cout << "Out of " << N << " particles, " << billiard.size() << " were generated with valid parameters.\n";
 	std::cout << "Of those, " << escParts << " escaped the billiard (" << escPerc << "%).\n";
 	std::cout << "***\n";
+
+	char command{};
+	switch (command)
+	{
+	case 'g':
+		return;
+	case 'r':
+		return;
+	case 's':
+		return;
+	case 'o':
+		return;
+
+	case 'q':
+		return 0;
+	}
 }
