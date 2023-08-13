@@ -68,41 +68,57 @@ int main()
 
 	std::normal_distribution<double> dist_th{mu_th0, sigma_th0};
 
+	int N{};
+	std::cout << "Insert the number of particles in the simulation: ";
+	getInput(N);
+
+	for (int n{0}; n != N; ++n)
+	{
+		Particle particle{dist_y(engine), dist_th(engine)};
+
+		if (std::abs(particle.y) < r1 && std::abs(particle.theta) < M_PI_2)
+		{
+			billiard.push_back(particle);
+		}
+	}
+
 	std::cout << "Enter a command:"
 			  << "g = generate a sample of N data"
 			  << "r = read the sample's datas from a file"
 			  << "s = calculate sample's statstics"
 			  << "o = calculate sample's statics and print them on a file"
 			  << "q = exit";
-	char command{};
-	switch (command)
-	{
-	case 'g':
-		int N{};
-		std::cout << "Insert the number of particles in the simulation: ";
-
-		getInput(N);
-
-		for (int n{0}; n != N; ++n)
+	/*
+		char command{};
+		switch (command)
 		{
-			Particle particle{dist_y(engine), dist_th(engine)};
+		case 'g':
+			int N{};
+			std::cout << "Insert the number of particles in the simulation: ";
+			getInput(N);
 
-			if (std::abs(particle.y) < r1 && std::abs(particle.theta) < M_PI_2)
+			for (int n{0}; n != N; ++n)
 			{
-				billiard.push_back(particle);
-			}
-		}
-		return;
-	case 'r':
-		return;
-	case 's':
-		return;
-	case 'o':
-		return;
+				Particle particle{dist_y(engine), dist_th(engine)};
 
-	case 'q':
-		return 0;
-	}
+				if (std::abs(particle.y) < r1 && std::abs(particle.theta) < M_PI_2)
+				{
+					billiard.push_back(particle);
+				}
+			}
+
+			return N;
+		case 'r':
+			return;
+		case 's':
+			return;
+		case 'o':
+			return;
+
+		case 'q':
+			return 0;
+		}
+		*/
 
 	billiard.runSimulation();
 

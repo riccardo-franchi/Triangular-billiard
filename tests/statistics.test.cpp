@@ -29,15 +29,15 @@ TEST_CASE("Testing statistics() throws")
 	}
 }
 
-TEST_CASE("Testing statistics() numerical values")
+TEST_CASE("Testing statistics() numerical values, alfa < 0")
 {
 
 	Billiard billiard{5., 3., 13.};
 
 	SUBCASE("Two particles")
 	{
-		billiard.push_back({1.85, 0.});		   // no collisions
-		billiard.push_back({1, 0.0767718913}); // no collisions, y_f = 2
+		billiard.push_back({1.85, 0.});			// no collisions
+		billiard.push_back({1., 0.0767718913}); // no collisions, y_f = 2
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation(), billiard.getL()),
 								 Statistics{1.925, 0.106066, 0.03838594565, 0.0542859}));
@@ -71,5 +71,28 @@ TEST_CASE("Testing statistics() numerical values")
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation(), billiard.getL()),
 								 Statistics{-0.383814280325, 1.10687, -0.872368831025, 0.658613}));
+	}
+}
+
+TEST_CASE("Testing statistics() numerical values, alfa > 0")
+{
+
+	Billiard billiard{3., 5., 13.};
+
+	SUBCASE("Two particles")
+	{
+		billiard.push_back({1., 0.0767718913}); // no collisions, y_f = 2
+		billiard.push_back({0., 0.1526493284}); // no collisions, y_f = 2
+
+		CHECK(statisticsApproxEq(statistics(billiard.runSimulation(), billiard.getL()),
+								 Statistics{2., 0., 0.11471061, 0.05365345}));
+	}
+	SUBCASE("Same particles")
+	{
+		billiard.push_back({1., 0.4340593973}); // one collision
+		billiard.push_back({1., 0.4340593973}); // one collision
+
+		CHECK(statisticsApproxEq(statistics(billiard.runSimulation(), billiard.getL()),
+								 Statistics{3.1464764743, 0., -0.1287607405, 0.}));
 	}
 }
