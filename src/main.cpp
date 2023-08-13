@@ -87,13 +87,26 @@ int main()
 			  << "r = read the sample's particles from a file and run the simulation\n"
 			  << "s = print results' statistics onscreen\n"
 			  << "f = save results' statistics on a file\n"
-			  << "q = quit the program\n";
+			  << "q = quit the program\n"
+			  << "h = list of commands\n";
 
 	/*
 	char command{};
 	switch (command)
 	{
 	case 'g':
+
+		std::cout << "Insert the y-value of the left and right vertices of the billiard, and its lenght. Separate the "
+				 "inputs with a space: ";
+	double r1{};
+	double r2{};
+	double l{};
+
+	getInput(r1);
+	getInput(r2);
+	getInput(l);
+
+	Billiard billiard{r1, r2, l};
 		int N{};
 		std::cout << "Insert the number of particles in the simulation: ";
 		getInput(N);
@@ -111,7 +124,8 @@ int main()
 		billiard.runSimulation();
 
 		std::cout << "Simulation of " << N << " particles successfully run.\n";
-		std::cout << "Type \'s\' to print onscreen statistics, or 'f' to save them on a file"
+		std::cout << "Type \'s\' to print onscreen statistics, or 'f' to save them on a file.\n";
+		break
 
 		return N;
 	case 'r':
@@ -126,7 +140,8 @@ int main()
 	}
 
 	default:
-	break
+		std::cout << "Invalid input. Type \'h\' to see a list of commands.\n"
+		break
 	*/
 
 	billiard.runSimulation();
