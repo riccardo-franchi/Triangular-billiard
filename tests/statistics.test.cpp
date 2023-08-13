@@ -13,6 +13,19 @@ bool statisticsApproxEq(const Statistics& stat1, const Statistics& stat2)
 			stat1.sigma_theta == doctest::Approx(stat2.sigma_theta).epsilon(epsilon));
 }
 
+bool statisticsApproxEq2(const Statistics& stat1, const Statistics& stat2)
+{
+	const double epsilon{0.0001};
+	return (stat1.mean_y == doctest::Approx(stat2.mean_y).epsilon(epsilon) &&
+			stat1.sigma_y == doctest::Approx(stat2.sigma_y).epsilon(epsilon) &&
+			stat1.mean_theta == doctest::Approx(stat2.mean_theta).epsilon(epsilon) &&
+			stat1.sigma_theta == doctest::Approx(stat2.sigma_theta).epsilon(epsilon) &&
+			stat1.skewness_y == doctest::Approx(stat2.skewness_y).epsilon(epsilon) &&
+			stat1.skewness_th == doctest::Approx(stat2.skewness_th).epsilon(epsilon) &&
+			stat1.kurtosis_y == doctest::Approx(stat2.kurtosis_y).epsilon(epsilon) &&
+			stat1.kurtosis_th == doctest::Approx(stat2.kurtosis_th).epsilon(epsilon));
+}
+
 TEST_CASE("Testing statistics() throws")
 {
 	Billiard billiard{5., 3., 13.};
@@ -70,15 +83,16 @@ TEST_CASE("Testing statistics() numerical values, alfa < 0")
 								 Statistics{0.3537533333, 1.90354, -0.194315976, 0.523057}));
 	}
 
-	SUBCASE("Four particles")
+	SUBCASE("Four particles w/ skewness and kurtosis")
 	{
 		billiard.push_back({0., 0.});			  // no collisions
 		billiard.push_back({1., 0.4357084939});	  // one collision, fin. (-1.9791249643, -0.7410071507)
 		billiard.push_back({2., -0.6654199111});  // two collisions, fin. (0.5749856482, -1.2760172247)
 		billiard.push_back({2.65, 0.5565549784}); // three collision, fin. (-0.1311178052, -1.4724509487)
 
-		CHECK(statisticsApproxEq(statistics(billiard.runSimulation(), billiard.getL()),
-								 Statistics{-0.383814280325, 1.10687, -0.872368831025, 0.658613}));
+		CHECK(statisticsApproxEq2(
+			statistics(billiard.runSimulation(), billiard.getL()),
+			Statistics{-0.383814280325, 1.10687, -0.872368831025, 0.658613, 0.84143, 0.21908, 2.03857, 1.32697}));
 	}
 }
 
