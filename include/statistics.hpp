@@ -18,6 +18,7 @@ struct Statistics
 	double skewness_th{};
 	double kurtosis_y{};
 	double kurtosis_th{};
+	int escPartsNum{};
 };
 
 struct Sums
@@ -96,8 +97,9 @@ Statistics statistics(const std::vector<Particle>& particles, const double l)
 	double const skewness_th{gaps.th3 / (N * sigma_th * sigma_th * sigma_th)};
 	double const kurtosis_y{gaps.y4 / (N * sigma_y * sigma_y * sigma_y * sigma_y)};
 	double const kurtosis_th{gaps.th4 / (N * sigma_th * sigma_th * sigma_th * sigma_th)};
+	int const escPartsNum{static_cast<int>(escParts.size())};
 
-	return {mean_y, sigma_y, mean_th, sigma_th, skewness_y, skewness_th, kurtosis_y, kurtosis_th};
+	return {mean_y, sigma_y, mean_th, sigma_th, skewness_y, skewness_th, kurtosis_y, kurtosis_th, escPartsNum};
 }
 
 #endif // STATISTICS_HPP
