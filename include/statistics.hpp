@@ -38,8 +38,6 @@ struct Gaps
 
 Statistics statistics(const std::vector<Particle>& particles, const double l)
 {
-	Sums sums{};
-
 	// Copy all the particles that have escaped the billiard
 	std::vector<Particle> escParts{};
 	escParts.reserve(particles.size());
@@ -47,27 +45,27 @@ Statistics statistics(const std::vector<Particle>& particles, const double l)
 						[l](const Particle& p) { return p.x < l; });
 	escParts.shrink_to_fit();
 
-	int const N{static_cast<int>(escParts.size())};
+	const int N{static_cast<int>(escParts.size())};
 
 	if (N < 2)
 	{
 		throw std::runtime_error{"Not enough entries to run a statistics"};
 	}
 
-	sums = std::accumulate(escParts.begin(), escParts.end(), Sums{},
-						   [](Sums s, Particle p)
-						   {
-							   s.yf += p.y;
-							   s.yf2 += p.y * p.y;
-							   s.th += p.theta;
-							   s.th2 += p.theta * p.theta;
-							   return s;
-						   });
+	const Sums sums{std::accumulate(escParts.begin(), escParts.end(), Sums{},
+									[](Sums s, Particle p)
+									{
+										s.yf += p.y;
+										s.yf2 += p.y * p.y;
+										s.th += p.theta;
+										s.th2 += p.theta * p.theta;
+										return s;
+									})};
 
-	double const mean_y{sums.yf / N};
-	double const sigma_y{std::sqrt((sums.yf2 - N * mean_y * mean_y) / (N - 1))};	// why not mean sigma?
-	double const mean_th{sums.th / N};
-	double const sigma_th{std::sqrt((sums.th2 - N * mean_th * mean_th) / (N - 1))}; // idem
+	const double mean_y{sums.yf / N};
+	const double sigma_y{std::sqrt((sums.yf2 - N * mean_y * mean_y) / (N - 1))};	// why not mean sigma?
+	const double mean_th{sums.th / N};
+	const double sigma_th{std::sqrt((sums.th2 - N * mean_th * mean_th) / (N - 1))}; // idem
 
 	const Gaps gaps{std::accumulate(escParts.begin(), escParts.end(), Gaps{},
 									[mean_y, mean_th](Gaps g, Particle p)
@@ -80,10 +78,10 @@ Statistics statistics(const std::vector<Particle>& particles, const double l)
 										return g;
 									})};
 
-	double const skewness_y{gaps.y3 / (N * sigma_y * sigma_y * sigma_y)};
-	double const skewness_th{gaps.th3 / (N * sigma_th * sigma_th * sigma_th)};
-	double const kurtosis_y{gaps.y4 / (N * sigma_y * sigma_y * sigma_y * sigma_y)};
-	double const kurtosis_th{gaps.th4 / (N * sigma_th * sigma_th * sigma_th * sigma_th)};
+	const double skewness_y{gaps.y3 / (N * sigma_y * sigma_y * sigma_y)};
+	const double skewness_th{gaps.th3 / (N * sigma_th * sigma_th * sigma_th)};
+	const double kurtosis_y{gaps.y4 / (N * sigma_y * sigma_y * sigma_y * sigma_y)};
+	const double kurtosis_th{gaps.th4 / (N * sigma_th * sigma_th * sigma_th * sigma_th)};
 
 	return {mean_y, sigma_y, mean_th, sigma_th, skewness_y, skewness_th, kurtosis_y, kurtosis_th};
 }
