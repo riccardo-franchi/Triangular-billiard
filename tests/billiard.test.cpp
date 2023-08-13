@@ -27,6 +27,11 @@ TEST_CASE("Testing the runSimulation() function")
 		CHECK_THROWS(billiard.push_back({1.1, -13.}));
 	}
 
+	SUBCASE("Check throw if there are no particles")
+	{
+		CHECK_THROWS(billiard.runSimulation());
+	}
+
 	SUBCASE("No collisions, theta > 0")
 	{
 		billiard.push_back({-2.47, 0.32083});
