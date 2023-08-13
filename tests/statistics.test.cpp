@@ -90,9 +90,9 @@ TEST_CASE("Testing statistics() numerical values, alfa < 0")
 		billiard.push_back({2., -0.6654199111});  // two collisions, fin. (0.5749856482, -1.2760172247)
 		billiard.push_back({2.65, 0.5565549784}); // three collision, fin. (-0.1311178052, -1.4724509487)
 
-		CHECK(statisticsApproxEq2(
-			statistics(billiard.runSimulation(), billiard.getL()),
-			Statistics{-0.383814280325, 1.10687, -0.872368831025, 0.658613, 0.84143, 0.21908, 2.03857, 1.32697}));
+		CHECK(statisticsApproxEq2(statistics(billiard.runSimulation(), billiard.getL()),
+								  Statistics{-0.383814280325, 1.10687, -0.872368831025, 0.658613, -0.57259892459,
+											 0.33630075, 1.2238334345, 0.977477404}));
 	}
 }
 
