@@ -29,6 +29,11 @@ const std::vector<Particle>& Billiard::runSimulation()
 {
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
+	if (m_particles.size() == 0)
+	{
+		throw std::domain_error{"No particles to be evolved"};
+	}
+
 	std::transform(/*std::execution::par_unseq,*/ m_particles.begin(), m_particles.end(), m_particles.begin(),
 				   [&](const Particle& p) { return calcTrajectory(p, alpha); });
 
