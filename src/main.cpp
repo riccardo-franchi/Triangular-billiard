@@ -82,43 +82,52 @@ int main()
 		}
 	}
 
-	std::cout << "Enter a command:"
-			  << "g = generate a sample of N data"
-			  << "r = read the sample's datas from a file"
-			  << "s = calculate sample's statstics"
-			  << "o = calculate sample's statics and print them on a file"
-			  << "q = exit";
+	std::cout << "Enter a command:\n"
+			  << "g = generate a sample of N particles and run the simulation\n"
+			  << "r = read the sample's particles from a file and run the simulation\n"
+			  << "s = print results' statistics onscreen\n"
+			  << "f = save results' statistics on a file\n"
+			  << "q = quit the program\n";
+
 	/*
-		char command{};
-		switch (command)
+	char command{};
+	switch (command)
+	{
+	case 'g':
+		int N{};
+		std::cout << "Insert the number of particles in the simulation: ";
+		getInput(N);
+
+		for (int n{0}; n != N; ++n)
 		{
-		case 'g':
-			int N{};
-			std::cout << "Insert the number of particles in the simulation: ";
-			getInput(N);
+			Particle particle{dist_y(engine), dist_th(engine)};
 
-			for (int n{0}; n != N; ++n)
+			if (std::abs(particle.y) < r1 && std::abs(particle.theta) < M_PI_2)
 			{
-				Particle particle{dist_y(engine), dist_th(engine)};
-
-				if (std::abs(particle.y) < r1 && std::abs(particle.theta) < M_PI_2)
-				{
-					billiard.push_back(particle);
-				}
+				billiard.push_back(particle);
 			}
-
-			return N;
-		case 'r':
-			return;
-		case 's':
-			return;
-		case 'o':
-			return;
-
-		case 'q':
-			return 0;
 		}
-		*/
+
+		billiard.runSimulation();
+
+		std::cout << "Simulation of " << N << " particles successfully run.\n";
+		std::cout << "Type \'s\' to print onscreen statistics, or 'f' to save them on a file"
+
+		return N;
+	case 'r':
+		return;
+	case 's':
+		return;
+	case 'f':
+		return;
+
+	case 'q':
+		return 0;
+	}
+
+	default:
+	break
+	*/
 
 	billiard.runSimulation();
 
