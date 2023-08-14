@@ -104,6 +104,7 @@ int main()
 			}
 
 			billiard.runSimulation();
+			std::cout << "***\n";
 			std::cout << "Simulation of " << N << " particles successfully run.\n";
 			std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
 			std::cout << "***\n";
@@ -208,7 +209,7 @@ int main()
 		}
 		case 'q':
 		{
-			return false;
+			return 0;
 		}
 		default:
 		{
