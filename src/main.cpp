@@ -175,7 +175,7 @@ int main()
 			std::cout << "***\n";
 			break;
 		}
-		/* case 'f':
+		case 'f':
 		{
 			const auto stat{statistics(billiard.getParticles(), l)};
 			std::ofstream out_file{"results.txt"};
@@ -185,11 +185,14 @@ int main()
 			}
 			if (out_file.is_open())
 			{
-				out_file << "- Read data:" << billiard.size() << '\n';
-				out_file << "- mean: " << stat.mean << '\n'
-						 << "- sigma: " << stat.sigma << '\n'
-						 << "- mean error: " << stat.mean_err << '\n'
-						 << "- median: " << stat.median << '\n';
+				out_file << "y_f mean: " << stat.mean_y << '\n';
+				out_file << "y_f sigma: " << stat.sigma_y << '\n';
+				out_file << "theta_f mean: " << stat.mean_theta << '\n';
+				out_file << "theta_f sigma: " << stat.sigma_theta << '\n';
+				out_file << "y_f skewness: " << stat.skewness_y << '\n';
+				out_file << "theta_f skewness: " << stat.skewness_th << '\n';
+				out_file << "y_f kurtosis: " << stat.kurtosis_y << '\n';
+				out_file << "theta_f kurtosis: " << stat.kurtosis_th << '\n';
 				std::cout << "Output file written successfully" << '\n';
 			}
 			else
@@ -197,7 +200,7 @@ int main()
 				throw std::runtime_error{"Impossible to open file!"};
 			}
 			break;
-		}*/
+		}
 		case 'q':
 		{
 			return false;
