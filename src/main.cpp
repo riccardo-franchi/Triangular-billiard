@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 #include <stdexcept>
+#include <string>
 
 #include "../include/billiard.hpp"
 #include "../include/statistics.hpp"
@@ -109,7 +110,13 @@ int main()
 		}
 		case 'r':
 		{
-			std::ifstream in_file("data.txt");
+			billiard.empty();
+
+			std::string fileName;
+			std::cout << "Insert the file name: ";
+			std::cin >> fileName;
+
+			std::ifstream in_file(fileName.c_str());
 			if (!in_file)
 			{
 				throw std::runtime_error{"File not found!"};
@@ -118,14 +125,30 @@ int main()
 			{
 				double y;
 				double theta;
+				int invalidParts{0};
 				while (in_file >> y >> theta)
 				{
-					Particle particle{y, theta};
-					billiard.push_back(particle);
-					std::cout << y << " " << theta << '\n';
+					if (std::abs(y) < r1 && std::abs(theta) < M_PI_2)
+					{
+						Particle particle{y, theta};
+						billiard.push_back(particle);
+					}
+					else
+					{
+						++invalidParts;
+					}
 				}
-				std::cout << "Input file read successfully" << '\n';
 				billiard.runSimulation();
+				std::cout << "Input file read successfully, simulation run." << '\n';
+				if (invalidParts != 0)
+				{
+					std::cout << invalidParts << " particles had invalid initial coordinates and have been excluded.\n";
+				}
+				else
+				{
+					std::cout << "All particles had valid initial coordinates.\n";
+				}
+				std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
 			}
 			else
 			{
@@ -145,14 +168,14 @@ int main()
 			std::cout << "theta_f skewness: " << stat.skewness_th << '\n';
 			std::cout << "y_f kurtosis: " << stat.kurtosis_y << '\n';
 			std::cout << "theta_f kurtosis: " << stat.kurtosis_th << '\n';
-			std::cout << "Out of " << N << " particles, " << billiard.size()
-					  << " were generated with valid parameters.\n";
+			std::cout << /* "Out of " << N << " particles, " <<*/ billiard.size()
+					  << " particles were generated with valid parameters.\n";
 			const float escPerc{static_cast<float>(stat.escPartsNum * 100 / billiard.size())};
 			std::cout << "Of those, " << stat.escPartsNum << " escaped the billiard (" << escPerc << "%).\n";
 			std::cout << "***\n";
 			break;
 		}
-		case 'f':
+		/* case 'f':
 		{
 			const auto stat{statistics(billiard.getParticles(), l)};
 			std::ofstream out_file{"results.txt"};
@@ -174,7 +197,7 @@ int main()
 				throw std::runtime_error{"Impossible to open file!"};
 			}
 			break;
-		}
+		}*/
 		case 'q':
 		{
 			return false;
