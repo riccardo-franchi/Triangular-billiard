@@ -106,35 +106,26 @@ int main()
 			std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
 			break;
 		}
-			/*
 		case 'r':
+		{
 			std::ifstream in_file("data.txt");
-		  if (!in_file) {
-			throw std::runtime_error{"Impossible to open file!"};
-		  }
-		  double x;
-		  while (in_file >> x) {
-			data.add(x);
-		  }
-		  std::cout << "Input file read successfully" << '\n';
-		  const auto stat{data.statistics()};
-		  std::cout << "- mean: " << stat.mean << '\n'
-					<< "- mean error: " << stat.mean_err << '\n'
-					<< "- sigma: " << stat.sigma << '\n'
-					<< "- median: " << stat.median << '\n';
-
-		  std::ofstream out_file{"results.txt"};
-		  if (!out_file) {
-			throw std::runtime_error{"Impossible to open file!"};
-		  }
-		  out_file << "- Read data:" << data.size() << '\n';
-		  out_file << "- mean: " << stat.mean << '\n'
-				   << "- sigma: " << stat.sigma << '\n'
-				   << "- mean error: " << stat.mean_err << '\n'
-				   << "- median: " << stat.median << '\n';
-		  std::cout << "Output file written successfully" << '\n';
+			if (in_file.is_open())
+			{
+				if (!in_file)
+				{
+					throw std::runtime_error{"Impossible to open file!"};
+				}
+				double y;
+				double theta;
+				while (in_file >> y >> theta)
+				{
+					Particle particle{y, theta};
+					billiard.push_back(particle);
+				}
+				std::cout << "Input file read successfully" << '\n';
+			}
 			break;
-			*/
+		}
 		case 's':
 		{
 			const auto stat{statistics(billiard.getParticles(), l)};
@@ -156,6 +147,17 @@ int main()
 		}
 			/*
 		case 'f':
+			std::ofstream out_file{"results.txt"};
+			if (!out_file)
+			{
+				throw std::runtime_error{"Impossible to open file!"};
+			}
+			out_file << "- Read data:" << data.size() << '\n';
+			out_file << "- mean: " << stat.mean << '\n'
+					 << "- sigma: " << stat.sigma << '\n'
+					 << "- mean error: " << stat.mean_err << '\n'
+					 << "- median: " << stat.median << '\n';
+			std::cout << "Output file written successfully" << '\n';
 			break;
 			*/
 		case 'q':
