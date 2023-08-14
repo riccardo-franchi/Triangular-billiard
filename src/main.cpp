@@ -106,6 +106,7 @@ int main()
 			billiard.runSimulation();
 			std::cout << "Simulation of " << N << " particles successfully run.\n";
 			std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
+			std::cout << "***\n";
 			break;
 		}
 		case 'r':
@@ -139,6 +140,7 @@ int main()
 					}
 				}
 				billiard.runSimulation();
+				std::cout << "***\n";
 				std::cout << "Input file read successfully, simulation run." << '\n';
 				if (invalidParts != 0)
 				{
@@ -148,12 +150,14 @@ int main()
 				{
 					std::cout << "All particles had valid initial coordinates.\n";
 				}
+				std::cout << "***\n";
 				std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
 			}
 			else
 			{
 				throw std::runtime_error{"Impossible to open file!"};
 			}
+			std::cout << "***\n";
 			break;
 		}
 		case 's':
@@ -193,12 +197,13 @@ int main()
 				out_file << "theta_f skewness: " << stat.skewness_th << '\n';
 				out_file << "y_f kurtosis: " << stat.kurtosis_y << '\n';
 				out_file << "theta_f kurtosis: " << stat.kurtosis_th << '\n';
-				std::cout << "Output file written successfully" << '\n';
+				std::cout << "Output file written successfully. Type \'s\' to print the results onscreen.\n";
 			}
 			else
 			{
 				throw std::runtime_error{"Impossible to open file!"};
 			}
+			std::cout << "***\n";
 			break;
 		}
 		case 'q':
