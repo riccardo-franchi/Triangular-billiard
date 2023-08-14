@@ -66,6 +66,8 @@ int main()
 		}
 		case 'g':
 		{
+			billiard.clear();
+
 			std::default_random_engine engine{std::random_device{}()};
 
 			std::cout << "Insert the mean and sigma of the normal distribution of y_0: ";
