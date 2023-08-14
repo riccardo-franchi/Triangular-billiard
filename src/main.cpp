@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <execution>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <random>
 #include <stdexcept>
@@ -90,7 +91,7 @@ int main()
 	const auto stats{statistics(billiard.getParticles())};
 
 	const int escParts{statistics.getN()};
-	const float escPerc{static_cast<float>(escParts * 100 / billiard.size())};
+	const double escPerc{escParts * 100. / billiard.size()};
 
 	std::cout << "***\n";
 	std::cout << "y_f mean: " << stats.y.mean << ", y_0 mean was " << mu_y0 << '\n';
@@ -102,6 +103,6 @@ int main()
 	std::cout << "theta_f skewness: " << stats.theta.skewness << '\n';
 	std::cout << "theta_f kurtosis: " << stats.theta.kurtosis << "\n\n";
 	std::cout << "Out of " << N << " particles, " << billiard.size() << " were generated with valid parameters.\n";
-	std::cout << "Of those, " << escParts << " escaped the billiard (" << escPerc << "%).\n";
+	std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 	std::cout << "***\n";
 }
