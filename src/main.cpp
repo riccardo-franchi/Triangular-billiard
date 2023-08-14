@@ -160,7 +160,7 @@ int main()
 			{
 				throw std::runtime_error{"Impossible to open file!"};
 			}
-			if (in_file.is_open())
+			if (out_file.is_open())
 			{
 				out_file << "- Read data:" << billiard.size() << '\n';
 				out_file << "- mean: " << stat.mean << '\n'
