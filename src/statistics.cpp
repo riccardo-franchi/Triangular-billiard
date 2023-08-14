@@ -1,67 +1,75 @@
 #include "../include/statistics.hpp"
 
+#include <cmath>
+#include <numeric>
+#include <stdexcept>
+
+struct Sums
+{
+	double x{};
+	double x2{};
+};
+
+struct Moments
+{
+	double x3{};
+	double x4{};
+};
+
 Statistics::Results Statistics::operator()(const std::vector<Particle>& particles)
 {
-	struct Sums
+	// Create vector of y and theta values of escaped particles
+	std::vector<double> y{};
+	std::vector<double> theta{};
+	y.reserve(particles.size());
+	theta.reserve(particles.size());
+	// TODO: check efficiency with std::remove_copy_if
+	for (const auto& p : particles)
 	{
-		double yf{};
-		double yf2{};
-		double th{};
-		double th2{};
-	};
+		if (p.x == m_l)
+		{
+			y.push_back(p.y);
+			theta.push_back(p.theta);
+		}
+	}
+	y.shrink_to_fit();
+	theta.shrink_to_fit();
 
-	struct Gaps
-	{
-		double y3{};
-		double th3{};
-		double y4{};
-		double th4{};
-	};
-
-	// Copy all the particles that have escaped the billiard
-	std::vector<Particle> escParts{};
-	escParts.reserve(particles.size());
-	std::remove_copy_if(particles.begin(), particles.end(), std::back_inserter(escParts),
-						[this](const Particle& p) { return p.x < m_l; });
-	escParts.shrink_to_fit();
-
-	m_N = static_cast<int>(escParts.size());
+	m_N = static_cast<int>(y.size());
 
 	if (m_N < 2)
 	{
 		throw std::runtime_error{"Not enough entries to run a statistics"};
 	}
 
-	const Sums sums{std::accumulate(escParts.begin(), escParts.end(), Sums{},
-									[](Sums s, Particle p)
+	return {computeStats(y), computeStats(theta)};
+}
+
+Statistics::Stats Statistics::computeStats(const std::vector<double>& data)
+{
+
+	const Sums sums{std::accumulate(data.begin(), data.end(), Sums{},
+									[](Sums s, double x)
 									{
-										s.yf += p.y;
-										s.yf2 += p.y * p.y;
-										s.th += p.theta;
-										s.th2 += p.theta * p.theta;
+										s.x += x;
+										s.x2 += x * x;
 										return s;
 									})};
 
-	const double mean_y{sums.yf / m_N};
-	const double sigma_y{std::sqrt((sums.yf2 - m_N * mean_y * mean_y) / (m_N - 1))};	// why not mean sigma?
-	const double mean_th{sums.th / m_N};
-	const double sigma_th{std::sqrt((sums.th2 - m_N * mean_th * mean_th) / (m_N - 1))}; // idem
+	const double mean{sums.x / m_N};
+	const double sigma{std::sqrt((sums.x2 - m_N * mean * mean) / (m_N - 1))};
 
-	const Gaps gaps{std::accumulate(escParts.begin(), escParts.end(), Gaps{},
-									[mean_y, mean_th](Gaps g, Particle p)
-									{
-										g.y3 += (p.y - mean_y) * (p.y - mean_y) * (p.y - mean_y);
-										g.y4 += (p.y - mean_y) * (p.y - mean_y) * (p.y - mean_y) * (p.y - mean_y);
-										g.th3 += (p.theta - mean_th) * (p.theta - mean_th) * (p.theta - mean_th);
-										g.th4 += (p.theta - mean_th) * (p.theta - mean_th) * (p.theta - mean_th) *
-												 (p.theta - mean_th);
-										return g;
-									})};
+	const Moments gaps{std::accumulate(data.begin(), data.end(), Moments{},
+									   [mean](Moments m, double x)
+									   {
+										   const double gap{x - mean};
+										   m.x3 += std::pow(gap, 3);
+										   m.x4 += std::pow(gap, 4);
+										   return m;
+									   })};
 
-	const double skewness_y{gaps.y3 / (m_N * sigma_y * sigma_y * sigma_y)};
-	const double skewness_th{gaps.th3 / (m_N * sigma_th * sigma_th * sigma_th)};
-	const double kurtosis_y{gaps.y4 / (m_N * sigma_y * sigma_y * sigma_y * sigma_y)};
-	const double kurtosis_th{gaps.th4 / (m_N * sigma_th * sigma_th * sigma_th * sigma_th)};
+	const double skewness{gaps.x3 / (m_N * std::pow(sigma, 3))};
+	const double kurtosis{gaps.x4 / (m_N * std::pow(sigma, 4))};
 
-	return {{mean_y, sigma_y, skewness_y, kurtosis_y}, {mean_th, sigma_th, skewness_th, kurtosis_th}};
+	return {mean, sigma, skewness, kurtosis};
 }

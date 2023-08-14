@@ -3,9 +3,6 @@
 
 #include "particle.hpp"
 
-#include <cmath>
-#include <numeric>
-#include <stdexcept>
 #include <vector>
 
 class Statistics
@@ -31,6 +28,8 @@ public:
 	Results operator()(const std::vector<Particle>& particles);
 
 private:
+	Stats computeStats(const std::vector<double>& data);
+
 	const double m_l{};
 
 	int m_N{};
