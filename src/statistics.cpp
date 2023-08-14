@@ -4,14 +4,12 @@
 #include <numeric>
 #include <stdexcept>
 
-struct Sums
-{
-	double x{};
-	double x2{};
-};
+#include <chrono>
+#include <iostream>
 
 struct Moments
 {
+	double x2{};
 	double x3{};
 	double x4{};
 };
@@ -46,27 +44,22 @@ Statistics::Results Statistics::operator()(const std::vector<Particle>& particle
 
 Statistics::Stats Statistics::computeStats(const std::vector<double>& data)
 {
+	const auto t1{std::chrono::high_resolution_clock::now()};
 
-	const Sums sums{std::accumulate(data.begin(), data.end(), Sums{},
-									[](Sums s, double x)
-									{
-										s.x += x;
-										s.x2 += x * x;
-										return s;
-									})};
-
-	const double mean{sums.x / m_N};
-	const double sigma{std::sqrt((sums.x2 - m_N * mean * mean) / (m_N - 1))};
+	const double sum{std::accumulate(data.begin(), data.end(), 0., [](double s, double x) { return s += x; })};
+	const double mean{sum / m_N};
 
 	const Moments gaps{std::accumulate(data.begin(), data.end(), Moments{},
 									   [mean](Moments m, double x)
 									   {
 										   const double gap{x - mean};
+										   m.x2 += std::pow(gap, 2);
 										   m.x3 += std::pow(gap, 3);
 										   m.x4 += std::pow(gap, 4);
 										   return m;
 									   })};
 
+	const double sigma{std::sqrt(gaps.x2 / (m_N - 1))};
 	const double skewness{gaps.x3 / (m_N * std::pow(sigma, 3))};
 	const double kurtosis{gaps.x4 / (m_N * std::pow(sigma, 4))};
 
