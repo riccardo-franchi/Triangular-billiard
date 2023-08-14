@@ -38,7 +38,7 @@ Statistics::Results Statistics::operator()(const std::vector<Particle>& particle
 
 	if (m_N < 2)
 	{
-		throw std::runtime_error{"Not enough entries to run a statistics"};
+		throw std::runtime_error{"Not enough entries to compute statistics"};
 	}
 
 	return {computeStats(y), computeStats(theta)};
