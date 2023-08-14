@@ -67,6 +67,7 @@ int main()
 		case 'g':
 		{
 			billiard.clear();
+			// static_assert(billiard.size() == 0);
 
 			std::default_random_engine engine{std::random_device{}()};
 
@@ -109,20 +110,26 @@ int main()
 		case 'r':
 		{
 			std::ifstream in_file("data.txt");
+			if (!in_file)
+			{
+				throw std::runtime_error{"File not found!"};
+			}
 			if (in_file.is_open())
 			{
-				if (!in_file)
-				{
-					throw std::runtime_error{"Impossible to open file!"};
-				}
 				double y;
 				double theta;
 				while (in_file >> y >> theta)
 				{
 					Particle particle{y, theta};
 					billiard.push_back(particle);
+					std::cout << y << " " << theta << '\n';
 				}
 				std::cout << "Input file read successfully" << '\n';
+				billiard.runSimulation();
+			}
+			else
+			{
+				throw std::runtime_error{"Impossible to open file!"};
 			}
 			break;
 		}
@@ -130,8 +137,8 @@ int main()
 		{
 			const auto stat{statistics(billiard.getParticles(), l)};
 			std::cout << "***\n";
-			std::cout << "y_f mean: " << stat.mean_y << ", y_0 mean was " << mu_y0 << '\n';
-			std::cout << "y_f sigma: " << stat.sigma_y << ", y_0 sigma was " << sigma_y0 << '\n';
+			std::cout << "y_f mean: " << stat.mean_y << '\n';
+			std::cout << "y_f sigma: " << stat.sigma_y << '\n';
 			std::cout << "theta_f mean: " << stat.mean_theta << ", theta_0 mean was " << mu_th0 << '\n';
 			std::cout << "theta_f sigma: " << stat.sigma_theta << ", theta_0 sigma was " << sigma_th0 << '\n';
 			std::cout << "y_f skewness: " << stat.skewness_y << '\n';
@@ -145,8 +152,8 @@ int main()
 			std::cout << "***\n";
 			break;
 		}
-			/*
 		case 'f':
+		{
 			std::ofstream out_file{"results.txt"};
 			if (!out_file)
 			{
@@ -159,7 +166,7 @@ int main()
 					 << "- median: " << stat.median << '\n';
 			std::cout << "Output file written successfully" << '\n';
 			break;
-			*/
+		}
 		case 'q':
 		{
 			return false;
