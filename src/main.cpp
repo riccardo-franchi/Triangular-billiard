@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <execution>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <random>
 #include <stdexcept>
@@ -22,7 +23,7 @@ void getInput(T& input)
 
 int main()
 {
-	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its lenght. Separate the "
+	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
 				 "inputs with a space: ";
 	double r1{};
 	double r2{};
@@ -85,24 +86,23 @@ int main()
 
 	billiard.runSimulation();
 
-	int escParts{static_cast<int>(std::count_if(								 /*std::execution::par_unseq,*/
-												billiard.getParticles().begin(), //
-												billiard.getParticles().end(),	 //
-												[l](const Particle& p) { return p.x == l; }))};
+	Statistics statistics{l};
 
-	const float escPerc{static_cast<float>(escParts * 100 / billiard.size())};
+	const auto stats{statistics(billiard.getParticles())};
 
-	const auto stat{statistics(billiard.getParticles(), l)};
+	const int escParts{statistics.getN()};
+	const double escPerc{escParts * 100. / billiard.size()};
+
 	std::cout << "***\n";
-	std::cout << "y_f mean: " << stat.mean_y << ", y_0 mean was " << mu_y0 << '\n';
-	std::cout << "y_f sigma: " << stat.sigma_y << ", y_0 sigma was " << sigma_y0 << '\n';
-	std::cout << "theta_f mean: " << stat.mean_theta << ", theta_0 mean was " << mu_th0 << '\n';
-	std::cout << "theta_f sigma: " << stat.sigma_theta << ", theta_0 sigma was " << sigma_th0 << '\n';
-	std::cout << "y_f skewness: " << stat.skewness_y << '\n';
-	std::cout << "theta_f skewness: " << stat.skewness_th << '\n';
-	std::cout << "y_f kurtosis: " << stat.kurtosis_y << '\n';
-	std::cout << "theta_f kurtosis: " << stat.kurtosis_th << '\n';
+	std::cout << "y_f mean: " << stats.y.mean << ", y_0 mean was " << mu_y0 << '\n';
+	std::cout << "y_f sigma: " << stats.y.sigma << ", y_0 sigma was " << sigma_y0 << '\n';
+	std::cout << "y_f skewness: " << stats.y.skewness << '\n';
+	std::cout << "y_f kurtosis: " << stats.y.kurtosis << '\n';
+	std::cout << "theta_f mean: " << stats.theta.mean << ", theta_0 mean was " << mu_th0 << '\n';
+	std::cout << "theta_f sigma: " << stats.theta.sigma << ", theta_0 sigma was " << sigma_th0 << '\n';
+	std::cout << "theta_f skewness: " << stats.theta.skewness << '\n';
+	std::cout << "theta_f kurtosis: " << stats.theta.kurtosis << "\n\n";
 	std::cout << "Out of " << N << " particles, " << billiard.size() << " were generated with valid parameters.\n";
-	std::cout << "Of those, " << escParts << " escaped the billiard (" << escPerc << "%).\n";
+	std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 	std::cout << "***\n";
 }

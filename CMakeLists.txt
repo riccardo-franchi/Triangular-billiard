@@ -20,7 +20,7 @@ string(APPEND CMAKE_CXX_FLAGS " -Wall -Wextra")
 string(APPEND CMAKE_CXX_FLAGS_DEBUG " -fsanitize=address,undefined -fno-omit-frame-pointer")
 string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " -fsanitize=address,undefined -fno-omit-frame-pointer")
 
-add_executable(main src/main.cpp src/billiard.cpp)
+add_executable(main src/main.cpp src/billiard.cpp src/statistics.cpp)
 target_link_libraries(main PRIVATE TBB::tbb)
 
 # se il testing e' abilitato...
@@ -28,8 +28,8 @@ target_link_libraries(main PRIVATE TBB::tbb)
 if (BUILD_TESTING)
 
   # aggiungi gli eseguibili billiard.test e statistics.test
-  add_executable(billiard.test tests/billiard.test.cpp src/billiard.cpp)
-  add_executable(statistics.test tests/statistics.test.cpp src/billiard.cpp)
+  add_executable(billiard.test tests/billiard.test.cpp src/billiard.cpp src/statistics.cpp)
+  add_executable(statistics.test tests/statistics.test.cpp src/billiard.cpp src/statistics.cpp)
   
   # aggiungi l'eseguibile billiard.test alla lista dei test
   add_test(NAME billiard.test COMMAND billiard.test)
