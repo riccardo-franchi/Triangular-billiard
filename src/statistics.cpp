@@ -23,7 +23,6 @@ Statistics::Results Statistics::operator()(const std::vector<Particle>& particle
 	std::vector<double> theta{};
 	y.reserve(particles.size());
 	theta.reserve(particles.size());
-	// TODO: check efficiency with std::remove_copy_if
 	for (const auto& p : particles)
 	{
 		if (p.x == m_l)
