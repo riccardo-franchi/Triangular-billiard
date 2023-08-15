@@ -31,39 +31,42 @@ void printStars(int n)
 	std::cout << '\n';
 }
 
-void generate(bs::Billiard& billiard)
+void generateParticles(bs::Billiard& billiard)
 {
-	double mu_y0{};
-	double sigma_y0{};
-	double mu_th0{};
-	double sigma_th0{};
+	double meanY0{};
+	double sigmaY0{};
+	double meanTheta0{};
+	double sigmaTheta0{};
 	int N{};
+
 	std::default_random_engine engine{std::random_device{}()};
 
 	std::cout << "Insert the mean and sigma of the normal distribution of y_0: ";
-	getInput(mu_y0);
-	if (std::abs(mu_y0) > billiard.getR1())
+	getInput(meanY0);
+	if (std::abs(meanY0) > billiard.getR1())
 	{
 		throw std::domain_error{"y0 mean has to be between -r1 and +r1"};
 	}
-	getInput(sigma_y0);
-	std::normal_distribution<double> dist_y{mu_y0, std::abs(sigma_y0)};
+
+	getInput(sigmaY0);
+	std::normal_distribution<double> yDistr{meanY0, std::abs(sigmaY0)};
 
 	std::cout << "Insert the mean and sigma of the normal distribution of theta_0: ";
-	getInput(mu_th0);
-	if (std::abs(mu_th0) > M_PI_2)
+	getInput(meanTheta0);
+	if (std::abs(meanTheta0) > M_PI_2)
 	{
 		throw std::domain_error{"theta0 mean has to be between -pi/2 and +pi/2"};
 	}
-	getInput(sigma_th0);
-	std::normal_distribution<double> dist_th{mu_th0, sigma_th0};
+
+	getInput(sigmaTheta0);
+	std::normal_distribution<double> thetaDistr{meanTheta0, std::abs(sigmaTheta0)};
 
 	std::cout << "Insert the number of particles in the simulation: ";
 	getInput(N);
 
 	for (int n{0}; n != N; ++n)
 	{
-		bs::Particle particle{dist_y(engine), dist_th(engine)};
+		bs::Particle particle{yDistr(engine), thetaDistr(engine)};
 
 		if (std::abs(particle.y) < billiard.getR1() && std::abs(particle.theta) < M_PI_2)
 		{
@@ -84,17 +87,17 @@ void read(bs::Billiard& billiard)
 	std::cout << "Insert the file name: ";
 	getInput(fileName);
 
-	std::ifstream in_file(fileName.c_str());
-	if (!in_file)
+	std::ifstream inFile(fileName.c_str());
+	if (!inFile)
 	{
 		throw std::runtime_error{"File not found!"};
 	}
-	if (in_file.is_open())
+	if (inFile.is_open())
 	{
 		double y;
 		double theta;
 		int invalidParts{0};
-		while (in_file >> y >> theta)
+		while (inFile >> y >> theta)
 		{
 			if (std::abs(y) < billiard.getR1() && std::abs(theta) < M_PI_2)
 			{
@@ -161,24 +164,24 @@ void printStatisticsOnFile(bs::Billiard& billiard)
 	std::cout << "Insert the name of the file to be created (include .txt): ";
 	getInput(fileName);
 
-	std::ofstream out_file{fileName.c_str()};
+	std::ofstream outFile{fileName.c_str()};
 
-	if (!out_file)
+	if (!outFile)
 	{
 		throw std::runtime_error{"Impossible to open file!"};
 	}
-	if (out_file.is_open())
+	if (outFile.is_open())
 	{
-		out_file << "y_f mean: " << stats.y.mean << '\n';
-		out_file << "y_f sigma: " << stats.y.sigma << '\n';
-		out_file << "y_f skewness: " << stats.y.skewness << '\n';
-		out_file << "y_f kurtosis: " << stats.y.kurtosis << '\n';
-		out_file << "theta_f mean: " << stats.theta.mean << '\n';
-		out_file << "theta_f sigma: " << stats.theta.sigma << '\n';
-		out_file << "theta_f skewness: " << stats.theta.skewness << '\n';
-		out_file << "theta_f kurtosis: " << stats.theta.kurtosis << "\n\n";
-		out_file << billiard.size() << " particles were generated with valid parameters.\n";
-		out_file << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
+		outFile << "y_f mean: " << stats.y.mean << '\n';
+		outFile << "y_f sigma: " << stats.y.sigma << '\n';
+		outFile << "y_f skewness: " << stats.y.skewness << '\n';
+		outFile << "y_f kurtosis: " << stats.y.kurtosis << '\n';
+		outFile << "theta_f mean: " << stats.theta.mean << '\n';
+		outFile << "theta_f sigma: " << stats.theta.sigma << '\n';
+		outFile << "theta_f skewness: " << stats.theta.skewness << '\n';
+		outFile << "theta_f kurtosis: " << stats.theta.kurtosis << "\n\n";
+		outFile << billiard.size() << " particles were generated with valid parameters.\n";
+		outFile << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 		std::cout << "Output file written successfully. Type \'s\' to print the results onscreen.\n";
 	}
 	else
@@ -194,17 +197,17 @@ void printValuesOnFile(bs::Billiard& billiard)
 	std::cout << "Insert the name of the file to be created (include .txt): ";
 	getInput(fileName);
 
-	std::ofstream out_file{fileName.c_str()};
+	std::ofstream outFile{fileName.c_str()};
 
-	if (!out_file)
+	if (!outFile)
 	{
 		throw std::runtime_error{"Impossible to open file!"};
 	}
-	if (out_file.is_open())
+	if (outFile.is_open())
 	{
 		for (const auto& p : billiard.getParticles())
 		{
-			out_file << p.y << ' ' << p.theta << '\n';
+			outFile << p.y << ' ' << p.theta << '\n';
 		}
 		std::cout << "Output file written successfully.\n";
 	}
@@ -259,7 +262,7 @@ int main()
 			case 'g':
 			{
 				billiard.clear();
-				generate(billiard);
+				generateParticles(billiard);
 				break;
 			}
 			case 'r':
