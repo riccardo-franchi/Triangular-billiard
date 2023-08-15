@@ -178,26 +178,34 @@ int main()
 			}
 			case 's':
 			{
-				const auto stat{statistics(billiard.getParticles(), l)};
+				Statistics statistics{l};
+
+				const auto stats{statistics(billiard.getParticles())};
+
+				const int escParts{statistics.getN()};
+				const double escPerc{escParts * 100. / billiard.size()};
 				printStars(5);
-				std::cout << "y_f mean: " << stat.mean_y << '\n';
-				std::cout << "y_f sigma: " << stat.sigma_y << '\n';
-				std::cout << "theta_f mean: " << stat.mean_theta << '\n';
-				std::cout << "theta_f sigma: " << stat.sigma_theta << '\n';
-				std::cout << "y_f skewness: " << stat.skewness_y << '\n';
-				std::cout << "theta_f skewness: " << stat.skewness_th << '\n';
-				std::cout << "y_f kurtosis: " << stat.kurtosis_y << '\n';
-				std::cout << "theta_f kurtosis: " << stat.kurtosis_th << '\n';
-				std::cout << /* "Out of " << N << " particles, " <<*/ billiard.size()
-						  << " particles were generated with valid parameters.\n";
-				const float escPerc{static_cast<float>(stat.escPartsNum * 100 / billiard.size())};
-				std::cout << "Of those, " << stat.escPartsNum << " escaped the billiard (" << escPerc << "%).\n";
-				printStars(5);
+				std::cout << "y_f mean: " << stats.y.mean << '\n';
+				std::cout << "y_f sigma: " << stats.y.sigma << '\n';
+				std::cout << "y_f skewness: " << stats.y.skewness << '\n';
+				std::cout << "y_f kurtosis: " << stats.y.kurtosis << '\n';
+				std::cout << "theta_f mean: " << stats.theta.mean << '\n';
+				std::cout << "theta_f sigma: " << stats.theta.sigma << '\n';
+				std::cout << "theta_f skewness: " << stats.theta.skewness << '\n';
+				std::cout << "theta_f kurtosis: " << stats.theta.kurtosis << "\n\n";
+				std::cout << billiard.size() << " particles were generated with valid parameters.\n";
+				std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc
+						  << "%).\n";
 				break;
 			}
 			case 'f':
 			{
-				const auto stat{statistics(billiard.getParticles(), l)};
+				Statistics statistics{l};
+
+				const auto stats{statistics(billiard.getParticles())};
+
+				const int escParts{statistics.getN()};
+				const double escPerc{escParts * 100. / billiard.size()};
 
 				std::string fileName;
 				std::cout << "Insert the name of the file to be created (include .txt): ";
@@ -211,14 +219,17 @@ int main()
 				}
 				if (out_file.is_open())
 				{
-					out_file << "y_f mean: " << stat.mean_y << '\n';
-					out_file << "y_f sigma: " << stat.sigma_y << '\n';
-					out_file << "theta_f mean: " << stat.mean_theta << '\n';
-					out_file << "theta_f sigma: " << stat.sigma_theta << '\n';
-					out_file << "y_f skewness: " << stat.skewness_y << '\n';
-					out_file << "theta_f skewness: " << stat.skewness_th << '\n';
-					out_file << "y_f kurtosis: " << stat.kurtosis_y << '\n';
-					out_file << "theta_f kurtosis: " << stat.kurtosis_th << '\n';
+					out_file << "y_f mean: " << stats.y.mean << '\n';
+					out_file << "y_f sigma: " << stats.y.sigma << '\n';
+					out_file << "y_f skewness: " << stats.y.skewness << '\n';
+					out_file << "y_f kurtosis: " << stats.y.kurtosis << '\n';
+					out_file << "theta_f mean: " << stats.theta.mean << '\n';
+					out_file << "theta_f sigma: " << stats.theta.sigma << '\n';
+					out_file << "theta_f skewness: " << stats.theta.skewness << '\n';
+					out_file << "theta_f kurtosis: " << stats.theta.kurtosis << "\n\n";
+					out_file << billiard.size() << " particles were generated with valid parameters.\n";
+					out_file << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc
+							 << "%).\n";
 					std::cout << "Output file written successfully. Type \'s\' to print the results onscreen.\n";
 				}
 				else
