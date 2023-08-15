@@ -148,7 +148,7 @@ void printStatistics(bs::Billiard billiard)
 	std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 }
 
-void printOnFile(bs::Billiard billiard)
+void printStatisticsOnFile(bs::Billiard billiard)
 {
 	bs::Statistics statistics{billiard.getL()};
 
@@ -184,6 +184,29 @@ void printOnFile(bs::Billiard billiard)
 	else
 	{
 		throw std::runtime_error{"Impossible to open file!"};
+	}
+	printStars(5);
+}
+
+void printValuesOnFile(bs::Billiard billiard)
+{
+	std::string fileName;
+	std::cout << "Insert the name of the file to be created (include .txt): ";
+	std::cin >> fileName;
+
+	std::ofstream out_file{fileName.c_str()};
+
+	if (!out_file)
+	{
+		throw std::runtime_error{"Impossible to open file!"};
+	}
+	if (out_file.is_open())
+	{
+		for (const auto& p : billiard.getParticles())
+		{
+			out_file << p.y << p.theta << '\n';
+		}
+		std::cout << "Output file written successfully.\n";
 	}
 	printStars(5);
 }
@@ -252,7 +275,7 @@ int main()
 			}
 			case 'f':
 			{
-				printOnFile(billiard);
+				printStatisticsOnFile(billiard);
 				break;
 			}
 			case 'p':
@@ -264,25 +287,7 @@ int main()
 					break;
 				}
 
-				std::string fileName;
-				std::cout << "Insert the name of the file to be created (include .txt): ";
-				std::cin >> fileName;
-
-				std::ofstream out_file{fileName.c_str()};
-
-				if (!out_file)
-				{
-					throw std::runtime_error{"Impossible to open file!"};
-				}
-				if (out_file.is_open())
-				{
-					for (const auto& p : billiard.getParticles())
-					{
-						out_file << p.y << p.theta << '\n';
-					}
-					std::cout << "Output file written successfully.\n";
-				}
-				printStars(5);
+				printValuesOnFile(billiard);
 				break;
 			}
 			case 'q':
