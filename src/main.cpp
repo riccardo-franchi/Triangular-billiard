@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <execution>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <random>
 #include <stdexcept>
@@ -32,7 +33,7 @@ void printStars(int n)
 
 int main()
 {
-	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its lenght. Separate the "
+	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
 				 "inputs with a space: ";
 	double r1{};
 	double r2{};
