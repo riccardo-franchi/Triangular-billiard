@@ -13,7 +13,7 @@ bool statisticsApproxEq(const Statistics::Statistics::Results& stat1, const Stat
 			stat1.theta.sigma == doctest::Approx(stat2.theta.sigma).epsilon(epsilon));
 }
 
-bool statisticsApproxEq2(const Statistics& stat1, const Statistics& stat2)
+/*bool statisticsApproxEq2(const Statistics& stat1, const Statistics& stat2)
 {
 	const double epsilon{0.0001};
 	return (stat1.mean_y == doctest::Approx(stat2.mean_y).epsilon(epsilon) &&
@@ -24,7 +24,7 @@ bool statisticsApproxEq2(const Statistics& stat1, const Statistics& stat2)
 			stat1.skewness_th == doctest::Approx(stat2.skewness_th).epsilon(epsilon) &&
 			stat1.kurtosis_y == doctest::Approx(stat2.kurtosis_y).epsilon(epsilon) &&
 			stat1.kurtosis_th == doctest::Approx(stat2.kurtosis_th).epsilon(epsilon));
-}
+}*/
 
 TEST_CASE("Testing statistics() throws")
 {
@@ -47,7 +47,7 @@ TEST_CASE("Testing statistics() throws")
 		billiard.push_back({2., 0.7});
 		billiard.push_back({-4.51, 1.4521870679}); // does not escape
 		billiard.runSimulation();
-		CHECK_THROWS(statistics(billiard.getParticles(), billiard.getL()));
+		CHECK_THROWS(statistics(billiard.getParticles()));
 	}
 }
 
