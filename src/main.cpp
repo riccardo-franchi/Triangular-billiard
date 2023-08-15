@@ -197,7 +197,13 @@ int main()
 			case 'f':
 			{
 				const auto stat{statistics(billiard.getParticles(), l)};
-				std::ofstream out_file{"results.txt"};
+
+				std::string fileName;
+				std::cout << "Insert the name of the file to be created (include .txt): ";
+				std::cin >> fileName;
+
+				std::ofstream out_file{fileName.c_str()};
+
 				if (!out_file)
 				{
 					throw std::runtime_error{"Impossible to open file!"};
