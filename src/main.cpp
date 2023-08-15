@@ -53,6 +53,7 @@ int main()
 			  << "s = print results' statistics onscreen\n"
 			  << "f = save results' statistics on a file\n"
 			  << "q = quit the program\n"
+			  << "p = save final coordinates of each particle on a file\n"
 			  << "h = list of commands\n";
 
 	double mu_y0{};
@@ -76,6 +77,7 @@ int main()
 						  << "r = read the sample's particles from a file and run the simulation\n"
 						  << "s = print results' statistics onscreen\n"
 						  << "f = save results' statistics on a file\n"
+						  << "p = save final coordinates of each particle on a file\n"
 						  << "q = quit the program\n";
 				break;
 			}
@@ -234,6 +236,29 @@ int main()
 				else
 				{
 					throw std::runtime_error{"Impossible to open file!"};
+				}
+				printStars(5);
+				break;
+			}
+			case 'p':
+			{
+				std::string fileName;
+				std::cout << "Insert the name of the file to be created (include .txt): ";
+				std::cin >> fileName;
+
+				std::ofstream out_file{fileName.c_str()};
+
+				if (!out_file)
+				{
+					throw std::runtime_error{"Impossible to open file!"};
+				}
+				if (out_file.is_open())
+				{
+					for (const auto& p : billiard.getParticles())
+					{
+						out_file << p.y << p.theta << '\n';
+					}
+					std::cout << "Output file written successfully.\n";
 				}
 				printStars(5);
 				break;
