@@ -61,14 +61,12 @@ int main()
 	int N{};
 
 	std::string input{};
-	char command{};
 	while (true)
 	{
 		getInput(input);
 		if (input.size() == 1)
 		{
-			command = input[0];
-			switch (command)
+			switch (input[0])
 			{
 			case 'h':
 			{
