@@ -82,7 +82,6 @@ int main()
 			case 'g':
 			{
 				billiard.clear();
-				// static_assert(billiard.size() == 0);
 
 				std::default_random_engine engine{std::random_device{}()};
 
