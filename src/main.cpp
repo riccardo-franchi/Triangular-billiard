@@ -204,7 +204,7 @@ void printValuesOnFile(bs::Billiard& billiard)
 	{
 		for (const auto& p : billiard.getParticles())
 		{
-			out_file << p.y << p.theta << '\n';
+			out_file << p.y << ' ' << p.theta << '\n';
 		}
 		std::cout << "Output file written successfully.\n";
 	}
