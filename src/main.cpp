@@ -43,7 +43,7 @@ int main()
 	getInput(r2);
 	getInput(l);
 
-	Billiard billiard{r1, r2, l};
+	bs::Billiard billiard{r1, r2, l};
 
 	printStars(5);
 
@@ -111,7 +111,7 @@ int main()
 
 				for (int n{0}; n != N; ++n)
 				{
-					Particle particle{dist_y(engine), dist_th(engine)};
+					bs::Particle particle{dist_y(engine), dist_th(engine)};
 
 					if (std::abs(particle.y) < r1 && std::abs(particle.theta) < M_PI_2)
 					{
@@ -148,7 +148,7 @@ int main()
 					{
 						if (std::abs(y) < r1 && std::abs(theta) < M_PI_2)
 						{
-							Particle particle{y, theta};
+							bs::Particle particle{y, theta};
 							billiard.push_back(particle);
 						}
 						else
@@ -180,7 +180,7 @@ int main()
 			}
 			case 's':
 			{
-				Statistics statistics{l};
+				bs::Statistics statistics{l};
 
 				const auto stats{statistics(billiard.getParticles())};
 
@@ -202,7 +202,7 @@ int main()
 			}
 			case 'f':
 			{
-				Statistics statistics{l};
+				bs::Statistics statistics{l};
 
 				const auto stats{statistics(billiard.getParticles())};
 

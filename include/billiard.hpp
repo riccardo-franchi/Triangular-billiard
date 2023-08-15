@@ -5,6 +5,8 @@
 
 #include <vector>
 
+namespace bs
+{
 class Billiard
 {
 public:
@@ -34,5 +36,6 @@ private:
 
 	std::vector<Particle> m_particles{};
 };
+} // namespace bs
 
 #endif // BILLIARD_HPP

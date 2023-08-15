@@ -5,6 +5,8 @@
 
 #include <vector>
 
+namespace bs
+{
 class Statistics
 {
 public:
@@ -34,4 +36,5 @@ private:
 
 	int m_N{};
 };
+} // namespace bs
 #endif // STATISTICS_HPP

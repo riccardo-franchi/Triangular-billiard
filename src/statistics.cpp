@@ -4,6 +4,8 @@
 #include <numeric>
 #include <stdexcept>
 
+namespace bs
+{
 struct Moments
 {
 	double x2{};
@@ -60,3 +62,4 @@ Statistics::Stats Statistics::computeStats(const std::vector<double>& data)
 
 	return {mean, sigma, skewness, kurtosis};
 }
+} // namespace bs
