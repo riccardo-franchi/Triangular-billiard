@@ -29,6 +29,8 @@ public:
 
 	Results operator()(const std::vector<Particle>& particles);
 
+	static std::string statsToString(const Results& stats);
+
 private:
 	Stats computeStats(const std::vector<double>& data);
 
