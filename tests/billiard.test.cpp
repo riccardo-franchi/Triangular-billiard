@@ -3,7 +3,7 @@
 
 #include "../include/billiard.hpp"
 
-bool approx_eq(const Particle& particle1, const Particle& particle2)
+bool approx_eq(const bs::Particle& particle1, const bs::Particle& particle2)
 {
 	const double epsilon{0.0001};
 	return (particle1.x == doctest::Approx(particle2.x).epsilon(epsilon) && //
@@ -13,14 +13,14 @@ bool approx_eq(const Particle& particle1, const Particle& particle2)
 
 TEST_CASE("Testing the Billiard constructor")
 {
-	CHECK_THROWS(Billiard{-1., 1., 1.});
-	CHECK_THROWS(Billiard{1., -1., 1.});
-	CHECK_THROWS(Billiard{1., 1., -1.});
+	CHECK_THROWS(bs::Billiard{-1., 1., 1.});
+	CHECK_THROWS(bs::Billiard{1., -1., 1.});
+	CHECK_THROWS(bs::Billiard{1., 1., -1.});
 }
 
 TEST_CASE("Testing the runSimulation() function")
 {
-	Billiard billiard{5., 3., 13.};
+	bs::Billiard billiard{5., 3., 13.};
 
 	SUBCASE("Check throw for invalid angle input")
 	{
