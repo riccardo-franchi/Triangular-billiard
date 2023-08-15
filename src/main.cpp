@@ -21,6 +21,15 @@ void getInput(T& input)
 	}
 }
 
+void printStars(int n)
+{
+	for (int i{0}; i < n; ++i)
+	{
+		std::cout << '*';
+	}
+	std::cout << '\n';
+}
+
 int main()
 {
 	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its lenght. Separate the "
@@ -34,6 +43,8 @@ int main()
 	getInput(l);
 
 	Billiard billiard{r1, r2, l};
+
+	printStars(5);
 
 	std::cout << "Enter a command:\n"
 			  << "g = generate a sample of N particles and run the simulation\n"
@@ -104,10 +115,10 @@ int main()
 			}
 
 			billiard.runSimulation();
-			std::cout << "***\n";
+			printStars(5);
 			std::cout << "Simulation of " << N << " particles successfully run.\n";
 			std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
-			std::cout << "***\n";
+			printStars(5);
 			break;
 		}
 		case 'r':
@@ -141,7 +152,7 @@ int main()
 					}
 				}
 				billiard.runSimulation();
-				std::cout << "***\n";
+				printStars(5);
 				std::cout << "Input file read successfully, simulation run." << '\n';
 				if (invalidParts != 0)
 				{
@@ -151,20 +162,20 @@ int main()
 				{
 					std::cout << "All particles had valid initial coordinates.\n";
 				}
-				std::cout << "***\n";
+				printStars(5);
 				std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
 			}
 			else
 			{
 				throw std::runtime_error{"Impossible to open file!"};
 			}
-			std::cout << "***\n";
+			printStars(5);
 			break;
 		}
 		case 's':
 		{
 			const auto stat{statistics(billiard.getParticles(), l)};
-			std::cout << "***\n";
+			printStars(5);
 			std::cout << "y_f mean: " << stat.mean_y << '\n';
 			std::cout << "y_f sigma: " << stat.sigma_y << '\n';
 			std::cout << "theta_f mean: " << stat.mean_theta << '\n';
@@ -177,7 +188,7 @@ int main()
 					  << " particles were generated with valid parameters.\n";
 			const float escPerc{static_cast<float>(stat.escPartsNum * 100 / billiard.size())};
 			std::cout << "Of those, " << stat.escPartsNum << " escaped the billiard (" << escPerc << "%).\n";
-			std::cout << "***\n";
+			printStars(5);
 			break;
 		}
 		case 'f':
@@ -204,7 +215,7 @@ int main()
 			{
 				throw std::runtime_error{"Impossible to open file!"};
 			}
-			std::cout << "***\n";
+			printStars(5);
 			break;
 		}
 		case 'q':
