@@ -230,14 +230,15 @@ int main()
 
 	printStars(5);
 
-	std::cout << "Enter a command:\n"
-			  << "g = generate a sample of N particles and run the simulation\n"
-			  << "r = read the sample's particles from a file and run the simulation\n"
-			  << "s = print results' statistics onscreen\n"
-			  << "f = save results' statistics on a file\n"
-			  << "p = save final coordinates of each particle on a file\n"
-			  << "q = quit the program\n"
-			  << "h = list of commands\n";
+	const std::string commands{"g = generate a sample of N particles and run the simulation\n"
+							   "r = read the sample's particles from a file and run the simulation\n"
+							   "s = print results' statistics onscreen\n"
+							   "f = save results' statistics on a file\n"
+							   "p = save final coordinates of each particle on a file\n"
+							   "q = quit the program\n"
+							   "h = list of commands\n"};
+
+	std::cout << "Enter a command:\n" << commands;
 	printStars(5);
 
 	std::string input{};
@@ -250,13 +251,7 @@ int main()
 			{
 			case 'h':
 			{
-				std::cout << "Commands:\n"
-						  << "g = generate a sample of N particles and run the simulation\n"
-						  << "r = read the sample's particles from a file and run the simulation\n"
-						  << "s = print results' statistics onscreen\n"
-						  << "f = save results' statistics on a file\n"
-						  << "p = save final coordinates of each particle on a file\n"
-						  << "q = quit the program\n";
+				std::cout << "Commands:\n" << commands;
 				break;
 			}
 			case 'g':
