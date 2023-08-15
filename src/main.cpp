@@ -78,6 +78,55 @@ void generate(bs::Billiard billiard)
 	printStars(5);
 }
 
+void read(bs::Billiard billiard)
+{
+	std::string fileName;
+	std::cout << "Insert the file name: ";
+	std::cin >> fileName;
+
+	std::ifstream in_file(fileName.c_str());
+	if (!in_file)
+	{
+		throw std::runtime_error{"File not found!"};
+	}
+	if (in_file.is_open())
+	{
+		double y;
+		double theta;
+		int invalidParts{0};
+		while (in_file >> y >> theta)
+		{
+			if (std::abs(y) < billiard.getR1() && std::abs(theta) < M_PI_2)
+			{
+				bs::Particle particle{y, theta};
+				billiard.push_back(particle);
+			}
+			else
+			{
+				++invalidParts;
+			}
+		}
+		billiard.runSimulation();
+		printStars(5);
+		std::cout << "Input file read successfully, simulation run." << '\n';
+		if (invalidParts != 0)
+		{
+			std::cout << invalidParts << " particles had invalid initial coordinates and have been excluded.\n";
+		}
+		else
+		{
+			std::cout << "All particles had valid initial coordinates.\n";
+		}
+		printStars(5);
+		std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
+	}
+	else
+	{
+		throw std::runtime_error{"Impossible to open file!"};
+	}
+	printStars(5);
+}
+
 int main()
 {
 	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
@@ -132,53 +181,7 @@ int main()
 			case 'r':
 			{
 				billiard.empty();
-
-				std::string fileName;
-				std::cout << "Insert the file name: ";
-				std::cin >> fileName;
-
-				std::ifstream in_file(fileName.c_str());
-				if (!in_file)
-				{
-					throw std::runtime_error{"File not found!"};
-				}
-				if (in_file.is_open())
-				{
-					double y;
-					double theta;
-					int invalidParts{0};
-					while (in_file >> y >> theta)
-					{
-						if (std::abs(y) < r1 && std::abs(theta) < M_PI_2)
-						{
-							bs::Particle particle{y, theta};
-							billiard.push_back(particle);
-						}
-						else
-						{
-							++invalidParts;
-						}
-					}
-					billiard.runSimulation();
-					printStars(5);
-					std::cout << "Input file read successfully, simulation run." << '\n';
-					if (invalidParts != 0)
-					{
-						std::cout << invalidParts
-								  << " particles had invalid initial coordinates and have been excluded.\n";
-					}
-					else
-					{
-						std::cout << "All particles had valid initial coordinates.\n";
-					}
-					printStars(5);
-					std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
-				}
-				else
-				{
-					throw std::runtime_error{"Impossible to open file!"};
-				}
-				printStars(5);
+				read(billiard);
 				break;
 			}
 			case 's':
