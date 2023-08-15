@@ -31,7 +31,7 @@ void printStars(int n)
 	std::cout << '\n';
 }
 
-void generate(bs::Billiard billiard)
+void generate(bs::Billiard& billiard)
 {
 	double mu_y0{};
 	double sigma_y0{};
@@ -78,7 +78,7 @@ void generate(bs::Billiard billiard)
 	printStars(5);
 }
 
-void read(bs::Billiard billiard)
+void read(bs::Billiard& billiard)
 {
 	std::string fileName;
 	std::cout << "Insert the file name: ";
@@ -127,7 +127,7 @@ void read(bs::Billiard billiard)
 	printStars(5);
 }
 
-void printStatistics(bs::Billiard billiard)
+void printStatistics(bs::Billiard& billiard)
 {
 	bs::Statistics statistics{billiard.getL()};
 
@@ -148,7 +148,7 @@ void printStatistics(bs::Billiard billiard)
 	std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 }
 
-void printStatisticsOnFile(bs::Billiard billiard)
+void printStatisticsOnFile(bs::Billiard& billiard)
 {
 	bs::Statistics statistics{billiard.getL()};
 
@@ -188,7 +188,7 @@ void printStatisticsOnFile(bs::Billiard billiard)
 	printStars(5);
 }
 
-void printValuesOnFile(bs::Billiard billiard)
+void printValuesOnFile(bs::Billiard& billiard)
 {
 	std::string fileName;
 	std::cout << "Insert the name of the file to be created (include .txt): ";
@@ -286,7 +286,6 @@ int main()
 					printStars(5);
 					break;
 				}
-
 				printValuesOnFile(billiard);
 				break;
 			}
