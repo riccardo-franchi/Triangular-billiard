@@ -52,9 +52,10 @@ int main()
 			  << "r = read the sample's particles from a file and run the simulation\n"
 			  << "s = print results' statistics onscreen\n"
 			  << "f = save results' statistics on a file\n"
-			  << "q = quit the program\n"
 			  << "p = save final coordinates of each particle on a file\n"
+			  << "q = quit the program\n"
 			  << "h = list of commands\n";
+	printStars(5);
 
 	double mu_y0{};
 	double sigma_y0{};
@@ -242,6 +243,13 @@ int main()
 			}
 			case 'p':
 			{
+				if (billiard.size() == 0)
+				{
+					std::cout << "A valid simulation must be run before! Enter another command.\n";
+					printStars(5);
+					break;
+				}
+
 				std::string fileName;
 				std::cout << "Insert the name of the file to be created (include .txt): ";
 				std::cin >> fileName;
