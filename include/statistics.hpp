@@ -34,5 +34,4 @@ private:
 
 	int m_N{};
 };
-
 #endif // STATISTICS_HPP
