@@ -97,3 +97,44 @@ TEST_CASE("Testing statistics() numerical values, alfa < 0")
 													  {-0.872368831025, 0.658613, 0.33630075, 0.977477404}}));
 	}
 }
+
+TEST_CASE("Testing statistics() numerical values, alfa > 0")
+{
+
+	Billiard billiard{3., 5., 13.};
+	Statistics statistics{billiard.getL()};
+
+	SUBCASE("Two particles")
+	{
+		billiard.push_back({1., 0.0767718913}); // no collisions, y_f = 2
+		billiard.push_back({0., 0.1526493284}); // no collisions, y_f = 2
+
+		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
+								 Statistics::Results{{2., 0.}, {0.11471061, 0.05365345}}));
+	}
+	SUBCASE("Same particles")
+	{
+		billiard.push_back({1., 0.4340593973}); // one collision
+		billiard.push_back({1., 0.4340593973}); // one collision
+
+		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
+								 Statistics::Results{{3.1464764743, 0.}, {-0.1287607405, 0.}}));
+	}
+}
+
+TEST_CASE("Testing correct behaviour for particles which don't exit the billiard")
+{
+	Billiard billiard{5., 3., 13.};
+	Statistics statistics{billiard.getL()};
+
+	SUBCASE("Four particles, of which one does not escape")
+	{
+		billiard.push_back({-2.47, 0.32083});
+		billiard.push_back({3.35, -0.178837928});
+		billiard.push_back({1.12534, 0.41964});
+		billiard.push_back({-4.51, 1.4521870679}); // doesn't exit, should not be considered in statistics
+
+		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
+								 Statistics::Results{{0.3537533333, 1.90354}, {-0.194315976, 0.523057}}));
+	}
+}
