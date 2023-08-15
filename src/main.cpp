@@ -148,6 +148,46 @@ void printStatistics(bs::Billiard billiard)
 	std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 }
 
+void printOnFile(bs::Billiard billiard)
+{
+	bs::Statistics statistics{billiard.getL()};
+
+	const auto stats{statistics(billiard.getParticles())};
+
+	const int escParts{statistics.getN()};
+	const double escPerc{escParts * 100. / billiard.size()};
+
+	std::string fileName;
+	std::cout << "Insert the name of the file to be created (include .txt): ";
+	std::cin >> fileName;
+
+	std::ofstream out_file{fileName.c_str()};
+
+	if (!out_file)
+	{
+		throw std::runtime_error{"Impossible to open file!"};
+	}
+	if (out_file.is_open())
+	{
+		out_file << "y_f mean: " << stats.y.mean << '\n';
+		out_file << "y_f sigma: " << stats.y.sigma << '\n';
+		out_file << "y_f skewness: " << stats.y.skewness << '\n';
+		out_file << "y_f kurtosis: " << stats.y.kurtosis << '\n';
+		out_file << "theta_f mean: " << stats.theta.mean << '\n';
+		out_file << "theta_f sigma: " << stats.theta.sigma << '\n';
+		out_file << "theta_f skewness: " << stats.theta.skewness << '\n';
+		out_file << "theta_f kurtosis: " << stats.theta.kurtosis << "\n\n";
+		out_file << billiard.size() << " particles were generated with valid parameters.\n";
+		out_file << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
+		std::cout << "Output file written successfully. Type \'s\' to print the results onscreen.\n";
+	}
+	else
+	{
+		throw std::runtime_error{"Impossible to open file!"};
+	}
+	printStars(5);
+}
+
 int main()
 {
 	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
@@ -212,43 +252,7 @@ int main()
 			}
 			case 'f':
 			{
-				bs::Statistics statistics{l};
-
-				const auto stats{statistics(billiard.getParticles())};
-
-				const int escParts{statistics.getN()};
-				const double escPerc{escParts * 100. / billiard.size()};
-
-				std::string fileName;
-				std::cout << "Insert the name of the file to be created (include .txt): ";
-				std::cin >> fileName;
-
-				std::ofstream out_file{fileName.c_str()};
-
-				if (!out_file)
-				{
-					throw std::runtime_error{"Impossible to open file!"};
-				}
-				if (out_file.is_open())
-				{
-					out_file << "y_f mean: " << stats.y.mean << '\n';
-					out_file << "y_f sigma: " << stats.y.sigma << '\n';
-					out_file << "y_f skewness: " << stats.y.skewness << '\n';
-					out_file << "y_f kurtosis: " << stats.y.kurtosis << '\n';
-					out_file << "theta_f mean: " << stats.theta.mean << '\n';
-					out_file << "theta_f sigma: " << stats.theta.sigma << '\n';
-					out_file << "theta_f skewness: " << stats.theta.skewness << '\n';
-					out_file << "theta_f kurtosis: " << stats.theta.kurtosis << "\n\n";
-					out_file << billiard.size() << " particles were generated with valid parameters.\n";
-					out_file << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc
-							 << "%).\n";
-					std::cout << "Output file written successfully. Type \'s\' to print the results onscreen.\n";
-				}
-				else
-				{
-					throw std::runtime_error{"Impossible to open file!"};
-				}
-				printStars(5);
+				printOnFile(billiard);
 				break;
 			}
 			case 'p':
