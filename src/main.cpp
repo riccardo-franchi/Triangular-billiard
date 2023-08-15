@@ -127,6 +127,27 @@ void read(bs::Billiard billiard)
 	printStars(5);
 }
 
+void printStatistics(bs::Billiard billiard)
+{
+	bs::Statistics statistics{billiard.getL()};
+
+	const auto stats{statistics(billiard.getParticles())};
+
+	const int escParts{statistics.getN()};
+	const double escPerc{escParts * 100. / billiard.size()};
+	printStars(5);
+	std::cout << "y_f mean: " << stats.y.mean << '\n';
+	std::cout << "y_f sigma: " << stats.y.sigma << '\n';
+	std::cout << "y_f skewness: " << stats.y.skewness << '\n';
+	std::cout << "y_f kurtosis: " << stats.y.kurtosis << '\n';
+	std::cout << "theta_f mean: " << stats.theta.mean << '\n';
+	std::cout << "theta_f sigma: " << stats.theta.sigma << '\n';
+	std::cout << "theta_f skewness: " << stats.theta.skewness << '\n';
+	std::cout << "theta_f kurtosis: " << stats.theta.kurtosis << "\n\n";
+	std::cout << billiard.size() << " particles were generated with valid parameters.\n";
+	std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
+}
+
 int main()
 {
 	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
@@ -186,24 +207,7 @@ int main()
 			}
 			case 's':
 			{
-				bs::Statistics statistics{l};
-
-				const auto stats{statistics(billiard.getParticles())};
-
-				const int escParts{statistics.getN()};
-				const double escPerc{escParts * 100. / billiard.size()};
-				printStars(5);
-				std::cout << "y_f mean: " << stats.y.mean << '\n';
-				std::cout << "y_f sigma: " << stats.y.sigma << '\n';
-				std::cout << "y_f skewness: " << stats.y.skewness << '\n';
-				std::cout << "y_f kurtosis: " << stats.y.kurtosis << '\n';
-				std::cout << "theta_f mean: " << stats.theta.mean << '\n';
-				std::cout << "theta_f sigma: " << stats.theta.sigma << '\n';
-				std::cout << "theta_f skewness: " << stats.theta.skewness << '\n';
-				std::cout << "theta_f kurtosis: " << stats.theta.kurtosis << "\n\n";
-				std::cout << billiard.size() << " particles were generated with valid parameters.\n";
-				std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc
-						  << "%).\n";
+				printStatistics(billiard);
 				break;
 			}
 			case 'f':

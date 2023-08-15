@@ -19,8 +19,8 @@ public:
 	const std::vector<Particle>& getParticles() const { return m_particles; }
 	const Particle& getParticle(int i) const { return m_particles.at(i); }
 
-	const double getL() const { return m_l; }
-	const double getR1() const { return m_r1; }
+	double getL() const { return m_l; }
+	double getR1() const { return m_r1; }
 	// const double getR2() const { return m_r2; }
 
 	bool empty() const { return m_particles.empty(); }
