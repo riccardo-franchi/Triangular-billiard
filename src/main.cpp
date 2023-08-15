@@ -31,6 +31,53 @@ void printStars(int n)
 	std::cout << '\n';
 }
 
+void generate(bs::Billiard billiard)
+{
+	double mu_y0{};
+	double sigma_y0{};
+	double mu_th0{};
+	double sigma_th0{};
+	int N{};
+	std::default_random_engine engine{std::random_device{}()};
+
+	std::cout << "Insert the mean and sigma of the normal distribution of y_0: ";
+	getInput(mu_y0);
+	if (std::abs(mu_y0) > billiard.getR1())
+	{
+		throw std::domain_error{"y0 mean has to be between -r1 and +r1"};
+	}
+	getInput(sigma_y0);
+	std::normal_distribution<double> dist_y{mu_y0, std::abs(sigma_y0)};
+
+	std::cout << "Insert the mean and sigma of the normal distribution of theta_0: ";
+	getInput(mu_th0);
+	if (std::abs(mu_th0) > M_PI_2)
+	{
+		throw std::domain_error{"theta0 mean has to be between -pi/2 and +pi/2"};
+	}
+	getInput(sigma_th0);
+	std::normal_distribution<double> dist_th{mu_th0, sigma_th0};
+
+	std::cout << "Insert the number of particles in the simulation: ";
+	getInput(N);
+
+	for (int n{0}; n != N; ++n)
+	{
+		bs::Particle particle{dist_y(engine), dist_th(engine)};
+
+		if (std::abs(particle.y) < billiard.getR1() && std::abs(particle.theta) < M_PI_2)
+		{
+			billiard.push_back(particle);
+		}
+	}
+
+	billiard.runSimulation();
+	printStars(5);
+	std::cout << "Simulation of " << N << " particles successfully run.\n";
+	std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
+	printStars(5);
+}
+
 int main()
 {
 	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
@@ -57,12 +104,6 @@ int main()
 			  << "h = list of commands\n";
 	printStars(5);
 
-	double mu_y0{};
-	double sigma_y0{};
-	double mu_th0{};
-	double sigma_th0{};
-	int N{};
-
 	std::string input{};
 	while (true)
 	{
@@ -85,45 +126,7 @@ int main()
 			case 'g':
 			{
 				billiard.clear();
-
-				std::default_random_engine engine{std::random_device{}()};
-
-				std::cout << "Insert the mean and sigma of the normal distribution of y_0: ";
-				getInput(mu_y0);
-				if (std::abs(mu_y0) > r1)
-				{
-					throw std::domain_error{"y0 mean has to be between -r1 and +r1"};
-				}
-				getInput(sigma_y0);
-				std::normal_distribution<double> dist_y{mu_y0, std::abs(sigma_y0)};
-
-				std::cout << "Insert the mean and sigma of the normal distribution of theta_0: ";
-				getInput(mu_th0);
-				if (std::abs(mu_th0) > M_PI_2)
-				{
-					throw std::domain_error{"theta0 mean has to be between -pi/2 and +pi/2"};
-				}
-				getInput(sigma_th0);
-				std::normal_distribution<double> dist_th{mu_th0, sigma_th0};
-
-				std::cout << "Insert the number of particles in the simulation: ";
-				getInput(N);
-
-				for (int n{0}; n != N; ++n)
-				{
-					bs::Particle particle{dist_y(engine), dist_th(engine)};
-
-					if (std::abs(particle.y) < r1 && std::abs(particle.theta) < M_PI_2)
-					{
-						billiard.push_back(particle);
-					}
-				}
-
-				billiard.runSimulation();
-				printStars(5);
-				std::cout << "Simulation of " << N << " particles successfully run.\n";
-				std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
-				printStars(5);
+				generate(billiard);
 				break;
 			}
 			case 'r':
