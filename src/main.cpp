@@ -80,9 +80,9 @@ void generate(bs::Billiard& billiard)
 
 void read(bs::Billiard& billiard)
 {
-	std::string fileName;
+	std::string fileName{};
 	std::cout << "Insert the file name: ";
-	std::cin >> fileName;
+	getInput(fileName);
 
 	std::ifstream in_file(fileName.c_str());
 	if (!in_file)
@@ -157,9 +157,9 @@ void printStatisticsOnFile(bs::Billiard& billiard)
 	const int escParts{statistics.getN()};
 	const double escPerc{escParts * 100. / billiard.size()};
 
-	std::string fileName;
+	std::string fileName{};
 	std::cout << "Insert the name of the file to be created (include .txt): ";
-	std::cin >> fileName;
+	getInput(fileName);
 
 	std::ofstream out_file{fileName.c_str()};
 
@@ -190,9 +190,9 @@ void printStatisticsOnFile(bs::Billiard& billiard)
 
 void printValuesOnFile(bs::Billiard& billiard)
 {
-	std::string fileName;
+	std::string fileName{};
 	std::cout << "Insert the name of the file to be created (include .txt): ";
-	std::cin >> fileName;
+	getInput(fileName);
 
 	std::ofstream out_file{fileName.c_str()};
 
