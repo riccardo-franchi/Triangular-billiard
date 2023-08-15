@@ -27,6 +27,10 @@ void Billiard::push_back(const Particle& particle)
 
 const std::vector<Particle>& Billiard::runSimulation()
 {
+	if (size() == 0)
+	{
+		throw std::domain_error{"No particles to run"};
+	}
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
 	std::transform(/*std::execution::par_unseq,*/ m_particles.begin(), m_particles.end(), m_particles.begin(),
