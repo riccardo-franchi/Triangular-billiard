@@ -50,7 +50,7 @@ void generateParticles(bs::Billiard& billiard)
 	}
 
 	getInput(sigmaY0);
-	std::normal_distribution<double> yDistr{meanY0, std::abs(sigmaY0)};
+	std::normal_distribution yDistr{meanY0, std::abs(sigmaY0)};
 
 	std::cout << "Insert the mean and sigma of the normal distribution of theta_0: ";
 	getInput(meanTheta0);
@@ -60,7 +60,7 @@ void generateParticles(bs::Billiard& billiard)
 	}
 
 	getInput(sigmaTheta0);
-	std::normal_distribution<double> thetaDistr{meanTheta0, std::abs(sigmaTheta0)};
+	std::normal_distribution thetaDistr{meanTheta0, std::abs(sigmaTheta0)};
 
 	std::cout << "Insert the number of particles in the simulation: ";
 	getInput(N);
