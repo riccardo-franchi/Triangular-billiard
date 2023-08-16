@@ -95,7 +95,7 @@ bool isValidInput(const std::string& line)
 	return (iss >> y >> theta) && iss.eof();
 }
 
-int read(bs::Billiard& billiard)
+int readFromFile(bs::Billiard& billiard)
 {
 	billiard.clear();
 
@@ -173,7 +173,7 @@ int read(bs::Billiard& billiard)
 	return billiard.size();
 }
 
-void printStatistics(bs::Billiard& billiard)
+void printStatistics(const bs::Billiard& billiard)
 {
 	bs::Statistics statistics{billiard.getL()};
 
@@ -187,7 +187,7 @@ void printStatistics(bs::Billiard& billiard)
 	std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 }
 
-void printStatisticsOnFile(bs::Billiard& billiard)
+void printStatisticsOnFile(const bs::Billiard& billiard)
 {
 	bs::Statistics statistics{billiard.getL()};
 
@@ -221,7 +221,7 @@ void printStatisticsOnFile(bs::Billiard& billiard)
 	printStars(5);
 }
 
-void printValuesOnFile(bs::Billiard& billiard)
+void printValuesOnFile(const bs::Billiard& billiard)
 {
 	std::string fileName{};
 	std::cout << "Insert the name of the file to be created (include .txt): ";

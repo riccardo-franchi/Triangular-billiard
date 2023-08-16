@@ -14,7 +14,8 @@ bool statisticsApproxEq(const bs::Statistics::Statistics::Results& stat1,
 			stat1.theta.sigma == doctest::Approx(stat2.theta.sigma).epsilon(epsilon));
 }
 
-bool statisticsApproxEq2(const Statistics::Statistics::Results& stat1, const Statistics::Statistics::Results& stat2)
+bool statisticsApproxEq2(const bs::Statistics::Statistics::Results& stat1,
+						 const bs::Statistics::Statistics::Results& stat2)
 {
 	const double epsilon{0.0001};
 	return (stat1.y.mean == doctest::Approx(stat2.y.mean).epsilon(epsilon) &&
@@ -109,16 +110,16 @@ TEST_CASE("Testing statistics() numerical values, alfa < 0")
 		billiard.push_back({2.65, 0.5565549784}); // three collision, fin. (-0.1311178052, -1.4724509487)
 
 		CHECK(statisticsApproxEq2(statistics(billiard.runSimulation()),
-								  Statistics::Results{{-0.383814280325, 1.10687, -0.57259892459, 1.2238334345},
-													  {-0.872368831025, 0.658613, 0.33630075, 0.977477404}}));
+								  bs::Statistics::Results{{-0.383814280325, 1.10687, -0.57259892459, 1.2238334345},
+														  {-0.872368831025, 0.658613, 0.33630075, 0.977477404}}));
 	}
 }
 
 TEST_CASE("Testing statistics() numerical values, alfa > 0")
 {
 
-	Billiard billiard{3., 5., 13.};
-	Statistics statistics{billiard.getL()};
+	bs::Billiard billiard{3., 5., 13.};
+	bs::Statistics statistics{billiard.getL()};
 
 	SUBCASE("Two particles")
 	{

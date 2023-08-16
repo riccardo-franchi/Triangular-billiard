@@ -54,7 +54,7 @@ int main()
 				case 'r':
 				{
 					billiard.clear();
-					read(billiard);
+					readFromFile(billiard);
 					break;
 				}
 				case 's':
