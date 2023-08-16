@@ -14,18 +14,18 @@ bool statisticsApproxEq(const bs::Statistics::Statistics::Results& stat1,
 			stat1.theta.sigma == doctest::Approx(stat2.theta.sigma).epsilon(epsilon));
 }
 
-/*bool statisticsApproxEq2(const Statistics& stat1, const Statistics& stat2)
+bool statisticsApproxEq2(const Statistics::Statistics::Results& stat1, const Statistics::Statistics::Results& stat2)
 {
 	const double epsilon{0.0001};
-	return (stat1.mean_y == doctest::Approx(stat2.mean_y).epsilon(epsilon) &&
-			stat1.sigma_y == doctest::Approx(stat2.sigma_y).epsilon(epsilon) &&
-			stat1.mean_theta == doctest::Approx(stat2.mean_theta).epsilon(epsilon) &&
-			stat1.sigma_theta == doctest::Approx(stat2.sigma_theta).epsilon(epsilon) &&
-			stat1.skewness_y == doctest::Approx(stat2.skewness_y).epsilon(epsilon) &&
-			stat1.skewness_th == doctest::Approx(stat2.skewness_th).epsilon(epsilon) &&
-			stat1.kurtosis_y == doctest::Approx(stat2.kurtosis_y).epsilon(epsilon) &&
-			stat1.kurtosis_th == doctest::Approx(stat2.kurtosis_th).epsilon(epsilon));
-}*/
+	return (stat1.y.mean == doctest::Approx(stat2.y.mean).epsilon(epsilon) &&
+			stat1.y.sigma == doctest::Approx(stat2.y.sigma).epsilon(epsilon) &&
+			stat1.y.skewness == doctest::Approx(stat2.y.skewness).epsilon(epsilon) &&
+			stat1.y.kurtosis == doctest::Approx(stat2.y.kurtosis).epsilon(epsilon) &&
+			stat1.theta.mean == doctest::Approx(stat2.theta.mean).epsilon(epsilon) &&
+			stat1.theta.sigma == doctest::Approx(stat2.theta.sigma).epsilon(epsilon) &&
+			stat1.theta.skewness == doctest::Approx(stat2.theta.skewness).epsilon(epsilon) &&
+			stat1.theta.kurtosis == doctest::Approx(stat2.theta.kurtosis).epsilon(epsilon));
+}
 
 TEST_CASE("Testing statistics() throws")
 {
@@ -107,6 +107,23 @@ TEST_CASE("Testing statistics() numerical values, alfa < 0")
 		billiard.push_back({1., 0.4357084939});	  // one collision, fin. (-1.9791249643, -0.7410071507)
 		billiard.push_back({2., -0.6654199111});  // two collisions, fin. (0.5749856482, -1.2760172247)
 		billiard.push_back({2.65, 0.5565549784}); // three collision, fin. (-0.1311178052, -1.4724509487)
+
+		CHECK(statisticsApproxEq2(statistics(billiard.runSimulation()),
+								  Statistics::Results{{-0.383814280325, 1.10687, -0.57259892459, 1.2238334345},
+													  {-0.872368831025, 0.658613, 0.33630075, 0.977477404}}));
+	}
+}
+
+TEST_CASE("Testing statistics() numerical values, alfa > 0")
+{
+
+	Billiard billiard{3., 5., 13.};
+	Statistics statistics{billiard.getL()};
+
+	SUBCASE("Two particles")
+	{
+		billiard.push_back({1., 0.0767718913}); // no collisions, y_f = 2
+		billiard.push_back({0., 0.1526493284}); // no collisions, y_f = 2
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
 								 bs::Statistics::Results{{-0.383814280325, 1.10687}, {-0.872368831025, 0.658613}}));
