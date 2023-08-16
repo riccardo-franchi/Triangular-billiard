@@ -129,10 +129,7 @@ int readFromFile(bs::Billiard& billiard)
 		else
 		{
 			++invalidLines;
-			if (invalidLines < 10)
-			{
-				std::cout << "Invalid input: " << line << " (line " << nLines << ")\n";
-			}
+			std::cout << "Invalid input: " << line << " (line " << nLines << ")\n";
 		}
 	}
 	billiard.runSimulation();
