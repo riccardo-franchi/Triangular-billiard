@@ -141,7 +141,7 @@ TEST_CASE("Testing statistics() numerical values, alfa > 0")
 		billiard.push_back({0.49, 0.});			 // no collision
 		billiard.push_back({2., 0.2460005466});	 // one collision
 		billiard.push_back({-2., 0.2449786631}); // no collisions
-		billiard.push_back({1., 0.2961354228});	 // one collision
+		billiard.push_back({1., 0.3966404392});	 // one collision
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
 								 bs::Statistics::Results{{1.775400219, 1.66677679}, {-0.362476012, 0.675939648}}));
