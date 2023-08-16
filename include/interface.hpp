@@ -75,6 +75,11 @@ void generateParticles(bs::Billiard& billiard)
 		}
 	}
 
+	if (billiard.size() == 0)
+	{
+		throw std::runtime_error{"No valid particles generated"};
+	}
+
 	billiard.runSimulation();
 	printStars(5);
 	std::cout << "Simulation of " << N << " particles successfully run.\n";
