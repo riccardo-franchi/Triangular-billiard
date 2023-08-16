@@ -80,7 +80,7 @@ TEST_CASE("Testing statistics() numerical values, alpha < 0")
 		billiard.push_back({1., 0.0767718913}); // no collisions, y_f = 2
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
-								 bs::Statistics::Results{{1.925, 0.106066}, {0.03838594565, 0.0542859}}));
+								 bs::Statistics::Results{{1.925, 0.106066}, {0.038385946, 0.0542859}}));
 	}
 
 	SUBCASE("Same particles")
@@ -127,7 +127,7 @@ TEST_CASE("Testing statistics() numerical values, alpha > 0")
 		billiard.push_back({0., 0.1526493284}); // no collisions, y_f = 2
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
-								 bs::Statistics::Results{{-0.383814280325, 1.10687}, {-0.872368831025, 0.658613}}));
+								 bs::Statistics::Results{{2., 0.}, {0.114711, 0.053653}}));
 	}
 }
 
