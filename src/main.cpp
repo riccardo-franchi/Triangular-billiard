@@ -81,7 +81,7 @@ void generateParticles(bs::Billiard& billiard)
 	printStars(5);
 }
 
-void read(bs::Billiard& billiard)
+int read(bs::Billiard& billiard)
 {
 	std::string fileName{};
 	std::cout << "Insert the file name: ";
@@ -128,6 +128,7 @@ void read(bs::Billiard& billiard)
 		throw std::runtime_error{"Impossible to open file!"};
 	}
 	printStars(5);
+	return billiard.size();
 }
 
 void printStatistics(bs::Billiard& billiard)
