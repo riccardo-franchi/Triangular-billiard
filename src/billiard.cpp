@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <execution>
 
-namespace bs
+namespace tb
 {
 Billiard::Billiard(double r1, double r2, double l) : m_r1{r1}, m_r2{r2}, m_l{l}
 {
@@ -76,4 +76,4 @@ Particle Billiard::calcTrajectory(const Particle& p, const double alpha)
 
 	return particle;
 }
-} // namespace bs
+} // namespace tb

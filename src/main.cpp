@@ -15,7 +15,7 @@ int main()
 	getInput(r2);
 	getInput(l);
 
-	bs::Billiard billiard{r1, r2, l};
+	tb::Billiard billiard{r1, r2, l};
 
 	printStars(5);
 
