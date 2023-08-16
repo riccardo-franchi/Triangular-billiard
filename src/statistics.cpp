@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace bs
+namespace tb
 {
 struct Moments
 {
@@ -87,4 +87,4 @@ Statistics::Stats Statistics::computeStats(const std::vector<double>& data)
 
 	return {mean, sigma, skewness, kurtosis};
 }
-} // namespace bs
+} // namespace tb
