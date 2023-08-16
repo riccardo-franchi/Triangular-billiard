@@ -61,8 +61,8 @@ void generateParticles(bs::Billiard& billiard)
 
 	std::default_random_engine engine{std::random_device{}()};
 
-	std::normal_distribution yDistr{meanY0, std::abs(sigmaY0)};
-	std::normal_distribution thetaDistr{meanTheta0, std::abs(sigmaTheta0)};
+	std::normal_distribution<double> yDistr{meanY0, std::abs(sigmaY0)};
+	std::normal_distribution<double> thetaDistr{meanTheta0, std::abs(sigmaTheta0)};
 
 	for (int n{0}; n != N; ++n)
 	{
