@@ -212,7 +212,10 @@ void printValuesToFile(const bs::Billiard& billiard)
 
 	for (const auto& p : billiard.getParticles())
 	{
-		outFile << p.y << ' ' << p.theta << '\n';
+		if (p.x == billiard.getL())
+		{
+			outFile << p.y << ' ' << p.theta << '\n';
+		}
 	}
 	std::cout << "Output file written successfully.\n";
 
