@@ -138,12 +138,12 @@ TEST_CASE("Testing statistics() numerical values, alfa > 0")
 
 	SUBCASE("Four particles")
 	{
-		billiard.push_back({0.49, 0.});			 // no collision
-		billiard.push_back({0., 0.3942175661});	 // one collision
-		billiard.push_back({-1., 0.6462755507}); // two collisions
-		billiard.push_back({1., 0.2961354228});	 // one collision
+		billiard.push_back({0.49, 0.});			// no collision
+		billiard.push_back({0., 0.3942175661}); // one collision
+		billiard.push_back({4., 0.7412245902}); // two collisions
+		billiard.push_back({1., 0.2961354228}); // one collision
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
-								 bs::Statistics::Results{{-0.047380676, 0.566122567}, {-0.529300322, 0.06973096}}));
+								 bs::Statistics::Results{{1.775400219, 1.66677679}, {-0.362476012, 0.675939648}}));
 	}
 }
