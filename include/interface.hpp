@@ -105,7 +105,7 @@ int readFromFile(bs::Billiard& billiard)
 
 	printStars(5);
 
-	std::ifstream inFile(fileName.c_str());
+	std::ifstream inFile(fileName);
 	if (!inFile)
 	{
 		throw std::runtime_error{"File not found!"};
@@ -158,10 +158,6 @@ int readFromFile(bs::Billiard& billiard)
 		{
 			std::cout << invalidParts << " particles had invalid initial coordinates and have been excluded.\n";
 		}
-		else
-		{
-			std::cout << "All particles had valid initial coordinates.\n";
-		}
 		printStars(5);
 		std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
 	}
@@ -200,7 +196,7 @@ void printStatisticsOnFile(const bs::Billiard& billiard)
 	std::cout << "Insert the name of the file to be created (include .txt): ";
 	getInput(fileName);
 
-	std::ofstream outFile{fileName.c_str()};
+	std::ofstream outFile{fileName};
 
 	if (!outFile)
 	{
@@ -227,7 +223,7 @@ void printValuesOnFile(const bs::Billiard& billiard)
 	std::cout << "Insert the name of the file to be created (include .txt): ";
 	getInput(fileName);
 
-	std::ofstream outFile{fileName.c_str()};
+	std::ofstream outFile{fileName};
 
 	if (!outFile)
 	{
