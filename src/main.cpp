@@ -64,7 +64,7 @@ int main()
 				}
 				case 'f':
 				{
-					printStatisticsOnFile(billiard);
+					printStatsToFile(billiard);
 					break;
 				}
 				case 'p':
@@ -76,7 +76,7 @@ int main()
 						printStars(5);
 						break;
 					}
-					printValuesOnFile(billiard);
+					printValuesToFile(billiard);
 					break;
 				}
 				case 'q':

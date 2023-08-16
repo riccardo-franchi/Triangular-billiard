@@ -168,7 +168,7 @@ void printStatistics(const bs::Billiard& billiard)
 	std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 }
 
-void printStatisticsOnFile(const bs::Billiard& billiard)
+void printStatsToFile(const bs::Billiard& billiard)
 {
 	bs::Statistics statistics{billiard.getL()};
 
@@ -197,7 +197,7 @@ void printStatisticsOnFile(const bs::Billiard& billiard)
 	printStars(5);
 }
 
-void printValuesOnFile(const bs::Billiard& billiard)
+void printValuesToFile(const bs::Billiard& billiard)
 {
 	std::string fileName{};
 	std::cout << "Insert the name of the file to be created (include .txt): ";
