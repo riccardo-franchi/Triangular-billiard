@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <iostream>
 #include <random>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 
@@ -81,11 +82,23 @@ void generateParticles(bs::Billiard& billiard)
 	printStars(5);
 }
 
+bool isValidInput(const std::string& line)
+{
+	std::istringstream iss(line);
+	double y{};
+	double theta{};
+	return (iss >> y >> theta) && iss.eof();
+}
+
 int read(bs::Billiard& billiard)
 {
+	billiard.clear();
+
 	std::string fileName{};
 	std::cout << "Insert the file name: ";
 	getInput(fileName);
+
+	printStars(5);
 
 	std::ifstream inFile(fileName.c_str());
 	if (!inFile)
@@ -97,21 +110,45 @@ int read(bs::Billiard& billiard)
 		double y;
 		double theta;
 		int invalidParts{0};
-		while (inFile >> y >> theta)
+		int lineNum{0};
+		int invalidLines{0};
+		std::string line;
+		while ((std::getline(inFile, line)))
 		{
-			if (std::abs(y) < billiard.getR1() && std::abs(theta) < M_PI_2)
+			++lineNum;
+			if (line.empty()) // skips empty line
 			{
-				bs::Particle particle{y, theta};
-				billiard.push_back(particle);
+				continue;
+			}
+			if (isValidInput(line))
+			{
+				std::istringstream(line) >> y >> theta;
+				if (std::abs(y) < billiard.getR1() && std::abs(theta) < M_PI_2)
+				{
+					bs::Particle particle{y, theta};
+					billiard.push_back(particle);
+				}
+				else
+				{
+					++invalidParts;
+				}
 			}
 			else
 			{
-				++invalidParts;
+				++invalidLines;
+				if (invalidLines < 10)
+				{
+					std::cout << "Invalid input: " << line << " (line " << lineNum << ")\n";
+				}
 			}
 		}
 		billiard.runSimulation();
 		printStars(5);
 		std::cout << "Input file read successfully, simulation run." << '\n';
+		if (invalidLines != 0)
+		{
+			std::cout << invalidLines << " lines had invalid input.\n";
+		}
 		if (invalidParts != 0)
 		{
 			std::cout << invalidParts << " particles had invalid initial coordinates and have been excluded.\n";
