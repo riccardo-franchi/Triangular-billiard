@@ -249,6 +249,7 @@ int main()
 			}
 			case 'r':
 			{
+				// billiard.clear();
 				billiard.empty();
 				read(billiard);
 				break;
