@@ -18,6 +18,11 @@ struct Moments
 
 Statistics::Results Statistics::operator()(const std::vector<Particle>& particles)
 {
+	if (particles.size() < 2)
+	{
+		throw std::runtime_error{"Not enough particles to compute statistics"};
+	}
+
 	// Create vector of y and theta values of escaped particles
 	std::vector<double> y{};
 	std::vector<double> theta{};
@@ -38,7 +43,7 @@ Statistics::Results Statistics::operator()(const std::vector<Particle>& particle
 
 	if (m_N < 2)
 	{
-		throw std::runtime_error{"Not enough entries to compute statistics"};
+		throw std::runtime_error{"Cannot compute statistics: " + std::to_string(m_N) + " particle(s) escaped"};
 	}
 
 	return {computeStats(y), computeStats(theta)};
