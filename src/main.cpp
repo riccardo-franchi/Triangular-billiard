@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../include/interface.hpp"
+#include "../include/commands.hpp"
 
 int main()
 {

@@ -69,7 +69,7 @@ TEST_CASE("Testing statistics() throws")
 	}
 }
 
-TEST_CASE("Testing statistics() numerical values, alfa < 0")
+TEST_CASE("Testing statistics() numerical values, alpha < 0")
 {
 	bs::Billiard billiard{5., 3., 13.};
 	bs::Statistics statistics{billiard.getL()};
@@ -115,7 +115,7 @@ TEST_CASE("Testing statistics() numerical values, alfa < 0")
 	}
 }
 
-TEST_CASE("Testing statistics() numerical values, alfa > 0")
+TEST_CASE("Testing statistics() numerical values, alpha > 0")
 {
 
 	bs::Billiard billiard{3., 5., 13.};
@@ -131,7 +131,7 @@ TEST_CASE("Testing statistics() numerical values, alfa > 0")
 	}
 }
 
-TEST_CASE("Testing statistics() numerical values, alfa > 0")
+TEST_CASE("Testing statistics() numerical values, alpha > 0")
 {
 	bs::Billiard billiard{3., 4., 12.};
 	bs::Statistics statistics{billiard.getL()};

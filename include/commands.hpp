@@ -86,17 +86,8 @@ void generateParticles(bs::Billiard& billiard)
 	printStars(5);
 }
 
-bool isValidInput(const std::string& line)
-{
-	std::istringstream iss{line};
-	double y{};
-	double theta{};
-	return (iss >> y >> theta) && iss.eof();
-}
-
 int readFromFile(bs::Billiard& billiard)
 {
-	billiard.clear();
 
 	std::string fileName{};
 	std::cout << "Insert the file name: ";
@@ -107,63 +98,58 @@ int readFromFile(bs::Billiard& billiard)
 	std::ifstream inFile(fileName);
 	if (!inFile)
 	{
-		throw std::runtime_error{"File not found!"};
+		throw std::runtime_error{"File not found"};
 	}
-	if (inFile.is_open())
+
+	double y;
+	double theta;
+	int invalidParts{0};
+	int invalidLines{0};
+	std::string line;
+	billiard.clear();
+	for (int nLines{0}; std::getline(inFile, line); ++nLines)
 	{
-		double y;
-		double theta;
-		int invalidParts{0};
-		int lineNum{0};
-		int invalidLines{0};
-		std::string line;
-		while ((std::getline(inFile, line)))
+		if (line.empty()) // skips empty line
 		{
-			++lineNum;
-			if (line.empty()) // skips empty line
+			continue;
+		}
+		std::istringstream iss{line};
+		if ((iss >> y >> theta) && iss.eof())
+		{
+			if (std::abs(y) < billiard.getR1() && std::abs(theta) < M_PI_2)
 			{
-				continue;
-			}
-			if (isValidInput(line))
-			{
-				std::istringstream(line) >> y >> theta;
-				if (std::abs(y) < billiard.getR1() && std::abs(theta) < M_PI_2)
-				{
-					bs::Particle particle{y, theta};
-					billiard.push_back(particle);
-				}
-				else
-				{
-					++invalidParts;
-				}
+				bs::Particle particle{y, theta};
+				billiard.push_back(particle);
 			}
 			else
 			{
-				++invalidLines;
-				if (invalidLines < 10)
-				{
-					std::cout << "Invalid input: " << line << " (line " << lineNum << ")\n";
-				}
+				++invalidParts;
 			}
 		}
-		billiard.runSimulation();
-		printStars(5);
-		std::cout << "Input file read successfully, simulation run." << '\n';
-		if (invalidLines != 0)
+		else
 		{
-			std::cout << invalidLines << " lines had invalid input.\n";
+			++invalidLines;
+			if (invalidLines < 10)
+			{
+				std::cout << "Invalid input: " << line << " (line " << nLines << ")\n";
+			}
 		}
-		if (invalidParts != 0)
-		{
-			std::cout << invalidParts << " particles had invalid initial coordinates and have been excluded.\n";
-		}
-		printStars(5);
-		std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
 	}
-	else
+	billiard.runSimulation();
+
+	printStars(5);
+	std::cout << "Input file read successfully, simulation run." << '\n';
+	if (invalidLines != 0)
 	{
-		throw std::runtime_error{"Impossible to open file!"};
+		std::cout << invalidLines << " lines had invalid input.\n";
 	}
+	if (invalidParts != 0)
+	{
+		std::cout << invalidParts << " particles had invalid initial coordinates and have been excluded.\n";
+	}
+	printStars(5);
+	std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
+
 	printStars(5);
 	return billiard.size();
 }
@@ -199,20 +185,15 @@ void printStatisticsOnFile(const bs::Billiard& billiard)
 
 	if (!outFile)
 	{
-		throw std::runtime_error{"Impossible to open file!"};
+		throw std::runtime_error{"Cannot open file"};
 	}
-	if (outFile.is_open())
-	{
-		outFile << bs::Statistics::statsToString(stats) << '\n';
 
-		outFile << billiard.size() << " particles were generated with valid parameters.\n";
-		outFile << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
-		std::cout << "Output file written successfully. Type \'s\' to print the results onscreen.\n";
-	}
-	else
-	{
-		throw std::runtime_error{"Impossible to open file!"};
-	}
+	outFile << bs::Statistics::statsToString(stats) << '\n';
+
+	outFile << billiard.size() << " particles were generated with valid parameters.\n";
+	outFile << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
+	std::cout << "Output file written successfully. Type \'s\' to print the results onscreen.\n";
+
 	printStars(5);
 }
 
@@ -226,15 +207,14 @@ void printValuesOnFile(const bs::Billiard& billiard)
 
 	if (!outFile)
 	{
-		throw std::runtime_error{"Impossible to open file!"};
+		throw std::runtime_error{"Could not open file"};
 	}
-	if (outFile.is_open())
+
+	for (const auto& p : billiard.getParticles())
 	{
-		for (const auto& p : billiard.getParticles())
-		{
-			outFile << p.y << ' ' << p.theta << '\n';
-		}
-		std::cout << "Output file written successfully.\n";
+		outFile << p.y << ' ' << p.theta << '\n';
 	}
+	std::cout << "Output file written successfully.\n";
+
 	printStars(5);
 }
