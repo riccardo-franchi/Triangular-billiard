@@ -112,3 +112,18 @@ TEST_CASE("Testing statistics() numerical values, alfa < 0")
 								 bs::Statistics::Results{{-0.383814280325, 1.10687}, {-0.872368831025, 0.658613}}));
 	}
 }
+
+TEST_CASE("Testing statistics() numerical values, alfa > 0")
+{
+	bs::Billiard billiard{3., 4., 12.};
+	bs::Statistics statistics{billiard.getL()};
+
+	SUBCASE("Same particles")
+	{
+		billiard.push_back({-2., 0.3217505544}); // no collisions
+		billiard.push_back({-2., 0.3217505544}); // no collisions
+
+		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
+								 bs::Statistics::Results{{2., 0.}, {0.3217505544, 0.}}));
+	}
+}
