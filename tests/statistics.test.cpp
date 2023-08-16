@@ -50,6 +50,22 @@ TEST_CASE("Testing statistics() throws")
 		billiard.runSimulation();
 		CHECK_THROWS(statistics(billiard.getParticles()));
 	}
+
+	SUBCASE("Ten particles, none of them escapes the billiard")
+	{
+		billiard.push_back({-2., 1.3173361955});
+		billiard.push_back({-4., 1.3423777985});
+		billiard.push_back({0., 1.3553648436});
+		billiard.push_back({-0.15, 1.3462769726});
+		billiard.push_back({-2.35, 1.3963817285});
+		billiard.push_back({3., 1.3055483599});
+		billiard.push_back({0., 1.4897168558});
+		billiard.push_back({-4.85, 1.3515529184});
+		billiard.push_back({-3., 1.3726015944});
+		billiard.push_back({-1, 1.4053271879});
+		billiard.runSimulation();
+		CHECK_THROWS(statistics(billiard.getParticles()));
+	}
 }
 
 TEST_CASE("Testing statistics() numerical values, alfa < 0")
