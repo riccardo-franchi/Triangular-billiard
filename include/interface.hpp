@@ -40,17 +40,13 @@ void generateParticles(bs::Billiard& billiard)
 	double sigmaTheta0{};
 	int N{};
 
-	std::default_random_engine engine{std::random_device{}()};
-
 	std::cout << "Insert the mean and sigma of the normal distribution of y_0: ";
 	getInput(meanY0);
 	if (std::abs(meanY0) > billiard.getR1())
 	{
 		throw std::domain_error{"y0 mean has to be between -r1 and +r1"};
 	}
-
 	getInput(sigmaY0);
-	std::normal_distribution yDistr{meanY0, std::abs(sigmaY0)};
 
 	std::cout << "Insert the mean and sigma of the normal distribution of theta_0: ";
 	getInput(meanTheta0);
@@ -58,12 +54,15 @@ void generateParticles(bs::Billiard& billiard)
 	{
 		throw std::domain_error{"theta0 mean has to be between -pi/2 and +pi/2"};
 	}
-
 	getInput(sigmaTheta0);
-	std::normal_distribution thetaDistr{meanTheta0, std::abs(sigmaTheta0)};
 
 	std::cout << "Insert the number of particles in the simulation: ";
 	getInput(N);
+
+	std::default_random_engine engine{std::random_device{}()};
+
+	std::normal_distribution yDistr{meanY0, std::abs(sigmaY0)};
+	std::normal_distribution thetaDistr{meanTheta0, std::abs(sigmaTheta0)};
 
 	for (int n{0}; n != N; ++n)
 	{
@@ -89,7 +88,7 @@ void generateParticles(bs::Billiard& billiard)
 
 bool isValidInput(const std::string& line)
 {
-	std::istringstream iss(line);
+	std::istringstream iss{line};
 	double y{};
 	double theta{};
 	return (iss >> y >> theta) && iss.eof();
