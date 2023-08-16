@@ -8,8 +8,8 @@
 #include <stdexcept>
 #include <string>
 
-#include "../include/billiard.hpp"
-#include "../include/statistics.hpp"
+#include "billiard.hpp"
+#include "statistics.hpp"
 
 template <typename T>
 void getInput(T& input)
