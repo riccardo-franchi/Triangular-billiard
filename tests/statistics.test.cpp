@@ -126,4 +126,13 @@ TEST_CASE("Testing statistics() numerical values, alfa > 0")
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
 								 bs::Statistics::Results{{2., 0.}, {0.3217505544, 0.}}));
 	}
+
+	SUBCASE("Two particles")
+	{
+		billiard.push_back({-2., 0.7448900202}); // one collision
+		billiard.push_back({-1., 0.6462755507}); // one collision
+
+		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
+								 bs::Statistics::Results{{-0.047380676, 0.566122567}, {-0.529300322, 0.06973096}}));
+	}
 }
