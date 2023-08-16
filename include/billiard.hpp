@@ -5,6 +5,8 @@
 
 #include <vector>
 
+namespace bs
+{
 class Billiard
 {
 public:
@@ -18,6 +20,7 @@ public:
 	const Particle& getParticle(int i) const { return m_particles.at(i); }
 
 	double getL() const { return m_l; }
+	double getR1() const { return m_r1; }
 
 	bool empty() const { return m_particles.empty(); }
 	int size() const { return m_particles.size(); }
@@ -34,5 +37,6 @@ private:
 
 	std::vector<Particle> m_particles{};
 };
+} // namespace bs
 
 #endif // BILLIARD_HPP

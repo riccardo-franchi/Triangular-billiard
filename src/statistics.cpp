@@ -1,9 +1,14 @@
 #include "../include/statistics.hpp"
 
 #include <cmath>
+#include <iomanip>
 #include <numeric>
+#include <sstream>
 #include <stdexcept>
+#include <string>
 
+namespace bs
+{
 struct Moments
 {
 	double x2{};
@@ -13,6 +18,11 @@ struct Moments
 
 Statistics::Results Statistics::operator()(const std::vector<Particle>& particles)
 {
+	if (particles.size() < 2)
+	{
+		throw std::runtime_error{"Not enough particles to compute statistics"};
+	}
+
 	// Create vector of y and theta values of escaped particles
 	std::vector<double> y{};
 	std::vector<double> theta{};
@@ -33,10 +43,27 @@ Statistics::Results Statistics::operator()(const std::vector<Particle>& particle
 
 	if (m_N < 2)
 	{
-		throw std::runtime_error{"Not enough entries to compute statistics"};
+		throw std::runtime_error{"Cannot compute statistics: " + std::to_string(m_N) + " particle(s) escaped"};
 	}
 
 	return {computeStats(y), computeStats(theta)};
+}
+
+std::string Statistics::statsToString(const Results& stats)
+{
+	const int w{20};
+	std::ostringstream oss{};
+
+	oss << std::setw(w) << std::left << "y_f mean: " << stats.y.mean << '\n'				 //
+		<< std::setw(w) << std::left << "y_f sigma: " << stats.y.sigma << '\n'				 //
+		<< std::setw(w) << std::left << "y_f skewness: " << stats.y.skewness << '\n'		 //
+		<< std::setw(w) << std::left << "y_f kurtosis: " << stats.y.kurtosis << '\n'		 //
+		<< std::setw(w) << std::left << "theta_f mean: " << stats.theta.mean << '\n'		 //
+		<< std::setw(w) << std::left << "theta_f sigma: " << stats.theta.sigma << '\n'		 //
+		<< std::setw(w) << std::left << "theta_f skewness: " << stats.theta.skewness << '\n' //
+		<< std::setw(w) << std::left << "theta_f kurtosis: " << stats.theta.kurtosis << '\n';
+
+	return oss.str();
 }
 
 Statistics::Stats Statistics::computeStats(const std::vector<double>& data)
@@ -60,3 +87,4 @@ Statistics::Stats Statistics::computeStats(const std::vector<double>& data)
 
 	return {mean, sigma, skewness, kurtosis};
 }
+} // namespace bs

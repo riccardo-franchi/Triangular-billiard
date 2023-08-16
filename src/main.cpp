@@ -1,38 +1,10 @@
-#include <algorithm>
-#include <execution>
-#include <fstream>
-#include <iomanip>
 #include <iostream>
-#include <random>
-#include <stdexcept>
-#include <string>
 
-#include "../include/billiard.hpp"
-#include "../include/statistics.hpp"
-
-template <typename T>
-void getInput(T& input)
-{
-	std::cin >> input;
-	if (!std::cin)
-	{
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		throw std::runtime_error{"input error"};
-	}
-}
-
-void printStars(int n)
-{
-	for (int i{0}; i < n; ++i)
-	{
-		std::cout << '*';
-	}
-	std::cout << '\n';
-}
+#include "../include/commands.hpp"
 
 int main()
 {
+	// Maybe we should move this code (lines 8-18) inside a specific command?
 	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
 				 "inputs with a space: ";
 	double r1{};
@@ -43,248 +15,96 @@ int main()
 	getInput(r2);
 	getInput(l);
 
-	Billiard billiard{r1, r2, l};
+	bs::Billiard billiard{r1, r2, l};
 
 	printStars(5);
 
-	std::cout << "Enter a command:\n"
-			  << "g = generate a sample of N particles and run the simulation\n"
-			  << "r = read the sample's particles from a file and run the simulation\n"
-			  << "s = print results' statistics onscreen\n"
-			  << "f = save results' statistics on a file\n"
-			  << "p = save final coordinates of each particle on a file\n"
-			  << "q = quit the program\n"
-			  << "h = list of commands\n";
-	printStars(5);
+	const std::string commands{"g = generate a sample of N particles and run the simulation\n"
+							   "r = read the sample's particles from a file and run the simulation\n"
+							   "s = print results' statistics onscreen\n"
+							   "f = save results' statistics on a file\n"
+							   "p = save final coordinates of each particle on a file\n"
+							   "q = quit the program\n"
+							   "h = list of commands\n"};
 
-	double mu_y0{};
-	double sigma_y0{};
-	double mu_th0{};
-	double sigma_th0{};
-	int N{};
+	std::cout << "Enter a command:\n" << commands;
+	printStars(5);
 
 	std::string input{};
 	while (true)
 	{
-		getInput(input);
-		if (input.size() == 1)
+		try
 		{
-			switch (input[0])
+			getInput(input);
+			if (input.size() == 1)
 			{
-			case 'h':
-			{
-				std::cout << "Commands:\n"
-						  << "g = generate a sample of N particles and run the simulation\n"
-						  << "r = read the sample's particles from a file and run the simulation\n"
-						  << "s = print results' statistics onscreen\n"
-						  << "f = save results' statistics on a file\n"
-						  << "p = save final coordinates of each particle on a file\n"
-						  << "q = quit the program\n";
-				break;
-			}
-			case 'g':
-			{
-				billiard.clear();
-
-				std::default_random_engine engine{std::random_device{}()};
-
-				std::cout << "Insert the mean and sigma of the normal distribution of y_0: ";
-				getInput(mu_y0);
-				if (std::abs(mu_y0) > r1)
+				switch (input[0])
 				{
-					throw std::domain_error{"y0 mean has to be between -r1 and +r1"};
-				}
-				getInput(sigma_y0);
-				std::normal_distribution<double> dist_y{mu_y0, std::abs(sigma_y0)};
-
-				std::cout << "Insert the mean and sigma of the normal distribution of theta_0: ";
-				getInput(mu_th0);
-				if (std::abs(mu_th0) > M_PI_2)
+				case 'h':
 				{
-					throw std::domain_error{"theta0 mean has to be between -pi/2 and +pi/2"};
-				}
-				getInput(sigma_th0);
-				std::normal_distribution<double> dist_th{mu_th0, sigma_th0};
-
-				std::cout << "Insert the number of particles in the simulation: ";
-				getInput(N);
-
-				for (int n{0}; n != N; ++n)
-				{
-					Particle particle{dist_y(engine), dist_th(engine)};
-
-					if (std::abs(particle.y) < r1 && std::abs(particle.theta) < M_PI_2)
-					{
-						billiard.push_back(particle);
-					}
-				}
-
-				billiard.runSimulation();
-				printStars(5);
-				std::cout << "Simulation of " << N << " particles successfully run.\n";
-				std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
-				printStars(5);
-				break;
-			}
-			case 'r':
-			{
-				billiard.empty();
-
-				std::string fileName;
-				std::cout << "Insert the file name: ";
-				std::cin >> fileName;
-
-				std::ifstream in_file(fileName.c_str());
-				if (!in_file)
-				{
-					throw std::runtime_error{"File not found!"};
-				}
-				if (in_file.is_open())
-				{
-					double y;
-					double theta;
-					int invalidParts{0};
-					while (in_file >> y >> theta)
-					{
-						if (std::abs(y) < r1 && std::abs(theta) < M_PI_2)
-						{
-							Particle particle{y, theta};
-							billiard.push_back(particle);
-						}
-						else
-						{
-							++invalidParts;
-						}
-					}
-					billiard.runSimulation();
-					printStars(5);
-					std::cout << "Input file read successfully, simulation run." << '\n';
-					if (invalidParts != 0)
-					{
-						std::cout << invalidParts
-								  << " particles had invalid initial coordinates and have been excluded.\n";
-					}
-					else
-					{
-						std::cout << "All particles had valid initial coordinates.\n";
-					}
-					printStars(5);
-					std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
-				}
-				else
-				{
-					throw std::runtime_error{"Impossible to open file!"};
-				}
-				printStars(5);
-				break;
-			}
-			case 's':
-			{
-				Statistics statistics{l};
-
-				const auto stats{statistics(billiard.getParticles())};
-
-				const int escParts{statistics.getN()};
-				const double escPerc{escParts * 100. / billiard.size()};
-				printStars(5);
-				std::cout << "y_f mean: " << stats.y.mean << '\n';
-				std::cout << "y_f sigma: " << stats.y.sigma << '\n';
-				std::cout << "y_f skewness: " << stats.y.skewness << '\n';
-				std::cout << "y_f kurtosis: " << stats.y.kurtosis << '\n';
-				std::cout << "theta_f mean: " << stats.theta.mean << '\n';
-				std::cout << "theta_f sigma: " << stats.theta.sigma << '\n';
-				std::cout << "theta_f skewness: " << stats.theta.skewness << '\n';
-				std::cout << "theta_f kurtosis: " << stats.theta.kurtosis << "\n\n";
-				std::cout << billiard.size() << " particles were generated with valid parameters.\n";
-				std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc
-						  << "%).\n";
-				break;
-			}
-			case 'f':
-			{
-				Statistics statistics{l};
-
-				const auto stats{statistics(billiard.getParticles())};
-
-				const int escParts{statistics.getN()};
-				const double escPerc{escParts * 100. / billiard.size()};
-
-				std::string fileName;
-				std::cout << "Insert the name of the file to be created (include .txt): ";
-				std::cin >> fileName;
-
-				std::ofstream out_file{fileName.c_str()};
-
-				if (!out_file)
-				{
-					throw std::runtime_error{"Impossible to open file!"};
-				}
-				if (out_file.is_open())
-				{
-					out_file << "y_f mean: " << stats.y.mean << '\n';
-					out_file << "y_f sigma: " << stats.y.sigma << '\n';
-					out_file << "y_f skewness: " << stats.y.skewness << '\n';
-					out_file << "y_f kurtosis: " << stats.y.kurtosis << '\n';
-					out_file << "theta_f mean: " << stats.theta.mean << '\n';
-					out_file << "theta_f sigma: " << stats.theta.sigma << '\n';
-					out_file << "theta_f skewness: " << stats.theta.skewness << '\n';
-					out_file << "theta_f kurtosis: " << stats.theta.kurtosis << "\n\n";
-					out_file << billiard.size() << " particles were generated with valid parameters.\n";
-					out_file << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc
-							 << "%).\n";
-					std::cout << "Output file written successfully. Type \'s\' to print the results onscreen.\n";
-				}
-				else
-				{
-					throw std::runtime_error{"Impossible to open file!"};
-				}
-				printStars(5);
-				break;
-			}
-			case 'p':
-			{
-				if (billiard.size() == 0)
-				{
-					std::cout << "A valid simulation must be run before! Enter another command.\n";
-					printStars(5);
+					std::cout << "Commands:\n" << commands;
 					break;
 				}
-
-				std::string fileName;
-				std::cout << "Insert the name of the file to be created (include .txt): ";
-				std::cin >> fileName;
-
-				std::ofstream out_file{fileName.c_str()};
-
-				if (!out_file)
+				case 'g':
 				{
-					throw std::runtime_error{"Impossible to open file!"};
+					billiard.clear();
+					generateParticles(billiard);
+					break;
 				}
-				if (out_file.is_open())
+				case 'r':
 				{
-					for (const auto& p : billiard.getParticles())
+					billiard.clear();
+					readFromFile(billiard);
+					break;
+				}
+				case 's':
+				{
+					printStatistics(billiard);
+					break;
+				}
+				case 'f':
+				{
+					printStatsToFile(billiard);
+					break;
+				}
+				case 'p':
+				{
+					if (billiard.size() == 0)
 					{
-						out_file << p.y << p.theta << '\n';
+						std::cout << "A valid simulation must be run before! Enter another command.\n";
+						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+						printStars(5);
+						break;
 					}
-					std::cout << "Output file written successfully.\n";
+					printValuesToFile(billiard);
+					break;
 				}
-				printStars(5);
-				break;
+				case 'q':
+				{
+					return 0;
+				}
+				default:
+				{
+					std::cout << "Invalid input. Type \'h\' to see a list of commands.\n";
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					break;
+				}
+				}
 			}
-			case 'q':
+			else
 			{
-				return 0;
-			}
-			default:
-			{
-				std::cout << "Invalid input. Type \'h\' to see a list of commands.\n";
-				break;
-			}
+				std::cout << "Invalid input: enter only one character. Type \'h\' for a list of commands.\n";
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			}
 		}
-		else
+		catch (std::exception& e)
 		{
-			std::cout << "Invalid input: enter only one character. Type \'h\' for a list of commands.\n";
+			std::cout << e.what() << ".\nPlease enter another command.\n";
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
+		catch (...)
+		{
+			std::cout << "An unknown error occurred.\n";
 		}
 	}
 }

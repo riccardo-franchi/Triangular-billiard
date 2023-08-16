@@ -4,7 +4,8 @@
 #include "../include/billiard.hpp"
 #include "../include/statistics.hpp"
 
-bool statisticsApproxEq(const Statistics::Statistics::Results& stat1, const Statistics::Statistics::Results& stat2)
+bool statisticsApproxEq(const bs::Statistics::Statistics::Results& stat1,
+						const bs::Statistics::Statistics::Results& stat2)
 {
 	const double epsilon{0.0001};
 	return (stat1.y.mean == doctest::Approx(stat2.y.mean).epsilon(epsilon) &&
@@ -13,7 +14,8 @@ bool statisticsApproxEq(const Statistics::Statistics::Results& stat1, const Stat
 			stat1.theta.sigma == doctest::Approx(stat2.theta.sigma).epsilon(epsilon));
 }
 
-bool statisticsApproxEq2(const Statistics::Statistics::Results& stat1, const Statistics::Statistics::Results& stat2)
+bool statisticsApproxEq2(const bs::Statistics::Statistics::Results& stat1,
+						 const bs::Statistics::Statistics::Results& stat2)
 {
 	const double epsilon{0.0001};
 	return (stat1.y.mean == doctest::Approx(stat2.y.mean).epsilon(epsilon) &&
@@ -28,8 +30,8 @@ bool statisticsApproxEq2(const Statistics::Statistics::Results& stat1, const Sta
 
 TEST_CASE("Testing statistics() throws")
 {
-	Billiard billiard{5., 3., 13.};
-	Statistics statistics{billiard.getL()};
+	bs::Billiard billiard{5., 3., 13.};
+	bs::Statistics statistics{billiard.getL()};
 
 	SUBCASE("No particles")
 	{
@@ -49,13 +51,28 @@ TEST_CASE("Testing statistics() throws")
 		billiard.runSimulation();
 		CHECK_THROWS(statistics(billiard.getParticles()));
 	}
+
+	SUBCASE("Ten particles, none of them escapes the billiard")
+	{
+		billiard.push_back({-2., 1.3173361955});
+		billiard.push_back({-4., 1.3423777985});
+		billiard.push_back({0., 1.3553648436});
+		billiard.push_back({-0.15, 1.3462769726});
+		billiard.push_back({-2.35, 1.3963817285});
+		billiard.push_back({3., 1.3055483599});
+		billiard.push_back({0., 1.4897168558});
+		billiard.push_back({-4.85, 1.3515529184});
+		billiard.push_back({-3., 1.3726015944});
+		billiard.push_back({-1, 1.4053271879});
+		billiard.runSimulation();
+		CHECK_THROWS(statistics(billiard.getParticles()));
+	}
 }
 
-TEST_CASE("Testing statistics() numerical values, alfa < 0")
+TEST_CASE("Testing statistics() numerical values, alpha < 0")
 {
-
-	Billiard billiard{5., 3., 13.};
-	Statistics statistics{billiard.getL()};
+	bs::Billiard billiard{5., 3., 13.};
+	bs::Statistics statistics{billiard.getL()};
 
 	SUBCASE("Two particles")
 	{
@@ -63,7 +80,7 @@ TEST_CASE("Testing statistics() numerical values, alfa < 0")
 		billiard.push_back({1., 0.0767718913}); // no collisions, y_f = 2
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
-								 Statistics::Results{{1.925, 0.106066}, {0.03838594565, 0.0542859}}));
+								 bs::Statistics::Results{{1.925, 0.106066}, {0.038385946, 0.0542859}}));
 	}
 
 	SUBCASE("Same particles")
@@ -72,7 +89,7 @@ TEST_CASE("Testing statistics() numerical values, alfa < 0")
 		billiard.push_back({-2., 0.2267988481}); // no collisions
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
-								 Statistics::Results{{1., 0.}, {0.2267988481, 0.}}));
+								 bs::Statistics::Results{{1., 0.}, {0.2267988481, 0.}}));
 	}
 
 	SUBCASE("Three particles")
@@ -82,7 +99,7 @@ TEST_CASE("Testing statistics() numerical values, alfa < 0")
 		billiard.push_back({1.12534, 0.41964});	  // one collision
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
-								 Statistics::Results{{0.3537533333, 1.90354}, {-0.194315976, 0.523057}}));
+								 bs::Statistics::Results{{0.3537533333, 1.90354}, {-0.194315976, 0.523057}}));
 	}
 
 	SUBCASE("Four particles w/ skewness and kurtosis")
@@ -93,16 +110,16 @@ TEST_CASE("Testing statistics() numerical values, alfa < 0")
 		billiard.push_back({2.65, 0.5565549784}); // three collision, fin. (-0.1311178052, -1.4724509487)
 
 		CHECK(statisticsApproxEq2(statistics(billiard.runSimulation()),
-								  Statistics::Results{{-0.383814280325, 1.10687, -0.57259892459, 1.2238334345},
-													  {-0.872368831025, 0.658613, 0.33630075, 0.977477404}}));
+								  bs::Statistics::Results{{-0.383814280325, 1.10687, -0.57259892459, 1.2238334345},
+														  {-0.872368831025, 0.658613, 0.33630075, 0.977477404}}));
 	}
 }
 
-TEST_CASE("Testing statistics() numerical values, alfa > 0")
+TEST_CASE("Testing statistics() numerical values, alpha > 0")
 {
 
-	Billiard billiard{3., 5., 13.};
-	Statistics statistics{billiard.getL()};
+	bs::Billiard billiard{3., 5., 13.};
+	bs::Statistics statistics{billiard.getL()};
 
 	SUBCASE("Two particles")
 	{
@@ -110,31 +127,41 @@ TEST_CASE("Testing statistics() numerical values, alfa > 0")
 		billiard.push_back({0., 0.1526493284}); // no collisions, y_f = 2
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
-								 Statistics::Results{{2., 0.}, {0.11471061, 0.05365345}}));
-	}
-	SUBCASE("Same particles")
-	{
-		billiard.push_back({1., 0.4340593973}); // one collision
-		billiard.push_back({1., 0.4340593973}); // one collision
-
-		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
-								 Statistics::Results{{3.1464764743, 0.}, {-0.1287607405, 0.}}));
+								 bs::Statistics::Results{{2., 0.}, {0.114711, 0.053653}}));
 	}
 }
 
-TEST_CASE("Testing correct behaviour for particles which don't exit the billiard")
+TEST_CASE("Testing statistics() numerical values, alpha > 0")
 {
-	Billiard billiard{5., 3., 13.};
-	Statistics statistics{billiard.getL()};
+	bs::Billiard billiard{3., 4., 12.};
+	bs::Statistics statistics{billiard.getL()};
 
-	SUBCASE("Four particles, of which one does not escape")
+	SUBCASE("Same particles")
 	{
-		billiard.push_back({-2.47, 0.32083});
-		billiard.push_back({3.35, -0.178837928});
-		billiard.push_back({1.12534, 0.41964});
-		billiard.push_back({-4.51, 1.4521870679}); // doesn't exit, should not be considered in statistics
+		billiard.push_back({-2., 0.3217505544}); // no collisions
+		billiard.push_back({-2., 0.3217505544}); // no collisions
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
-								 Statistics::Results{{0.3537533333, 1.90354}, {-0.194315976, 0.523057}}));
+								 bs::Statistics::Results{{2., 0.}, {0.3217505544, 0.}}));
+	}
+
+	SUBCASE("Two particles")
+	{
+		billiard.push_back({-2., 0.7448900202}); // one collision
+		billiard.push_back({-1., 0.6462755507}); // one collision
+
+		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
+								 bs::Statistics::Results{{-0.047380676, 0.566122567}, {-0.529300322, 0.06973096}}));
+	}
+
+	SUBCASE("Four particles")
+	{
+		billiard.push_back({0.49, 0.});			 // no collision
+		billiard.push_back({2., 0.2460005466});	 // one collision
+		billiard.push_back({-2., 0.2449786631}); // no collisions
+		billiard.push_back({1., 0.3966404392});	 // one collision
+
+		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
+								 bs::Statistics::Results{{1.646215724, 1.127653618}, {-0.016274349, 0.198641131}}));
 	}
 }
