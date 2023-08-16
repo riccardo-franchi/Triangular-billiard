@@ -4,6 +4,7 @@
 
 int main()
 {
+	// Maybe we should move this code (lines 8-18) inside a specific command?
 	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
 				 "inputs with a space: ";
 	double r1{};
@@ -32,64 +33,78 @@ int main()
 	std::string input{};
 	while (true)
 	{
-		getInput(input);
-		if (input.size() == 1)
+		try
 		{
-			switch (input[0])
+			getInput(input);
+			if (input.size() == 1)
 			{
-			case 'h':
-			{
-				std::cout << "Commands:\n" << commands;
-				break;
-			}
-			case 'g':
-			{
-				billiard.clear();
-				generateParticles(billiard);
-				break;
-			}
-			case 'r':
-			{
-				// billiard.clear();
-				billiard.empty();
-				read(billiard);
-				break;
-			}
-			case 's':
-			{
-				printStatistics(billiard);
-				break;
-			}
-			case 'f':
-			{
-				printStatisticsOnFile(billiard);
-				break;
-			}
-			case 'p':
-			{
-				if (billiard.size() == 0)
+				switch (input[0])
 				{
-					std::cout << "A valid simulation must be run before! Enter another command.\n";
-					printStars(5);
+				case 'h':
+				{
+					std::cout << "Commands:\n" << commands;
 					break;
 				}
-				printValuesOnFile(billiard);
-				break;
+				case 'g':
+				{
+					billiard.clear();
+					generateParticles(billiard);
+					break;
+				}
+				case 'r':
+				{
+					billiard.clear();
+					read(billiard);
+					break;
+				}
+				case 's':
+				{
+					printStatistics(billiard);
+					break;
+				}
+				case 'f':
+				{
+					printStatisticsOnFile(billiard);
+					break;
+				}
+				case 'p':
+				{
+					if (billiard.size() == 0)
+					{
+						std::cout << "A valid simulation must be run before! Enter another command.\n";
+						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+						printStars(5);
+						break;
+					}
+					printValuesOnFile(billiard);
+					break;
+				}
+				case 'q':
+				{
+					return 0;
+				}
+				default:
+				{
+					std::cout << "Invalid input. Type \'h\' to see a list of commands.\n";
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					break;
+				}
+				}
 			}
-			case 'q':
+			else
 			{
-				return 0;
-			}
-			default:
-			{
-				std::cout << "Invalid input. Type \'h\' to see a list of commands.\n";
-				break;
-			}
+				std::cout << "Invalid input: enter only one character. Type \'h\' for a list of commands.\n";
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			}
 		}
-		else
+		catch (std::exception& e)
 		{
-			std::cout << "Invalid input: enter only one character. Type \'h\' for a list of commands.\n";
+			std::cout << e.what() << ".\nPlease enter another command.\n";
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
+		catch (...)
+		{
+			std::cout << "An unknown error occurred.\n";
 		}
 	}
 }
