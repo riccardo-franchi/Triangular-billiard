@@ -4,7 +4,7 @@
 #include <cmath>
 #include <stdexcept>
 
-namespace bs
+namespace tb
 {
 struct Particle
 {
@@ -16,6 +16,6 @@ public:
 	double y{};
 	double theta{};
 };
-} // namespace bs
+} // namespace tb
 
 #endif // PARTICLE_HPP

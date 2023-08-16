@@ -32,7 +32,7 @@ void printStars(int n)
 	std::cout << '\n';
 }
 
-void generateParticles(bs::Billiard& billiard)
+void generateParticles(tb::Billiard& billiard)
 {
 	double meanY0{};
 	double sigmaY0{};
@@ -66,7 +66,7 @@ void generateParticles(bs::Billiard& billiard)
 
 	for (int n{0}; n != N; ++n)
 	{
-		bs::Particle particle{yDistr(engine), thetaDistr(engine)};
+		tb::Particle particle{yDistr(engine), thetaDistr(engine)};
 
 		if (std::abs(particle.y) < billiard.getR1() && std::abs(particle.theta) < M_PI_2)
 		{
@@ -86,7 +86,7 @@ void generateParticles(bs::Billiard& billiard)
 	printStars(5);
 }
 
-int readFromFile(bs::Billiard& billiard)
+int readFromFile(tb::Billiard& billiard)
 {
 
 	std::string fileName{};
@@ -118,7 +118,7 @@ int readFromFile(bs::Billiard& billiard)
 		{
 			if (std::abs(y) < billiard.getR1() && std::abs(theta) < M_PI_2)
 			{
-				bs::Particle particle{y, theta};
+				tb::Particle particle{y, theta};
 				billiard.push_back(particle);
 			}
 			else
@@ -151,23 +151,23 @@ int readFromFile(bs::Billiard& billiard)
 	return billiard.size();
 }
 
-void printStatistics(const bs::Billiard& billiard)
+void printStatistics(const tb::Billiard& billiard)
 {
-	bs::Statistics statistics{billiard.getL()};
+	tb::Statistics statistics{billiard.getL()};
 
 	const auto stats{statistics(billiard.getParticles())};
 
 	const int escParts{statistics.getN()};
 	const double escPerc{escParts * 100. / billiard.size()};
 	printStars(5);
-	std::cout << bs::Statistics::statsToString(stats) << '\n';
+	std::cout << tb::Statistics::statsToString(stats) << '\n';
 	std::cout << billiard.size() << " particles were generated with valid parameters.\n";
 	std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 }
 
-void printStatsToFile(const bs::Billiard& billiard)
+void printStatsToFile(const tb::Billiard& billiard)
 {
-	bs::Statistics statistics{billiard.getL()};
+	tb::Statistics statistics{billiard.getL()};
 
 	const auto stats{statistics(billiard.getParticles())};
 
@@ -185,7 +185,7 @@ void printStatsToFile(const bs::Billiard& billiard)
 		throw std::runtime_error{"Cannot open file"};
 	}
 
-	outFile << bs::Statistics::statsToString(stats) << '\n';
+	outFile << tb::Statistics::statsToString(stats) << '\n';
 
 	outFile << billiard.size() << " particles were generated with valid parameters.\n";
 	outFile << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
@@ -194,7 +194,7 @@ void printStatsToFile(const bs::Billiard& billiard)
 	printStars(5);
 }
 
-void printValuesToFile(const bs::Billiard& billiard)
+void printValuesToFile(const tb::Billiard& billiard)
 {
 	std::string fileName{};
 	std::cout << "Insert the name of the file to be created (include .txt): ";
