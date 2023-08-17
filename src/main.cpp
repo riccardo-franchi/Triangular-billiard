@@ -5,7 +5,9 @@
 int main()
 {
 
-	const std::string commands{"g = generate a sample of N particles and run the simulation\n"
+	const std::string commands{"b = set the parameters of the billiard, if you don't select this option default "
+							   "parameters (1., 1., 1.) will be used in you simulation\n"
+							   "g = generate a sample of N particles and run the simulation\n"
 							   "r = read the sample's particles from a file and run the simulation\n"
 							   "s = print results' statistics onscreen\n"
 							   "f = save results' statistics on a file\n"

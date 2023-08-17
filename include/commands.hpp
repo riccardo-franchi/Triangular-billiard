@@ -47,6 +47,10 @@ tb::Billiard billiardParameters()
 	tb::Billiard billiard{r1, r2, l};
 
 	printStars(5);
+	std::cout << "Parameters successfully entered.\n";
+	std::cout << "Type \'g\' to generate a sample of N particles and run the simulation, or \'r\' read the sample's "
+				 "particles from a file and run the simulation.\n";
+	printStars(5);
 	return billiard;
 }
 
