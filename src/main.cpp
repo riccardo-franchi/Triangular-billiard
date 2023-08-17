@@ -19,76 +19,68 @@ int main()
 	printStars(5);
 
 	tb::Billiard billiard{};
-	std::string input{};
+	char input{};
 	while (true)
 	{
 		try
 		{
 			getInput(input);
-			if (input.size() == 1)
+			switch (input)
 			{
-				switch (input[0])
-				{
-				case 'b':
-				{
-					setBilliardParams(billiard);
-					break;
-				}
-				case 'h':
-				{
-					std::cout << "Commands:\n" << commands;
-					break;
-				}
-				case 'g':
-				{
-					billiard.clear();
-					generateParticles(billiard);
-					break;
-				}
-				case 'r':
-				{
-					billiard.clear();
-					readFromFile(billiard);
-					break;
-				}
-				case 's':
-				{
-					printStatistics(billiard);
-					break;
-				}
-				case 'f':
-				{
-					printStatsToFile(billiard);
-					break;
-				}
-				case 'p':
-				{
-					if (billiard.size() == 0)
-					{
-						std::cout << "A valid simulation must be run before! Enter another command.\n";
-						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-						printStars(5);
-						break;
-					}
-					printValuesToFile(billiard);
-					break;
-				}
-				case 'q':
-				{
-					return 0;
-				}
-				default:
-				{
-					std::cout << "Invalid input. Type \'h\' to see a list of commands.\n";
-					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-					break;
-				}
-				}
+			case 'b':
+			{
+				setBilliardParams(billiard);
+				break;
 			}
-			else
+			case 'h':
 			{
-				std::cout << "Invalid input: enter only one character. Type \'h\' for a list of commands.\n";
+				std::cout << "Commands:\n" << commands;
+				break;
+			}
+			case 'g':
+			{
+				billiard.clear();
+				generateParticles(billiard);
+				break;
+			}
+			case 'r':
+			{
+				billiard.clear();
+				readFromFile(billiard);
+				break;
+			}
+			case 's':
+			{
+				printStatistics(billiard);
+				break;
+			}
+			case 'f':
+			{
+				printStatsToFile(billiard);
+				break;
+			}
+			case 'p':
+			{
+				if (billiard.size() == 0)
+				{
+					std::cout << "A valid simulation must be run before! Enter another command.\n";
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					printStars(5);
+					break;
+				}
+				printValuesToFile(billiard);
+				break;
+			}
+			case 'q':
+			{
+				return 0;
+			}
+			default:
+			{
+				std::cout << "Invalid input. Type \'h\' to see a list of commands.\n";
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				break;
+			}
 			}
 		}
 		catch (std::exception& e)
