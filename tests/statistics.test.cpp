@@ -131,7 +131,7 @@ TEST_CASE("Testing statistics() numerical values, alpha > 0")
 	}
 }
 
-TEST_CASE("Testing statistics() numerical values, alpha > 0")
+TEST_CASE("Testing statistics() numerical values, alpha > 0, different billiard")
 {
 	tb::Billiard billiard{3., 4., 12.};
 	tb::Statistics statistics{billiard.getL()};
