@@ -3,6 +3,5 @@ build
 data.txt
 results.txt
 wrongData.txt
-particles/particles.txt
-particles/partGeneration
+particles
 root/
