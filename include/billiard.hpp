@@ -10,6 +10,7 @@ namespace tb
 class Billiard
 {
 public:
+	Billiard();
 	Billiard(double r1, double r2, double l);
 
 	// Needed to use std::generate
