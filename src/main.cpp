@@ -4,22 +4,10 @@
 
 int main()
 {
-	// Maybe we should move this code (lines 8-18) inside a specific command?
-	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
-				 "inputs with a space: ";
-	double r1{};
-	double r2{};
-	double l{};
 
-	getInput(r1);
-	getInput(r2);
-	getInput(l);
-
-	tb::Billiard billiard{r1, r2, l};
-
-	printStars(5);
-
-	const std::string commands{"g = generate a sample of N particles and run the simulation\n"
+	const std::string commands{"b = set the parameters of the billiard, if you don't select this option default "
+							   "parameters (1., 1., 1.) will be used in your simulation\n"
+							   "g = generate a sample of N particles and run the simulation\n"
 							   "r = read the sample's particles from a file and run the simulation\n"
 							   "s = print results' statistics onscreen\n"
 							   "f = save results' statistics on a file\n"
@@ -30,71 +18,69 @@ int main()
 	std::cout << "Enter a command:\n" << commands;
 	printStars(5);
 
-	std::string input{};
+	tb::Billiard billiard{};
+	char input{};
 	while (true)
 	{
 		try
 		{
 			getInput(input);
-			if (input.size() == 1)
+			switch (input)
 			{
-				switch (input[0])
-				{
-				case 'h':
-				{
-					std::cout << "Commands:\n" << commands;
-					break;
-				}
-				case 'g':
-				{
-					billiard.clear();
-					generateParticles(billiard);
-					break;
-				}
-				case 'r':
-				{
-					billiard.clear();
-					readFromFile(billiard);
-					break;
-				}
-				case 's':
-				{
-					printStatistics(billiard);
-					break;
-				}
-				case 'f':
-				{
-					printStatsToFile(billiard);
-					break;
-				}
-				case 'p':
-				{
-					if (billiard.size() == 0)
-					{
-						std::cout << "A valid simulation must be run before! Enter another command.\n";
-						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-						printStars(5);
-						break;
-					}
-					printValuesToFile(billiard);
-					break;
-				}
-				case 'q':
-				{
-					return 0;
-				}
-				default:
-				{
-					std::cout << "Invalid input. Type \'h\' to see a list of commands.\n";
-					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-					break;
-				}
-				}
+			case 'b':
+			{
+				setBilliardParams(billiard);
+				break;
 			}
-			else
+			case 'h':
 			{
-				std::cout << "Invalid input: enter only one character. Type \'h\' for a list of commands.\n";
+				std::cout << "Commands:\n" << commands;
+				break;
+			}
+			case 'g':
+			{
+				billiard.clear();
+				generateParticles(billiard);
+				break;
+			}
+			case 'r':
+			{
+				billiard.clear();
+				readFromFile(billiard);
+				break;
+			}
+			case 's':
+			{
+				printStatistics(billiard);
+				break;
+			}
+			case 'f':
+			{
+				printStatsToFile(billiard);
+				break;
+			}
+			case 'p':
+			{
+				if (billiard.size() == 0)
+				{
+					std::cout << "A valid simulation must be run before! Enter another command.\n";
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					printStars(5);
+					break;
+				}
+				printValuesToFile(billiard);
+				break;
+			}
+			case 'q':
+			{
+				return 0;
+			}
+			default:
+			{
+				std::cout << "Invalid input. Type \'h\' to see a list of commands.\n";
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				break;
+			}
 			}
 		}
 		catch (std::exception& e)

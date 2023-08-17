@@ -1,3 +1,6 @@
+#ifndef COMMANDS_HPP
+#define COMMANDS_HPP
+
 #include <algorithm>
 #include <execution>
 #include <fstream>
@@ -30,6 +33,27 @@ void printStars(int n)
 		std::cout << '*';
 	}
 	std::cout << '\n';
+}
+
+void setBilliardParams(tb::Billiard& billiard)
+{
+	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
+				 "inputs with a space: ";
+	double r1{};
+	double r2{};
+	double l{};
+
+	getInput(r1);
+	getInput(r2);
+	getInput(l);
+
+	billiard = tb::Billiard{r1, r2, l};
+
+	printStars(5);
+	std::cout << "Parameters successfully entered.\n";
+	std::cout << "Type \'g\' to generate a sample of N particles and run the simulation, or \'r\' to read the sample's "
+				 "particles from a file and run the simulation.\n";
+	printStars(5);
 }
 
 void generateParticles(tb::Billiard& billiard)
@@ -138,11 +162,11 @@ int readFromFile(tb::Billiard& billiard)
 	std::cout << "Input file read successfully, simulation run." << '\n';
 	if (invalidLines != 0)
 	{
-		std::cout << invalidLines << " lines had invalid input.\n";
+		std::cout << invalidLines << " line(s) had invalid input.\n";
 	}
 	if (invalidParts != 0)
 	{
-		std::cout << invalidParts << " particles had invalid initial coordinates and have been excluded.\n";
+		std::cout << invalidParts << " particle(s) had invalid initial coordinates and have been excluded.\n";
 	}
 	printStars(5);
 	std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
@@ -175,7 +199,7 @@ void printStatsToFile(const tb::Billiard& billiard)
 	const double escPerc{escParts * 100. / billiard.size()};
 
 	std::string fileName{};
-	std::cout << "Insert the name of the file to be created (include .txt): ";
+	std::cout << "Insert the name of the file to be created: ";
 	getInput(fileName);
 
 	std::ofstream outFile{fileName};
@@ -218,3 +242,5 @@ void printValuesToFile(const tb::Billiard& billiard)
 
 	printStars(5);
 }
+
+#endif // BILLIARD_HPP

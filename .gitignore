@@ -1,5 +1,4 @@
 .vscode
 build
-data.txt
-results.txt
-wrongData.txt
+particles
+root
