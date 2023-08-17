@@ -29,7 +29,7 @@ int main()
 				{
 				case 'b':
 				{
-					billiardParameters(billiard);
+					billiard = billiardParameters();
 					break;
 				}
 				case 'h':

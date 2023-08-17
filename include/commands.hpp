@@ -32,7 +32,7 @@ void printStars(int n)
 	std::cout << '\n';
 }
 
-void billiardParameters(tb::Billiard& billiard)
+tb::Billiard billiardParameters()
 {
 	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
 				 "inputs with a space: ";
@@ -47,6 +47,7 @@ void billiardParameters(tb::Billiard& billiard)
 	tb::Billiard billiard{r1, r2, l};
 
 	printStars(5);
+	return billiard;
 }
 
 void generateParticles(tb::Billiard& billiard)
