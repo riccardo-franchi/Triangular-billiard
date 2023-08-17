@@ -4,20 +4,6 @@
 
 int main()
 {
-	// Maybe we should move this code (lines 8-18) inside a specific command?
-	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
-				 "inputs with a space: ";
-	double r1{};
-	double r2{};
-	double l{};
-
-	getInput(r1);
-	getInput(r2);
-	getInput(l);
-
-	tb::Billiard billiard{r1, r2, l};
-
-	printStars(5);
 
 	const std::string commands{"g = generate a sample of N particles and run the simulation\n"
 							   "r = read the sample's particles from a file and run the simulation\n"
@@ -30,6 +16,7 @@ int main()
 	std::cout << "Enter a command:\n" << commands;
 	printStars(5);
 
+	tb::Billiard billiard{};
 	std::string input{};
 	while (true)
 	{
@@ -40,6 +27,11 @@ int main()
 			{
 				switch (input[0])
 				{
+				case 'b':
+				{
+					billiardParameters(billiard);
+					break;
+				}
 				case 'h':
 				{
 					std::cout << "Commands:\n" << commands;

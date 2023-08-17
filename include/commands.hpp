@@ -32,6 +32,23 @@ void printStars(int n)
 	std::cout << '\n';
 }
 
+void billiardParameters(tb::Billiard& billiard)
+{
+	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
+				 "inputs with a space: ";
+	double r1{};
+	double r2{};
+	double l{};
+
+	getInput(r1);
+	getInput(r2);
+	getInput(l);
+
+	tb::Billiard billiard{r1, r2, l};
+
+	printStars(5);
+}
+
 void generateParticles(tb::Billiard& billiard)
 {
 	double meanY0{};
