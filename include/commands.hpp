@@ -199,7 +199,7 @@ void printStatsToFile(const tb::Billiard& billiard)
 	const double escPerc{escParts * 100. / billiard.size()};
 
 	std::string fileName{};
-	std::cout << "Insert the name of the file to be created (include .txt): ";
+	std::cout << "Insert the name of the file to be created: ";
 	getInput(fileName);
 
 	std::ofstream outFile{fileName};
