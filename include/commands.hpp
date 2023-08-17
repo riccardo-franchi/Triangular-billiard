@@ -162,11 +162,11 @@ int readFromFile(tb::Billiard& billiard)
 	std::cout << "Input file read successfully, simulation run." << '\n';
 	if (invalidLines != 0)
 	{
-		std::cout << invalidLines << " lines had invalid input.\n";
+		std::cout << invalidLines << " line(s) had invalid input.\n";
 	}
 	if (invalidParts != 0)
 	{
-		std::cout << invalidParts << " particles had invalid initial coordinates and have been excluded.\n";
+		std::cout << invalidParts << " particle(s) had invalid initial coordinates and have been excluded.\n";
 	}
 	printStars(5);
 	std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
