@@ -1,3 +1,6 @@
+#ifndef COMMANDS_HPP
+#define COMMANDS_HPP
+
 #include <algorithm>
 #include <execution>
 #include <fstream>
@@ -239,3 +242,5 @@ void printValuesToFile(const tb::Billiard& billiard)
 
 	printStars(5);
 }
+
+#endif // BILLIARD_HPP
