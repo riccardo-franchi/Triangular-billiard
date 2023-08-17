@@ -32,7 +32,7 @@ void printStars(int n)
 	std::cout << '\n';
 }
 
-tb::Billiard billiardParameters()
+void setBilliardParams(tb::Billiard& billiard)
 {
 	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
 				 "inputs with a space: ";
@@ -44,14 +44,13 @@ tb::Billiard billiardParameters()
 	getInput(r2);
 	getInput(l);
 
-	tb::Billiard billiard{r1, r2, l};
+	billiard = tb::Billiard{r1, r2, l};
 
 	printStars(5);
 	std::cout << "Parameters successfully entered.\n";
 	std::cout << "Type \'g\' to generate a sample of N particles and run the simulation, or \'r\' to read the sample's "
 				 "particles from a file and run the simulation.\n";
 	printStars(5);
-	return billiard;
 }
 
 void generateParticles(tb::Billiard& billiard)

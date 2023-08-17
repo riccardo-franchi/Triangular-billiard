@@ -31,7 +31,7 @@ int main()
 				{
 				case 'b':
 				{
-					billiard = billiardParameters();
+					setBilliardParams(billiard);
 					break;
 				}
 				case 'h':

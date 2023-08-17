@@ -5,7 +5,6 @@
 
 namespace tb
 {
-Billiard::Billiard() : m_r1{1.}, m_r2{1.}, m_l{1.} {};
 Billiard::Billiard(double r1, double r2, double l) : m_r1{r1}, m_r2{r2}, m_l{l}
 {
 	if (m_r1 < 0 || m_r2 < 0 || m_l < 0)
