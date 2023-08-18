@@ -22,6 +22,7 @@ public:
 
 	double getL() const { return m_l; }
 	double getR1() const { return m_r1; }
+	void setL(double l) { m_l = l; }
 
 	bool empty() const { return m_particles.empty(); }
 	int size() const { return m_particles.size(); }

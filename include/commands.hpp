@@ -243,4 +243,17 @@ void printValuesToFile(const tb::Billiard& billiard)
 	printStars(5);
 }
 
+void generateL(tb::Billiard& billiard)
+{
+	setBilliardParams(billiard);
+	int condition{};
+	getInput(condition);
+	for (int i{0}; i < condition; i++)
+	{
+		double l{billiard.getL()};
+		l = l + 0.1;
+		billiard.setL(l);
+	}
+}
+
 #endif // BILLIARD_HPP

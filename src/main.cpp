@@ -71,6 +71,11 @@ int main()
 				printValuesToFile(billiard);
 				break;
 			}
+			case 'x':
+			{
+				generateL(billiard);
+				break;
+			}
 			case 'q':
 			{
 				return 0;
