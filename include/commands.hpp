@@ -240,6 +240,7 @@ void printValuesToFile(const tb::Billiard& billiard)
 void generateL(tb::Billiard& billiard)
 {
 	setBilliardParams(billiard);
+	double l{billiard.getL()};
 	generateParticles(billiard);
 
 	const tb::Billiard billiardConst{billiard};
@@ -260,13 +261,20 @@ void generateL(tb::Billiard& billiard)
 	getInput(LFin);
 
 	double step{};
-	std::cout << "With which step has to be incremented L?\n";
+	std::cout << "Insert the step with which L will be incremented (or decremented): ";
 	getInput(step);
 
-	double l{billiard.getL()};
+	bool condition{l < LFin};
+
+	if (LFin < l)
+	{
+		step = -1 * step;
+		condition = (LFin < l);
+	}
+
 	int i{0};
 
-	while (l < LFin)
+	while (condition)
 	{
 		billiard = billiardConst; // resets billiard
 
@@ -279,6 +287,16 @@ void generateL(tb::Billiard& billiard)
 				<< stats.theta.sigma << '\n';
 
 		l += step;
+
+		if (step > 0)
+		{
+			condition = l < LFin;
+		}
+		else
+		{
+			condition = LFin < l;
+		}
+
 		++i;
 	}
 	printStars(5);
