@@ -253,6 +253,8 @@ void generateL(tb::Billiard& billiard)
 		double l{billiard.getL()};
 		l = l + 0.1;
 		billiard.setL(l);
+		billiard.runSimulation();
+		printStatsToFile(billiard);
 	}
 }
 
