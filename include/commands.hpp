@@ -243,7 +243,7 @@ void generateL(tb::Billiard& billiard)
 	double l{billiard.getL()};
 	generateParticles(billiard);
 
-	const tb::Billiard billiardConst{billiard};
+	const tb::Billiard startBilliard{billiard};
 
 	printStars(5);
 	std::string fileName{};
@@ -256,27 +256,24 @@ void generateL(tb::Billiard& billiard)
 		throw std::runtime_error{"Cannot open file"};
 	}
 
-	double LFin{};
-	std::cout << "Insert the final value of L: ";
-	getInput(LFin);
+	double lF{};
+	std::cout << "Insert the final value of l: ";
+	getInput(lF);
 
 	double step{};
-	std::cout << "Insert the step with which L will be incremented (or decremented): ";
+	std::cout << "Insert the step with which l will be incremented (or decremented): ";
 	getInput(step);
 
-	bool condition{l < LFin};
-
-	if (LFin < l)
+	if (l > lF)
 	{
-		step = -1 * step;
-		condition = (LFin < l);
+		step = -step;
 	}
 
 	int i{0};
 
-	while (condition)
+	for (; (step > 0) ? l < lF : lF < l; l += step)
 	{
-		billiard = billiardConst; // resets billiard
+		billiard = startBilliard; // reset billiard
 
 		billiard.setL(l);
 		billiard.runSimulation();
@@ -287,17 +284,6 @@ void generateL(tb::Billiard& billiard)
 		outFile << l << ' ' << stats.y.mean << ' ' << stats.y.sigma << ' ' << stats.theta.mean << ' '
 				<< stats.theta.sigma << stats.y.skewness << stats.y.kurtosis << stats.theta.skewness
 				<< stats.theta.kurtosis << escParts << '\n';
-
-		l += step;
-
-		if (step > 0)
-		{
-			condition = l < LFin;
-		}
-		else
-		{
-			condition = LFin < l;
-		}
 
 		++i;
 	}
