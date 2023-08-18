@@ -5,16 +5,17 @@
 int main()
 {
 
-	const std::string commands{"b = set the parameters of the billiard, if you don't select this option default "
-							   "parameters (1., 1., 1.) will be used in your simulation\n"
-							   "g = generate a sample of N particles and run the simulation\n"
-							   "r = read the sample's particles from a file and run the simulation\n"
-							   "s = print results' statistics onscreen\n"
-							   "f = save results' statistics on a file\n"
-							   "p = save final coordinates of each particle on a file\n"
-							   "x = run N simulations varying billiard's lenght L, with the same particle sample\n"
-							   "q = quit the program\n"
-							   "h = list of commands\n"};
+	const std::string commands{
+		"b = set the parameters of the billiard, if you don't select this option default "
+		"parameters (1., 1., 1.) will be used in your simulation\n"
+		"g = generate a sample of N particles and run the simulation\n"
+		"r = read the sample's particles from a file and run the simulation\n"
+		"s = print results' statistics onscreen\n"
+		"f = save results' statistics on a file\n"
+		"p = save final coordinates of each particle on a file\n"
+		"x = run multiple simulations varying billiard's length l with fixed step, with the same particle sample\n"
+		"q = quit the program\n"
+		"h = list of commands\n"};
 
 	std::cout << "Enter a command:\n" << commands;
 	printStars(5);
