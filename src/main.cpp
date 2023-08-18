@@ -12,6 +12,7 @@ int main()
 							   "s = print results' statistics onscreen\n"
 							   "f = save results' statistics on a file\n"
 							   "p = save final coordinates of each particle on a file\n"
+							   "x = run N simulations varying billiard's lenght L, with the same particle sample\n"
 							   "q = quit the program\n"
 							   "h = list of commands\n"};
 
