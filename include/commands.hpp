@@ -264,7 +264,7 @@ void generateL(tb::Billiard& billiard)
 	for (int i{0}; i < NLoops; i++)
 	{
 		double l{billiard.getL()};
-		l = l + step;
+		l += step;
 		billiard.setL(l);
 		billiard.runSimulation();
 		tb::Statistics statistics{billiard.getL()};
