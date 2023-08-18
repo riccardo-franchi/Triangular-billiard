@@ -263,7 +263,7 @@ void generateL(tb::Billiard& billiard)
 	getInput(step);
 
 	int i{0};
-	while (i <= NLoops)
+	while (i < NLoops)
 	{
 		billiard = billiardConst;
 
