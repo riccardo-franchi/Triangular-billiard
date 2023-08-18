@@ -259,25 +259,26 @@ void generateL(tb::Billiard& billiard)
 	{
 		double l{billiard.getL()};
 		l += step;
+
 		billiard.setL(l);
 		billiard.runSimulation();
 		tb::Statistics statistics{billiard.getL()};
 		const auto stats{statistics(billiard.getParticles())};
-
-		int escParts{statistics.getN()};
-		double escPerc{escParts * 100. / billiard.size()};
 
 		if (!outFile)
 		{
 			throw std::runtime_error{"Cannot open file"};
 		}
 
-		outFile << tb::Statistics::statsToString(stats) << '\n';
+		outFile << l << stats.y.mean << stats.y.sigma << stats.theta.mean << stats.theta.sigma << '\n';
 
-		outFile << billiard.size() << " particles were generated with valid parameters.\n";
-		outFile << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
+		// outFile << tb::Statistics::statsToString(stats) << '\n';
+		// outFile << billiard.size() << " particles were generated with valid parameters.\n";
+		// outFile << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc <<
+		// "%).\n";
 	}
 	std::cout << "Output file written successfully.\n";
+	std::cout << "From left to right you'll find: value of l, y_f mean, y_f sigma, theta_mean, theta_sigma.\n";
 	printStars(5);
 }
 
