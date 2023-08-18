@@ -20,8 +20,6 @@ void getInput(T& input)
 	std::cin >> input;
 	if (!std::cin)
 	{
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		throw std::runtime_error{"input error"};
 	}
 }
@@ -49,10 +47,6 @@ void setBilliardParams(tb::Billiard& billiard)
 
 	billiard = tb::Billiard{r1, r2, l};
 
-	printStars(5);
-	std::cout << "Parameters successfully entered.\n";
-	std::cout << "Type \'g\' to generate a sample of N particles and run the simulation, or \'r\' to read the sample's "
-				 "particles from a file and run the simulation.\n";
 	printStars(5);
 }
 
@@ -103,11 +97,11 @@ void generateParticles(tb::Billiard& billiard)
 		throw std::runtime_error{"No valid particles generated"};
 	}
 
-	billiard.runSimulation();
+	/*billiard.runSimulation();
 	printStars(5);
 	std::cout << "Simulation of " << N << " particles successfully run.\n";
 	std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
-	printStars(5);
+	printStars(5);*/
 }
 
 int readFromFile(tb::Billiard& billiard)
@@ -240,6 +234,63 @@ void printValuesToFile(const tb::Billiard& billiard)
 	}
 	std::cout << "Output file written successfully.\n";
 
+	printStars(5);
+}
+
+void generateL(tb::Billiard& billiard)
+{
+	setBilliardParams(billiard);
+	double l{billiard.getL()};
+	generateParticles(billiard);
+
+	const tb::Billiard startBilliard{billiard};
+
+	printStars(5);
+	std::string fileName{};
+	std::cout << "Insert the name of the file to be created: ";
+	getInput(fileName);
+	std::ofstream outFile{fileName};
+
+	if (!outFile)
+	{
+		throw std::runtime_error{"Cannot open file"};
+	}
+
+	double lF{};
+	std::cout << "Insert the final value of l: ";
+	getInput(lF);
+
+	double step{};
+	std::cout << "Insert the step with which l will be incremented (or decremented): ";
+	getInput(step);
+
+	if (l > lF)
+	{
+		step = -step;
+	}
+
+	int i{0};
+
+	for (; (step > 0) ? l < lF : lF < l; l += step)
+	{
+		billiard = startBilliard; // reset billiard
+
+		billiard.setL(l);
+		billiard.runSimulation();
+		tb::Statistics statistics{billiard.getL()};
+		const auto stats{statistics(billiard.getParticles())};
+		const int escParts{statistics.getN()};
+
+		outFile << l << ' ' << stats.y.mean << ' ' << stats.y.sigma << ' ' << stats.theta.mean << ' '
+				<< stats.theta.sigma << ' ' << stats.y.skewness << ' ' << stats.y.kurtosis << ' '
+				<< stats.theta.skewness << ' ' << stats.theta.kurtosis << ' ' << escParts << '\n';
+
+		++i;
+	}
+	printStars(5);
+	std::cout << "Output file written successfully. " << i << " simulations have been run.\n";
+	std::cout << "From left to right you'll have: value of l, y_f mean, y_f st. dev., theta_f mean, theta_f st. dev, "
+				 "y_f skwness, y_f kurtosis, theta_f skewness, theta_f kurtosis and the number of escaped particles.\n";
 	printStars(5);
 }
 

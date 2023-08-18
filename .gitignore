@@ -2,3 +2,4 @@
 build
 particles
 root
+graphsMacros/*.txt
