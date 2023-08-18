@@ -270,13 +270,15 @@ void generateL(tb::Billiard& billiard)
 			throw std::runtime_error{"Cannot open file"};
 		}
 
-		outFile << l << stats.y.mean << stats.y.sigma << stats.theta.mean << stats.theta.sigma << '\n';
+		outFile << l << ' ' << stats.y.mean << ' ' << stats.y.sigma << ' ' << stats.theta.mean << ' '
+				<< stats.theta.sigma << '\n';
 
 		// outFile << tb::Statistics::statsToString(stats) << '\n';
 		// outFile << billiard.size() << " particles were generated with valid parameters.\n";
 		// outFile << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc <<
 		// "%).\n";
 	}
+	printStars(5);
 	std::cout << "Output file written successfully.\n";
 	std::cout << "From left to right you'll find: value of l, y_f mean, y_f sigma, theta_mean, theta_sigma.\n";
 	printStars(5);
