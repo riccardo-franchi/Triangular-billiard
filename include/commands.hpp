@@ -244,6 +244,7 @@ void generateL(tb::Billiard& billiard)
 
 	const tb::Billiard billiardConst{billiard};
 
+	printStars(5);
 	std::string fileName{};
 	std::cout << "Insert the name of the file to be created: ";
 	getInput(fileName);
