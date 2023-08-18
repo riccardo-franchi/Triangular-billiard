@@ -13,16 +13,17 @@ public:
 	Billiard() = default;
 	Billiard(double r1, double r2, double l);
 
+	double getR1() const { return m_r1; }
+	double getL() const { return m_l; }
+	void setL(double l) { m_l = l; }
+
 	// Needed to use STL algorithms
 	using value_type = Particle;
 	void push_back(const Particle& particle);
 
 	const std::vector<Particle>& getParticles() const { return m_particles; }
+	std::vector<Particle> getEscapedParticles() const;
 	const Particle& getParticle(int i) const { return m_particles.at(i); }
-
-	double getL() const { return m_l; }
-	double getR1() const { return m_r1; }
-	void setL(double l) { m_l = l; }
 
 	bool empty() const { return m_particles.empty(); }
 	int size() const { return m_particles.size(); }
