@@ -97,6 +97,7 @@ int main()
 		catch (std::exception& e)
 		{
 			std::cout << e.what() << ".\nPlease enter another command.\n";
+			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
 		catch (...)

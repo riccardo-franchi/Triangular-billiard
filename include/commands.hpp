@@ -20,8 +20,6 @@ void getInput(T& input)
 	std::cin >> input;
 	if (!std::cin)
 	{
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		throw std::runtime_error{"input error"};
 	}
 }
