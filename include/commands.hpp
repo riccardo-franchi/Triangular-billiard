@@ -243,7 +243,7 @@ void printValuesToFile(const tb::Billiard& billiard)
 	printStars(5);
 }
 
-/*void generateL(tb::Billiard& billiard)
+void generateL(tb::Billiard& billiard)
 {
 	setBilliardParams(billiard);
 	generateParticles(billiard);
@@ -253,12 +253,13 @@ void printValuesToFile(const tb::Billiard& billiard)
 	getInput(fileName);
 	std::ofstream outFile{fileName};
 
-	const int NLoops{};
+	int NLoops{};
 	std::cout << "How many simulations have to be run?\n";
 	getInput(NLoops);
 
-	const double step{};
+	double step{};
 	std::cout << "With which step has to be incremented L?\n";
+	getInput(step);
 
 	for (int i{0}; i < NLoops; i++)
 	{
@@ -269,8 +270,8 @@ void printValuesToFile(const tb::Billiard& billiard)
 		tb::Statistics statistics{billiard.getL()};
 		const auto stats{statistics(billiard.getParticles())};
 
-		const int escParts{statistics.getN()};
-		const double escPerc{escParts * 100. / billiard.size()};
+		int escParts{statistics.getN()};
+		double escPerc{escParts * 100. / billiard.size()};
 
 		if (!outFile)
 		{
@@ -284,6 +285,6 @@ void printValuesToFile(const tb::Billiard& billiard)
 	}
 	std::cout << "Output file written successfully.\n";
 	printStars(5);
-}*/
+}
 
 #endif // BILLIARD_HPP
