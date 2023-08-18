@@ -75,9 +75,9 @@ void grafico()
 
 	cGraphsB->Print("cGraphsB.pdf");
 
-	TCanvas* cGraphC = new TCanvas("cGraphC", "Dipendenza dei parametri da l", 10, 30, 1000, 600);
-	graph9->SetTitle("; l; Coeff. di asimm. theta_f");
-	graph9->SetMarkerStyle(4);
+	TCanvas* cGraphC = new TCanvas("cGraphC", "Dipendenza dei parametri da l", 20, 30, 1000, 600);
+	graph9->SetTitle("; l; Particelle uscite");
+	graph9->SetMarkerStyle(6);
 	graph9->SetLineColor(2);
 	graph9->Draw();
 
