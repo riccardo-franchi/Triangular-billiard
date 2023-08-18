@@ -242,6 +242,8 @@ void generateL(tb::Billiard& billiard)
 	setBilliardParams(billiard);
 	generateParticles(billiard);
 
+	const tb::Billiard billiardConst{billiard};
+
 	std::string fileName{};
 	std::cout << "Insert the name of the file to be created: ";
 	getInput(fileName);
@@ -260,10 +262,13 @@ void generateL(tb::Billiard& billiard)
 	std::cout << "With which step has to be incremented L?\n";
 	getInput(step);
 
-	for (int i{0}; i < NLoops; i++)
+	int i{0};
+	while (i <= NLoops)
 	{
+		billiard = billiardConst;
+
 		double l{billiard.getL()};
-		l += step;
+		l += step * i;
 
 		billiard.setL(l);
 		billiard.runSimulation();
@@ -272,6 +277,8 @@ void generateL(tb::Billiard& billiard)
 
 		outFile << l << ' ' << stats.y.mean << ' ' << stats.y.sigma << ' ' << stats.theta.mean << ' '
 				<< stats.theta.sigma << '\n';
+
+		++i;
 
 		// outFile << tb::Statistics::statsToString(stats) << '\n';
 		// outFile << billiard.size() << " particles were generated with valid parameters.\n";
