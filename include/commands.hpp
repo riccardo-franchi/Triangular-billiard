@@ -265,7 +265,7 @@ void generateL(tb::Billiard& billiard)
 	int i{0};
 	while (i < NLoops)
 	{
-		billiard = billiardConst;
+		billiard = billiardConst; // resets particles
 
 		double l{billiard.getL()};
 		l += step * i;
