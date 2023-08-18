@@ -247,6 +247,11 @@ void generateL(tb::Billiard& billiard)
 	getInput(fileName);
 	std::ofstream outFile{fileName};
 
+	if (!outFile)
+	{
+		throw std::runtime_error{"Cannot open file"};
+	}
+
 	int NLoops{};
 	std::cout << "How many simulations have to be run?\n";
 	getInput(NLoops);
@@ -264,11 +269,6 @@ void generateL(tb::Billiard& billiard)
 		billiard.runSimulation();
 		tb::Statistics statistics{billiard.getL()};
 		const auto stats{statistics(billiard.getParticles())};
-
-		if (!outFile)
-		{
-			throw std::runtime_error{"Cannot open file"};
-		}
 
 		outFile << l << ' ' << stats.y.mean << ' ' << stats.y.sigma << ' ' << stats.theta.mean << ' '
 				<< stats.theta.sigma << '\n';
