@@ -13,7 +13,7 @@ public:
 	Billiard() = default;
 	Billiard(double r1, double r2, double l);
 
-	// Needed to use std::generate
+	// Needed to use STL algorithms
 	using value_type = Particle;
 	void push_back(const Particle& particle);
 
