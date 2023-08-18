@@ -248,13 +248,35 @@ void generateL(tb::Billiard& billiard)
 	setBilliardParams(billiard);
 	int condition{};
 	getInput(condition);
+	std::string fileName{};
+	std::cout << "Insert the name of the file to be created: ";
+	getInput(fileName);
 	for (int i{0}; i < condition; i++)
 	{
 		double l{billiard.getL()};
 		l = l + 0.1;
 		billiard.setL(l);
 		billiard.runSimulation();
-		printStatsToFile(billiard);
+		tb::Statistics statistics{billiard.getL()};
+		const auto stats{statistics(billiard.getParticles())};
+
+		const int escParts{statistics.getN()};
+		const double escPerc{escParts * 100. / billiard.size()};
+
+		std::ofstream outFile{fileName};
+
+		if (!outFile)
+		{
+			throw std::runtime_error{"Cannot open file"};
+		}
+
+		outFile << tb::Statistics::statsToString(stats) << '\n';
+
+		outFile << billiard.size() << " particles were generated with valid parameters.\n";
+		outFile << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
+		std::cout << "Output file written successfully. Type \'s\' to print the results onscreen.\n";
+
+		printStars(5);
 	}
 }
 
