@@ -254,21 +254,20 @@ void generateL(tb::Billiard& billiard)
 		throw std::runtime_error{"Cannot open file"};
 	}
 
-	int NLoops{};
-	std::cout << "How many simulations have to be run?\n";
-	getInput(NLoops);
+	double LFin{};
+	std::cout << "Insert the final value of L: ";
+	getInput(LFin);
 
 	double step{};
 	std::cout << "With which step has to be incremented L?\n";
 	getInput(step);
 
+	double l{billiard.getL()};
 	int i{0};
-	while (i < NLoops)
-	{
-		billiard = billiardConst; // resets particles
 
-		double l{billiard.getL()};
-		l += step * i;
+	while (l < LFin)
+	{
+		billiard = billiardConst; // resets billiard
 
 		billiard.setL(l);
 		billiard.runSimulation();
@@ -278,15 +277,11 @@ void generateL(tb::Billiard& billiard)
 		outFile << l << ' ' << stats.y.mean << ' ' << stats.y.sigma << ' ' << stats.theta.mean << ' '
 				<< stats.theta.sigma << '\n';
 
+		l += step;
 		++i;
-
-		// outFile << tb::Statistics::statsToString(stats) << '\n';
-		// outFile << billiard.size() << " particles were generated with valid parameters.\n";
-		// outFile << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc <<
-		// "%).\n";
 	}
 	printStars(5);
-	std::cout << "Output file written successfully.\n";
+	std::cout << "Output file written successfully. " << i << " simulations have been run.\n";
 	std::cout << "From left to right you'll find: value of l, y_f mean, y_f sigma, theta_mean, theta_sigma.\n";
 	printStars(5);
 }
