@@ -282,9 +282,11 @@ void generateL(tb::Billiard& billiard)
 		billiard.runSimulation();
 		tb::Statistics statistics{billiard.getL()};
 		const auto stats{statistics(billiard.getParticles())};
+		const int escParts{statistics.getN()};
 
 		outFile << l << ' ' << stats.y.mean << ' ' << stats.y.sigma << ' ' << stats.theta.mean << ' '
-				<< stats.theta.sigma << '\n';
+				<< stats.theta.sigma << stats.y.skewness << stats.y.kurtosis << stats.theta.skewness
+				<< stats.theta.kurtosis << escParts << '\n';
 
 		l += step;
 
