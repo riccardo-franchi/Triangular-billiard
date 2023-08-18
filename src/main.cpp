@@ -30,6 +30,11 @@ int main()
 			case 'b':
 			{
 				setBilliardParams(billiard);
+				std::cout << "Parameters successfully entered.\n";
+				std::cout << "Type \'g\' to generate a sample of N particles and run the simulation, or \'r\' to read "
+							 "the sample's "
+							 "particles from a file and run the simulation.\n";
+				printStars(5);
 				break;
 			}
 			case 'h':
