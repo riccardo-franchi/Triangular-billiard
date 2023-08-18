@@ -301,7 +301,7 @@ void generateL(tb::Billiard& billiard)
 	}
 	printStars(5);
 	std::cout << "Output file written successfully. " << i << " simulations have been run.\n";
-	std::cout << "From left to right you'll find: value of l, y_f mean, y_f st. dev., theta_f mean, theta_f st. dev.\n";
+	std::cout << "From left to right you'll have: value of l, y_f mean, y_f st. dev., theta_f mean, theta_f st. dev.\n";
 	printStars(5);
 }
 
