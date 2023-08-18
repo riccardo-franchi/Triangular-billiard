@@ -2,3 +2,5 @@
 build
 particles
 root
+./graphs/firstSimulation.txt
+./graphs/secondSimulation.txt
