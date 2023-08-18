@@ -103,11 +103,11 @@ void generateParticles(tb::Billiard& billiard)
 		throw std::runtime_error{"No valid particles generated"};
 	}
 
-	billiard.runSimulation();
+	/*billiard.runSimulation();
 	printStars(5);
 	std::cout << "Simulation of " << N << " particles successfully run.\n";
 	std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
-	printStars(5);
+	printStars(5);*/
 }
 
 int readFromFile(tb::Billiard& billiard)
@@ -246,15 +246,24 @@ void printValuesToFile(const tb::Billiard& billiard)
 void generateL(tb::Billiard& billiard)
 {
 	setBilliardParams(billiard);
-	int condition{};
-	getInput(condition);
+	generateParticles(billiard);
+
 	std::string fileName{};
 	std::cout << "Insert the name of the file to be created: ";
 	getInput(fileName);
-	for (int i{0}; i < condition; i++)
+	std::ofstream outFile{fileName};
+
+	const int NLoops{};
+	std::cout << "How many simulations have to be run?\n";
+	getInput(NLoops);
+
+	const double step{};
+	std::cout << "With which step has to be incremented L?\n";
+
+	for (int i{0}; i < NLoops; i++)
 	{
 		double l{billiard.getL()};
-		l = l + 0.1;
+		l = l + step;
 		billiard.setL(l);
 		billiard.runSimulation();
 		tb::Statistics statistics{billiard.getL()};
@@ -262,8 +271,6 @@ void generateL(tb::Billiard& billiard)
 
 		const int escParts{statistics.getN()};
 		const double escPerc{escParts * 100. / billiard.size()};
-
-		std::ofstream outFile{fileName};
 
 		if (!outFile)
 		{
@@ -274,10 +281,9 @@ void generateL(tb::Billiard& billiard)
 
 		outFile << billiard.size() << " particles were generated with valid parameters.\n";
 		outFile << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
-		std::cout << "Output file written successfully. Type \'s\' to print the results onscreen.\n";
-
-		printStars(5);
 	}
+	std::cout << "Output file written successfully.\n";
+	printStars(5);
 }
 
 #endif // BILLIARD_HPP

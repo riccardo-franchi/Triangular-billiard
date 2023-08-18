@@ -41,6 +41,12 @@ int main()
 			{
 				billiard.clear();
 				generateParticles(billiard);
+				billiard.runSimulation();
+
+				printStars(5);
+				std::cout << "Simulation successfully run.\n";
+				std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
+				printStars(5);
 				break;
 			}
 			case 'r':
