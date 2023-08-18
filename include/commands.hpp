@@ -243,7 +243,7 @@ void printValuesToFile(const tb::Billiard& billiard)
 	printStars(5);
 }
 
-void generateL(tb::Billiard& billiard)
+/*void generateL(tb::Billiard& billiard)
 {
 	setBilliardParams(billiard);
 	generateParticles(billiard);
@@ -284,6 +284,6 @@ void generateL(tb::Billiard& billiard)
 	}
 	std::cout << "Output file written successfully.\n";
 	printStars(5);
-}
+}*/
 
 #endif // BILLIARD_HPP

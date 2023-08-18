@@ -79,7 +79,7 @@ int main()
 			}
 			case 'x':
 			{
-				generateL(billiard);
+				// generateL(billiard);
 				break;
 			}
 			case 'q':
