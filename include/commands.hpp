@@ -96,12 +96,6 @@ void generateParticles(tb::Billiard& billiard)
 	{
 		throw std::runtime_error{"No valid particles generated"};
 	}
-
-	/*billiard.runSimulation();
-	printStars(5);
-	std::cout << "Simulation of " << N << " particles successfully run.\n";
-	std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
-	printStars(5);*/
 }
 
 int readFromFile(tb::Billiard& billiard)
