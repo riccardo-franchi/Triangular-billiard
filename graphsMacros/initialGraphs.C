@@ -8,7 +8,7 @@ void setStyle()
 void grafico()
 {
 	TF1* graphY = new TF1("graphY", "ROOT::Math::normal_pdf(y, 0.1, 1.0)", -4.0, 4.0);
-	TF1* graphTheta = new TF1("graphTheta", "ROOT::Math::normal_pdf(t, 0.1, 0.5)", -4.0, 4.0);
+	TF1* graphTheta = new TF1("graphTheta", "ROOT::Math::normal_pdf(t, 0.1, 0.5)", -3.14 / 2 / 2, 3.14 / 2);
 
 	TCanvas* cInitialGraphs = new TCanvas("cInitialGraphs", "Gaussiane distribuzioni iniziali", 10, 30, 1000, 600);
 	cInitialGraphs->Divide(2, 1);
