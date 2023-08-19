@@ -213,12 +213,9 @@ void printValuesToFile(const tb::Billiard& billiard)
 		throw std::runtime_error{"Could not open file"};
 	}
 
-	for (const auto& p : billiard.getParticles())
+	for (const auto& p : billiard.getEscapedParticles())
 	{
-		if (p.x == billiard.getL())
-		{
-			outFile << p.y << ' ' << p.theta << '\n';
-		}
+		outFile << p.y << ' ' << p.theta << '\n';
 	}
 	std::cout << "Output file written successfully.\n";
 
