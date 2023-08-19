@@ -16,6 +16,30 @@ struct Moments
 	double x4{};
 };
 
+Stats computeStats(const std::vector<double>& data)
+{
+	const int N{static_cast<int>(data.size())};
+
+	const double sum{std::accumulate(data.begin(), data.end(), 0., [](double s, double x) { return s += x; })};
+	const double mean{sum / N};
+
+	const Moments moments{std::accumulate(data.begin(), data.end(), Moments{},
+										  [mean](Moments m, double x)
+										  {
+											  const double gap{x - mean};
+											  m.x2 += std::pow(gap, 2);
+											  m.x3 += std::pow(gap, 3);
+											  m.x4 += std::pow(gap, 4);
+											  return m;
+										  })};
+
+	const double sigma{std::sqrt(moments.x2 / (N - 1))};
+	const double skewness{moments.x3 / (N * std::pow(sigma, 3))};
+	const double kurtosis{moments.x4 / (N * std::pow(sigma, 4))};
+
+	return {mean, sigma, skewness, kurtosis};
+}
+
 Results statistics(const std::vector<Particle>& particles)
 {
 	if (particles.size() < 2)
@@ -51,29 +75,5 @@ std::string statsToString(const Results& stats)
 		<< std::setw(w) << std::left << "theta_f kurtosis: " << stats.theta.kurtosis << '\n';
 
 	return oss.str();
-}
-
-Stats computeStats(const std::vector<double>& data)
-{
-	const int N{static_cast<int>(data.size())};
-
-	const double sum{std::accumulate(data.begin(), data.end(), 0., [](double s, double x) { return s += x; })};
-	const double mean{sum / N};
-
-	const Moments moments{std::accumulate(data.begin(), data.end(), Moments{},
-										  [mean](Moments m, double x)
-										  {
-											  const double gap{x - mean};
-											  m.x2 += std::pow(gap, 2);
-											  m.x3 += std::pow(gap, 3);
-											  m.x4 += std::pow(gap, 4);
-											  return m;
-										  })};
-
-	const double sigma{std::sqrt(moments.x2 / (N - 1))};
-	const double skewness{moments.x3 / (N * std::pow(sigma, 3))};
-	const double kurtosis{moments.x4 / (N * std::pow(sigma, 4))};
-
-	return {mean, sigma, skewness, kurtosis};
 }
 } // namespace tb
