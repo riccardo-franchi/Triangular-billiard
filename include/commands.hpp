@@ -283,8 +283,8 @@ void generateL(tb::Billiard& billiard)
 	}
 	printStars(5);
 	std::cout << "Output file written successfully. " << i << " simulations have been run.\n";
-	std::cout << "From left to right you'll have: value of l, y_f mean, y_f st. dev., theta_f mean, theta_f st. dev, "
-				 "y_f skwness, y_f kurtosis, theta_f skewness, theta_f kurtosis and the number of escaped particles.\n";
+	std::cout << "From left to right you'll find:\n value of l, y_f mean, y_f st. dev., theta_f mean, theta_f st. dev, "
+				 "y_f skwness, y_f kurtosis, theta_f skewness, theta_f kurtosis, no. of escaped particles.\n";
 	printStars(5);
 }
 
