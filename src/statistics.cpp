@@ -42,23 +42,25 @@ Stats computeStats(const std::vector<double>& data)
 
 Results statistics(const std::vector<Particle>& particles)
 {
-	if (particles.size() < 2)
+	const auto N{particles.size()};
+
+	if (N < 2)
 	{
-		throw std::runtime_error{"Not enough particles to compute statistics: " + std::to_string(particles.size()) +
+		throw std::runtime_error{"Not enough particles to compute statistics: " + std::to_string(N) +
 								 "particle(s) escaped the billiard"};
 	}
 
 	std::vector<double> y{};
 	std::vector<double> theta{};
-	y.reserve(particles.size());
-	theta.reserve(particles.size());
+	y.reserve(N);
+	theta.reserve(N);
 	for (const auto& p : particles)
 	{
 		y.push_back(p.y);
 		theta.push_back(p.theta);
 	}
 
-	return {computeStats(y), computeStats(theta)};
+	return {computeStats(y), computeStats(theta), static_cast<int>(N)};
 }
 
 std::string statsToString(const Results& stats)

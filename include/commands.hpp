@@ -167,20 +167,18 @@ void printStatistics(const tb::Billiard& billiard)
 {
 	const auto stats{statistics(billiard.getEscapedParticles())};
 
-	const auto escParts{billiard.getEscapedParticles().size()};
-	const double escPerc{escParts * 100. / billiard.size()};
+	const double escPerc{stats.n * 100. / billiard.size()};
 	printStars(5);
 	std::cout << tb::statsToString(stats) << '\n';
 	std::cout << billiard.size() << " particles were generated with valid parameters.\n";
-	std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
+	std::cout << "Of those, " << stats.n << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 }
 
 void printStatsToFile(const tb::Billiard& billiard)
 {
 	const auto stats{statistics(billiard.getEscapedParticles())};
 
-	const auto escParts{billiard.getEscapedParticles().size()};
-	const double escPerc{escParts * 100. / billiard.size()};
+	const double escPerc{stats.n * 100. / billiard.size()};
 
 	std::string fileName{};
 	std::cout << "Insert the name of the file to be created: ";
@@ -196,7 +194,7 @@ void printStatsToFile(const tb::Billiard& billiard)
 	outFile << tb::statsToString(stats) << '\n';
 
 	outFile << billiard.size() << " particles were generated with valid parameters.\n";
-	outFile << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
+	outFile << "Of those, " << stats.n << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 	std::cout << "Output file written successfully. Type \'s\' to print the results onscreen.\n";
 
 	printStars(5);
@@ -268,11 +266,10 @@ void generateL(tb::Billiard& billiard)
 		billiard.setL(l);
 		billiard.runSimulation();
 		const auto stats{statistics(billiard.getEscapedParticles())};
-		const auto escParts{billiard.getEscapedParticles().size()};
 
 		outFile << l << ' ' << stats.y.mean << ' ' << stats.y.sigma << ' ' << stats.theta.mean << ' '
 				<< stats.theta.sigma << ' ' << stats.y.skewness << ' ' << stats.y.kurtosis << ' '
-				<< stats.theta.skewness << ' ' << stats.theta.kurtosis << ' ' << escParts << '\n';
+				<< stats.theta.skewness << ' ' << stats.theta.kurtosis << ' ' << stats.n << '\n';
 
 		++i;
 	}

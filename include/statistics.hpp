@@ -18,6 +18,7 @@ struct Results
 {
 	Stats y{};
 	Stats theta{};
+	int n{};
 };
 
 Results statistics(const std::vector<Particle>& particles);
