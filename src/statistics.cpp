@@ -44,7 +44,8 @@ Results statistics(const std::vector<Particle>& particles)
 {
 	if (particles.size() < 2)
 	{
-		throw std::runtime_error{"Not enough particles to compute statistics"};
+		throw std::runtime_error{"Not enough particles to compute statistics: " + std::to_string(particles.size()) +
+								 "particle(s) escaped the billiard"};
 	}
 
 	std::vector<double> y{};
