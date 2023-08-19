@@ -7,8 +7,12 @@ void setStyle()
 
 void grafico()
 {
-	TF1* graphY = new TF1("graphY", "TMath::Gaus(y, 0.1, 1.0)", -4.0, 4.0);
-	TF1* graphTheta = new TF1("graphTheta", "TMath::Gaus(t, 0.1, 0.5)", -3.14 / 2 / 2, 3.14 / 2);
+	TF1* graphY = new TF1("graphY", "gaus(0)", -4.0, 4.0);
+	TF1* graphTheta = new TF1("graphTheta", "gaus(3)", -3.14 / 2 / 2, 3.14 / 2);
+	graphY->SetParameter(1, 1.0);
+	graphY->SetParameter(2, 0.1);
+	graphTheta->SetParameter(4, 0.5);
+	graphTheta->SetParameter(5, 0.1);
 
 	TCanvas* cInitialGraphs = new TCanvas("cInitialGraphs", "Gaussiane distribuzioni iniziali", 10, 30, 1000, 600);
 	cInitialGraphs->Divide(2, 1);
