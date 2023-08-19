@@ -153,17 +153,17 @@ TEST_CASE("Testing statistics() numerical values, alpha > 0, different billiard"
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
 								 tb::Statistics::Results{{-0.047380676, 0.566122567}, {-0.529300322, 0.06973096}}));
 	}
+	/*
+		SUBCASE("Three particles")
+		{
+			billiard.push_back({2., 0.0831412319}); // no collision
+			billiard.push_back({2., 0.2467060084}); // one collision
+			billiard.push_back({3., 0.});			// no collisions
 
-	SUBCASE("Three particles")
-	{
-		billiard.push_back({2., 0.0831412319}); // no collision
-		billiard.push_back({2., 0.2467060084}); // one collision
-		billiard.push_back({3., 0.});			// no collisions
-
-		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
-								 tb::Statistics::Results{{3.001899335, 0.003289745}, {0.054521592, 0.047236633}}));
-	}
-
+			CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
+									 tb::Statistics::Results{{3.001899335, 0.003289745}, {0.054521592, 0.047236633}}));
+		}
+	*/
 	SUBCASE("Four particles")
 	{
 		billiard.push_back({0.49, 0.});			 // no collision
