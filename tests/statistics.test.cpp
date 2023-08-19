@@ -156,8 +156,8 @@ TEST_CASE("Testing statistics() numerical values, alpha > 0, different billiard"
 
 	SUBCASE("Three particles")
 	{
-		billiard.push_back({0.49, 0.});			 // no collision
-		billiard.push_back({2., 0.2460005466});	 // one collision
+		billiard.push_back({2., 0.0831412319});	 // no collision
+		billiard.push_back({2., 0.2468386935});	 // one collision
 		billiard.push_back({-2., 0.2449786631}); // no collisions
 
 		CHECK(statisticsApproxEq(statistics(billiard.runSimulation()),
