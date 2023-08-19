@@ -3,3 +3,4 @@ build
 graphsMacros
 *.C
 *.txt
+*.pdf
