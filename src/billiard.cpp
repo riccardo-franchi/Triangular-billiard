@@ -37,7 +37,7 @@ std::vector<Particle> Billiard::getEscapedParticles() const
 	return escapedParticles;
 }
 
-const std::vector<Particle>& Billiard::runSimulation()
+void Billiard::runSimulation()
 {
 	if (size() == 0)
 	{
@@ -47,8 +47,6 @@ const std::vector<Particle>& Billiard::runSimulation()
 
 	std::transform(/*std::execution::par_unseq,*/ m_particles.begin(), m_particles.end(), m_particles.begin(),
 				   [&](const Particle& p) { return calcTrajectory(p, alpha); });
-
-	return m_particles;
 }
 
 Particle Billiard::calcTrajectory(const Particle& p, const double alpha)

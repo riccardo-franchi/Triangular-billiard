@@ -29,7 +29,7 @@ public:
 	int size() const { return m_particles.size(); }
 	void clear() { m_particles.clear(); }
 
-	const std::vector<Particle>& runSimulation();
+	void runSimulation();
 
 private:
 	Particle calcTrajectory(const Particle& p, const double alpha);
