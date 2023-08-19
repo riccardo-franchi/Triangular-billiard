@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "../include/commands.hpp"
 
 int main()
