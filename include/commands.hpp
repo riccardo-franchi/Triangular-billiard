@@ -165,25 +165,21 @@ int readFromFile(tb::Billiard& billiard)
 
 void printStatistics(const tb::Billiard& billiard)
 {
-	tb::Statistics statistics{billiard.getL()};
+	const auto stats{statistics(billiard.getEscapedParticles())};
 
-	const auto stats{statistics(billiard.getParticles())};
-
-	const int escParts{statistics.getN()};
+	const auto escParts{billiard.getEscapedParticles().size()};
 	const double escPerc{escParts * 100. / billiard.size()};
 	printStars(5);
-	std::cout << tb::Statistics::statsToString(stats) << '\n';
+	std::cout << tb::statsToString(stats) << '\n';
 	std::cout << billiard.size() << " particles were generated with valid parameters.\n";
 	std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 }
 
 void printStatsToFile(const tb::Billiard& billiard)
 {
-	tb::Statistics statistics{billiard.getL()};
+	const auto stats{statistics(billiard.getEscapedParticles())};
 
-	const auto stats{statistics(billiard.getParticles())};
-
-	const int escParts{statistics.getN()};
+	const auto escParts{billiard.getEscapedParticles().size()};
 	const double escPerc{escParts * 100. / billiard.size()};
 
 	std::string fileName{};
@@ -197,7 +193,7 @@ void printStatsToFile(const tb::Billiard& billiard)
 		throw std::runtime_error{"Cannot open file"};
 	}
 
-	outFile << tb::Statistics::statsToString(stats) << '\n';
+	outFile << tb::statsToString(stats) << '\n';
 
 	outFile << billiard.size() << " particles were generated with valid parameters.\n";
 	outFile << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
@@ -271,9 +267,8 @@ void generateL(tb::Billiard& billiard)
 
 		billiard.setL(l);
 		billiard.runSimulation();
-		tb::Statistics statistics{billiard.getL()};
-		const auto stats{statistics(billiard.getParticles())};
-		const int escParts{statistics.getN()};
+		const auto stats{statistics(billiard.getEscapedParticles())};
+		const auto escParts{billiard.getEscapedParticles().size()};
 
 		outFile << l << ' ' << stats.y.mean << ' ' << stats.y.sigma << ' ' << stats.theta.mean << ' '
 				<< stats.theta.sigma << ' ' << stats.y.skewness << ' ' << stats.y.kurtosis << ' '
