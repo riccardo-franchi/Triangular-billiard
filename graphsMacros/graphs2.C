@@ -40,5 +40,5 @@ void macha()
 	h2->SetLineColor(2);
 	h2->Draw();
 
-	cInitialGraphs->Print("cInitialGraphs.pdf");
+	cInitialGraphs->Print("cGraphs2.pdf");
 }
