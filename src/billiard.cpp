@@ -45,8 +45,18 @@ void Billiard::runSimulation()
 	}
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
-	std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
-				   [&](const Particle& p) { return calcTrajectory(p, alpha); });
+	// If the number of particles is small, don't use parallel execution
+	constexpr int maxSequentialParts{20'000};
+	if (size() < maxSequentialParts)
+	{
+		std::transform(m_particles.begin(), m_particles.end(), m_particles.begin(),
+					   [&](const Particle& p) { return calcTrajectory(p, alpha); });
+	}
+	else
+	{
+		std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
+					   [&](const Particle& p) { return calcTrajectory(p, alpha); });
+	}
 }
 
 Particle Billiard::calcTrajectory(Particle particle, const double alpha)
