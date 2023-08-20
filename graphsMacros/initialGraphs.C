@@ -5,29 +5,40 @@ void setStyle()
 	gStyle->SetOptTitle(0);
 }
 
-void grafico()
+void macha()
 {
-	TF1* graphY = new TF1("graphY", "gaus(0)", -4.0, 4.0);
-	TF1* graphTheta = new TF1("graphTheta", "gaus(3)", -3.14 / 2 / 2, 3.14 / 2);
-	graphY->SetParameter(1, 1.0);
-	graphY->SetParameter(2, 0.1);
-	graphTheta->SetParameter(4, 0.5);
-	graphTheta->SetParameter(5, 0.1);
+	TH1F* h1 = new TH1F("h1", "Distribuzione di y_i", 1000, -5, 5);
+	TH1F* h2 = new TH1F("h2", "Distribuzione di theta_i", 1000, -5, 5);
+
+	double y;
+	double theta;
+
+	fstream file;
+	file.open("InitParts.txt", ios::in);
+
+	while (1)
+	{
+		file >> y >> theta;
+		if (file.eof())
+			break;
+		h1->Fill(y);
+		h2->Fill(theta);
+	}
 
 	TCanvas* cInitialGraphs = new TCanvas("cInitialGraphs", "Gaussiane distribuzioni iniziali", 10, 30, 1000, 600);
 	cInitialGraphs->Divide(2, 1);
 
 	cInitialGraphs->cd(1);
-	graphY->SetTitle("; y; G(y)");
-	graphY->SetMarkerStyle(6);
-	graphY->SetLineColor(2);
-	graphY->Draw();
+	h1->SetTitle("; y; G(y)");
+	h1->SetMarkerStyle(6);
+	h1->SetLineColor(2);
+	h1->Draw();
 
 	cInitialGraphs->cd(2);
-	graphTheta->SetTitle("; theta; G(theta)");
-	graphTheta->SetMarkerStyle(6);
-	graphTheta->SetLineColor(2);
-	graphTheta->Draw();
+	h2->SetTitle("; theta; G(theta)");
+	h2->SetMarkerStyle(6);
+	h2->SetLineColor(2);
+	h2->Draw();
 
 	cInitialGraphs->Print("cInitialGraphs.pdf");
 }
