@@ -14,7 +14,7 @@ void macha()
 	double theta;
 
 	fstream file;
-	file.open("InitParts.txt", ios::in);
+	file.open("initial2.txt", ios::in);
 
 	while (1)
 	{
