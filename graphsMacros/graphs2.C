@@ -7,8 +7,8 @@ void setStyle()
 
 void machaInitial()
 {
-	TH1F* h1 = new TH1F("h1", "Distribuzione di y_i", 10000, -5, 5);
-	TH1F* h2 = new TH1F("h2", "Distribuzione di theta_i", 10000, -5, 5);
+	TH1F* h1 = new TH1F("h1", "Distribuzione di y_i", 1000, -5, 5);
+	TH1F* h2 = new TH1F("h2", "Distribuzione di theta_i", 1000, -5, 5);
 
 	double y;
 	double theta;
@@ -45,8 +45,8 @@ void machaInitial()
 
 void machaFinal()
 {
-	TH1F* h1 = new TH1F("h1", "Distribuzione di y_f", 10000, -5, 5);
-	TH1F* h2 = new TH1F("h2", "Distribuzione di theta_f", 10000, -5, 5);
+	TH1F* h1 = new TH1F("h1", "Distribuzione di y_f", 1000, -5, 5);
+	TH1F* h2 = new TH1F("h2", "Distribuzione di theta_f", 1000, -5, 5);
 
 	double y;
 	double theta;
