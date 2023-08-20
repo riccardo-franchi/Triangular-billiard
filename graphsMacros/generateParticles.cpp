@@ -4,11 +4,11 @@
 int main()
 {
 
-	const int NParts{10'000};
+	const int NParts{100'000};
 	const double meanY0{1.5};
 	const double sigmaY0{0.5};
 	const double meanTheta0{-0.25};
-	const double sigmaTheta0{0.25};
+	const double sigmaTheta0{0.5};
 
 	std::default_random_engine engine{std::random_device{}()};
 	std::normal_distribution<double> yDistr{meanY0, sigmaY0};
