@@ -6,5 +6,4 @@ Each simulation should be named with progressive numbers, e.g:
 
 | Init. l | r_1 | r_2 | Init. y | Init. theta | Fin. l | Step | N |
 | :---: | :---: | :---: | :---: | :---: |:---:| :---: | :---: |
-| 1.0 | 4.0 | 2.0 | 1.0 $\pm$ 0.1 | 0.5 $\pm$ 0.1 | 40.0 | 1.5 | 10'000 |
 13 | 5 | 3 | 1.5 $\pm$ 0.5 | -0.25 $\pm$ 0.5 | N.A. | N.A. | 100'000
