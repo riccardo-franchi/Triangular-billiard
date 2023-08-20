@@ -2,3 +2,5 @@
 build
 *.txt
 *.pdf
+!cGraphs2Init.pdf
+!cGraphs2Fin.pdf
