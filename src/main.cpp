@@ -44,7 +44,6 @@ int main()
 			}
 			case 'g':
 			{
-				billiard.clear();
 				generateParticles(billiard);
 				billiard.runSimulation();
 
@@ -56,7 +55,6 @@ int main()
 			}
 			case 'r':
 			{
-				billiard.clear();
 				readFromFile(billiard);
 				break;
 			}

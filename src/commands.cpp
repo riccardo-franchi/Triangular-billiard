@@ -59,6 +59,8 @@ void generateParticles(tb::Billiard& billiard)
 	std::normal_distribution<double> yDistr{meanY0, std::abs(sigmaY0)};
 	std::normal_distribution<double> thetaDistr{meanTheta0, std::abs(sigmaTheta0)};
 
+	billiard.clear();
+
 	for (int n{0}; n != N; ++n)
 	{
 		tb::Particle particle{yDistr(engine), thetaDistr(engine)};
@@ -77,7 +79,6 @@ void generateParticles(tb::Billiard& billiard)
 
 void readFromFile(tb::Billiard& billiard)
 {
-
 	std::string fileName{};
 	std::cout << "Insert the file name: ";
 	getInput(fileName);
@@ -90,10 +91,9 @@ void readFromFile(tb::Billiard& billiard)
 		throw std::runtime_error{"Cannot open file"};
 	}
 
-	double y;
-	double theta;
+	double y{};
+	double theta{};
 	int invalidParts{0};
-	int invalidLines{0};
 	std::string line;
 	billiard.clear();
 	for (int nLines{0}; std::getline(inFile, line); ++nLines)
@@ -107,8 +107,7 @@ void readFromFile(tb::Billiard& billiard)
 		{
 			if (std::abs(y) < billiard.getR1() && std::abs(theta) < M_PI_2)
 			{
-				tb::Particle particle{y, theta};
-				billiard.push_back(particle);
+				billiard.push_back({y, theta});
 			}
 			else
 			{
@@ -117,18 +116,13 @@ void readFromFile(tb::Billiard& billiard)
 		}
 		else
 		{
-			++invalidLines;
-			std::cout << "Invalid input: " << line << " (line " << nLines << ")\n";
+			std::cout << "Invalid input: " << line << " (line " << nLines + 1 << ")\n";
 		}
 	}
 	billiard.runSimulation();
 
 	printStars(5);
 	std::cout << "Input file read successfully, simulation run." << '\n';
-	if (invalidLines != 0)
-	{
-		std::cout << invalidLines << " line(s) had invalid input.\n";
-	}
 	if (invalidParts != 0)
 	{
 		std::cout << invalidParts << " particle(s) had invalid initial coordinates and have been excluded.\n";
@@ -202,10 +196,7 @@ void printValuesToFile(const tb::Billiard& billiard)
 void generateL(tb::Billiard& billiard)
 {
 	setBilliardParams(billiard);
-	double l{billiard.getL()};
 	generateParticles(billiard);
-
-	const tb::Billiard startBilliard{billiard};
 
 	printStars(5);
 	std::string fileName{};
@@ -226,16 +217,18 @@ void generateL(tb::Billiard& billiard)
 	std::cout << "Insert the step with which l will be incremented (or decremented): ";
 	getInput(step);
 
+	double l{billiard.getL()};
 	if (l > lF)
 	{
 		step = -step;
 	}
 
 	int i{0};
+	const tb::Billiard startBilliard{billiard};
 
 	for (; (step > 0) ? l < lF : lF < l; l += step)
 	{
-		billiard = startBilliard; // reset billiard
+		billiard = startBilliard;
 
 		billiard.setL(l);
 		billiard.runSimulation();
