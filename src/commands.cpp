@@ -75,7 +75,7 @@ void generateParticles(tb::Billiard& billiard)
 	}
 }
 
-int readFromFile(tb::Billiard& billiard)
+void readFromFile(tb::Billiard& billiard)
 {
 
 	std::string fileName{};
@@ -98,7 +98,7 @@ int readFromFile(tb::Billiard& billiard)
 	billiard.clear();
 	for (int nLines{0}; std::getline(inFile, line); ++nLines)
 	{
-		if (line.empty()) // skips empty line
+		if (line.empty())
 		{
 			continue;
 		}
@@ -133,11 +133,10 @@ int readFromFile(tb::Billiard& billiard)
 	{
 		std::cout << invalidParts << " particle(s) had invalid initial coordinates and have been excluded.\n";
 	}
-	printStars(5);
+
 	std::cout << "Type \'s\' to compute and print statistics, or \'f\' to save them on a file.\n";
 
 	printStars(5);
-	return billiard.size();
 }
 
 void printStatistics(const tb::Billiard& billiard)
@@ -145,17 +144,15 @@ void printStatistics(const tb::Billiard& billiard)
 	const auto stats{statistics(billiard.getEscapedParticles())};
 
 	const double escPerc{stats.n * 100. / billiard.size()};
-	printStars(5);
+
 	std::cout << tb::statsToString(stats) << '\n';
 	std::cout << billiard.size() << " particles were generated with valid parameters.\n";
 	std::cout << "Of those, " << stats.n << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
+	printStars(5);
 }
 
 void printStatsToFile(const tb::Billiard& billiard)
 {
-	const auto stats{statistics(billiard.getEscapedParticles())};
-
-	const double escPerc{stats.n * 100. / billiard.size()};
 
 	std::string fileName{};
 	std::cout << "Insert the name of the file to be created: ";
@@ -168,12 +165,15 @@ void printStatsToFile(const tb::Billiard& billiard)
 		throw std::runtime_error{"Cannot open file"};
 	}
 
+	const auto stats{statistics(billiard.getEscapedParticles())};
+
+	const double escPerc{stats.n * 100. / billiard.size()};
+
 	outFile << tb::statsToString(stats) << '\n';
 
 	outFile << billiard.size() << " particles were generated with valid parameters.\n";
 	outFile << "Of those, " << stats.n << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 	std::cout << "Output file written successfully. Type \'s\' to print the results onscreen.\n";
-
 	printStars(5);
 }
 

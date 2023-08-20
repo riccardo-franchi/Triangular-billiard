@@ -29,7 +29,7 @@ void setBilliardParams(tb::Billiard& billiard);
 
 void generateParticles(tb::Billiard& billiard);
 
-int readFromFile(tb::Billiard& billiard);
+void readFromFile(tb::Billiard& billiard);
 
 void printStatistics(const tb::Billiard& billiard);
 
