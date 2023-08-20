@@ -203,7 +203,7 @@ void printStatsToFile(const tb::Billiard& billiard)
 void printValuesToFile(const tb::Billiard& billiard)
 {
 	std::string fileName{};
-	std::cout << "Insert the name of the file to be created (include .txt): ";
+	std::cout << "Insert the name of the file to be created: ";
 	getInput(fileName);
 
 	std::ofstream outFile{fileName};
