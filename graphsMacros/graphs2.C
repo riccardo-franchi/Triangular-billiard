@@ -35,7 +35,7 @@ void machaInitial()
 	h1->Draw();
 
 	cInitialGraphs->cd(2);
-	h2->SetTitle("Distribuzione di #theta_{i}; #theta; Occorrenze");
+	h2->SetTitle("Distribuzione di #theta_{i}; #theta (rad); Occorrenze");
 	h2->SetMarkerStyle(6);
 	h2->SetLineColor(9);
 	h2->Draw();
@@ -73,7 +73,7 @@ void machaFinal()
 	h1->Draw();
 
 	cFinalGraphs->cd(2);
-	h2->SetTitle("Distribuzione di #theta_{f}; #theta; Occorrenze");
+	h2->SetTitle("Distribuzione di #theta_{f}; #theta (rad); Occorrenze");
 	h2->SetMarkerStyle(6);
 	h2->SetLineColor(9);
 	h2->Draw();
