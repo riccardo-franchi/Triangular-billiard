@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "../include/commands.hpp"
 
 int main()
@@ -64,11 +62,25 @@ int main()
 			}
 			case 's':
 			{
+				if (billiard.size() == 0)
+				{
+					std::cout << "A valid simulation must be run before! Enter another command.\n";
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					printStars(5);
+					break;
+				}
 				printStatistics(billiard);
 				break;
 			}
 			case 'f':
 			{
+				if (billiard.size() == 0)
+				{
+					std::cout << "A valid simulation must be run before! Enter another command.\n";
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					printStars(5);
+					break;
+				}
 				printStatsToFile(billiard);
 				break;
 			}

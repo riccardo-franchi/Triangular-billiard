@@ -16,40 +16,54 @@ struct Moments
 	double x4{};
 };
 
-Statistics::Results Statistics::operator()(const std::vector<Particle>& particles)
+Stats computeStats(const std::vector<double>& data)
 {
-	if (particles.size() < 2)
-	{
-		throw std::runtime_error{"Not enough particles to compute statistics"};
-	}
+	const int N{static_cast<int>(data.size())};
 
-	// Create vector of y and theta values of escaped particles
-	std::vector<double> y{};
-	std::vector<double> theta{};
-	y.reserve(particles.size());
-	theta.reserve(particles.size());
-	for (const auto& p : particles)
-	{
-		if (p.x == m_l)
-		{
-			y.push_back(p.y);
-			theta.push_back(p.theta);
-		}
-	}
-	y.shrink_to_fit();
-	theta.shrink_to_fit();
+	const double sum{std::accumulate(data.begin(), data.end(), 0., [](double s, double x) { return s += x; })};
+	const double mean{sum / N};
 
-	m_N = static_cast<int>(y.size());
+	const Moments moments{std::accumulate(data.begin(), data.end(), Moments{},
+										  [mean](Moments m, double x)
+										  {
+											  const double gap{x - mean};
+											  m.x2 += std::pow(gap, 2);
+											  m.x3 += std::pow(gap, 3);
+											  m.x4 += std::pow(gap, 4);
+											  return m;
+										  })};
 
-	if (m_N < 2)
-	{
-		throw std::runtime_error{"Cannot compute statistics: " + std::to_string(m_N) + " particle(s) escaped"};
-	}
+	const double sigma{std::sqrt(moments.x2 / (N - 1))};
+	const double skewness{moments.x3 / (N * std::pow(sigma, 3))};
+	const double kurtosis{moments.x4 / (N * std::pow(sigma, 4))};
 
-	return {computeStats(y), computeStats(theta)};
+	return {mean, sigma, skewness, kurtosis};
 }
 
-std::string Statistics::statsToString(const Results& stats)
+Results statistics(const std::vector<Particle>& particles)
+{
+	const auto N{particles.size()};
+
+	if (N < 2)
+	{
+		throw std::runtime_error{"Not enough particles to compute statistics: " + std::to_string(N) +
+								 "particle(s) escaped the billiard"};
+	}
+
+	std::vector<double> y{};
+	std::vector<double> theta{};
+	y.reserve(N);
+	theta.reserve(N);
+	for (const auto& p : particles)
+	{
+		y.push_back(p.y);
+		theta.push_back(p.theta);
+	}
+
+	return {computeStats(y), computeStats(theta), static_cast<int>(N)};
+}
+
+std::string statsToString(const Results& stats)
 {
 	const int w{20};
 	std::ostringstream oss{};
@@ -64,27 +78,5 @@ std::string Statistics::statsToString(const Results& stats)
 		<< std::setw(w) << std::left << "theta_f kurtosis: " << stats.theta.kurtosis << '\n';
 
 	return oss.str();
-}
-
-Statistics::Stats Statistics::computeStats(const std::vector<double>& data)
-{
-	const double sum{std::accumulate(data.begin(), data.end(), 0., [](double s, double x) { return s += x; })};
-	const double mean{sum / m_N};
-
-	const Moments moments{std::accumulate(data.begin(), data.end(), Moments{},
-										  [mean](Moments m, double x)
-										  {
-											  const double gap{x - mean};
-											  m.x2 += std::pow(gap, 2);
-											  m.x3 += std::pow(gap, 3);
-											  m.x4 += std::pow(gap, 4);
-											  return m;
-										  })};
-
-	const double sigma{std::sqrt(moments.x2 / (m_N - 1))};
-	const double skewness{moments.x3 / (m_N * std::pow(sigma, 3))};
-	const double kurtosis{moments.x4 / (m_N * std::pow(sigma, 4))};
-
-	return {mean, sigma, skewness, kurtosis};
 }
 } // namespace tb

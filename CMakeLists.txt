@@ -28,7 +28,7 @@ target_link_libraries(Triangular-billiard PRIVATE TBB::tbb)
 if (BUILD_TESTING)
 
   # aggiungi gli eseguibili billiard.test e statistics.test
-  add_executable(billiard.test tests/billiard.test.cpp src/billiard.cpp src/statistics.cpp)
+  add_executable(billiard.test tests/billiard.test.cpp src/billiard.cpp)
   add_executable(statistics.test tests/statistics.test.cpp src/billiard.cpp src/statistics.cpp)
   
   # aggiungi l'eseguibile billiard.test alla lista dei test

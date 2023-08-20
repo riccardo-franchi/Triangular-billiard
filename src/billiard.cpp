@@ -27,7 +27,17 @@ void Billiard::push_back(const Particle& particle)
 	m_particles.push_back(particle);
 }
 
-const std::vector<Particle>& Billiard::runSimulation()
+std::vector<Particle> Billiard::getEscapedParticles() const
+{
+	std::vector<Particle> escapedParticles{};
+	escapedParticles.reserve(m_particles.size());
+	std::remove_copy_if(/*std::execution::par_unseq,*/ m_particles.begin(), m_particles.end(),
+						std::back_inserter(escapedParticles), [this](const Particle& p) { return p.x < m_l; });
+	escapedParticles.shrink_to_fit();
+	return escapedParticles;
+}
+
+void Billiard::runSimulation()
 {
 	if (size() == 0)
 	{
@@ -37,8 +47,6 @@ const std::vector<Particle>& Billiard::runSimulation()
 
 	std::transform(/*std::execution::par_unseq,*/ m_particles.begin(), m_particles.end(), m_particles.begin(),
 				   [&](const Particle& p) { return calcTrajectory(p, alpha); });
-
-	return m_particles;
 }
 
 Particle Billiard::calcTrajectory(const Particle& p, const double alpha)
@@ -76,4 +84,5 @@ Particle Billiard::calcTrajectory(const Particle& p, const double alpha)
 
 	return particle;
 }
+
 } // namespace tb

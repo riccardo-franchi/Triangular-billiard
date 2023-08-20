@@ -96,12 +96,6 @@ void generateParticles(tb::Billiard& billiard)
 	{
 		throw std::runtime_error{"No valid particles generated"};
 	}
-
-	/*billiard.runSimulation();
-	printStars(5);
-	std::cout << "Simulation of " << N << " particles successfully run.\n";
-	std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
-	printStars(5);*/
 }
 
 int readFromFile(tb::Billiard& billiard)
@@ -171,26 +165,20 @@ int readFromFile(tb::Billiard& billiard)
 
 void printStatistics(const tb::Billiard& billiard)
 {
-	tb::Statistics statistics{billiard.getL()};
+	const auto stats{statistics(billiard.getEscapedParticles())};
 
-	const auto stats{statistics(billiard.getParticles())};
-
-	const int escParts{statistics.getN()};
-	const double escPerc{escParts * 100. / billiard.size()};
+	const double escPerc{stats.n * 100. / billiard.size()};
 	printStars(5);
-	std::cout << tb::Statistics::statsToString(stats) << '\n';
+	std::cout << tb::statsToString(stats) << '\n';
 	std::cout << billiard.size() << " particles were generated with valid parameters.\n";
-	std::cout << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
+	std::cout << "Of those, " << stats.n << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 }
 
 void printStatsToFile(const tb::Billiard& billiard)
 {
-	tb::Statistics statistics{billiard.getL()};
+	const auto stats{statistics(billiard.getEscapedParticles())};
 
-	const auto stats{statistics(billiard.getParticles())};
-
-	const int escParts{statistics.getN()};
-	const double escPerc{escParts * 100. / billiard.size()};
+	const double escPerc{stats.n * 100. / billiard.size()};
 
 	std::string fileName{};
 	std::cout << "Insert the name of the file to be created: ";
@@ -203,10 +191,10 @@ void printStatsToFile(const tb::Billiard& billiard)
 		throw std::runtime_error{"Cannot open file"};
 	}
 
-	outFile << tb::Statistics::statsToString(stats) << '\n';
+	outFile << tb::statsToString(stats) << '\n';
 
 	outFile << billiard.size() << " particles were generated with valid parameters.\n";
-	outFile << "Of those, " << escParts << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
+	outFile << "Of those, " << stats.n << std::setprecision(4) << " escaped the billiard (" << escPerc << "%).\n";
 	std::cout << "Output file written successfully. Type \'s\' to print the results onscreen.\n";
 
 	printStars(5);
@@ -225,12 +213,9 @@ void printValuesToFile(const tb::Billiard& billiard)
 		throw std::runtime_error{"Could not open file"};
 	}
 
-	for (const auto& p : billiard.getParticles())
+	for (const auto& p : billiard.getEscapedParticles())
 	{
-		if (p.x == billiard.getL())
-		{
-			outFile << p.y << ' ' << p.theta << '\n';
-		}
+		outFile << p.y << ' ' << p.theta << '\n';
 	}
 	std::cout << "Output file written successfully.\n";
 
@@ -277,20 +262,18 @@ void generateL(tb::Billiard& billiard)
 
 		billiard.setL(l);
 		billiard.runSimulation();
-		tb::Statistics statistics{billiard.getL()};
-		const auto stats{statistics(billiard.getParticles())};
-		const int escParts{statistics.getN()};
+		const auto stats{statistics(billiard.getEscapedParticles())};
 
 		outFile << l << ' ' << stats.y.mean << ' ' << stats.y.sigma << ' ' << stats.theta.mean << ' '
 				<< stats.theta.sigma << ' ' << stats.y.skewness << ' ' << stats.y.kurtosis << ' '
-				<< stats.theta.skewness << ' ' << stats.theta.kurtosis << ' ' << escParts << '\n';
+				<< stats.theta.skewness << ' ' << stats.theta.kurtosis << ' ' << stats.n << '\n';
 
 		++i;
 	}
 	printStars(5);
 	std::cout << "Output file written successfully. " << i << " simulations have been run.\n";
-	std::cout << "From left to right you'll have: value of l, y_f mean, y_f st. dev., theta_f mean, theta_f st. dev, "
-				 "y_f skwness, y_f kurtosis, theta_f skewness, theta_f kurtosis and the number of escaped particles.\n";
+	std::cout << "From left to right you'll find:\nvalue of l, y_f mean, y_f st. dev., theta_f mean, theta_f st. dev, "
+				 "y_f skwness, y_f kurtosis, theta_f skewness, theta_f kurtosis, no. of escaped particles.\n";
 	printStars(5);
 }
 

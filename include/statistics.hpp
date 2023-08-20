@@ -7,36 +7,22 @@
 
 namespace tb
 {
-class Statistics
+struct Stats
 {
-public:
-	struct Stats
-	{
-		double mean{};
-		double sigma{};
-		double skewness{};
-		double kurtosis{};
-	};
-	struct Results
-	{
-		Stats y{};
-		Stats theta{};
-	};
-
-	Statistics(const double l) : m_l{l} {}
-
-	int getN() const { return m_N; }
-
-	Results operator()(const std::vector<Particle>& particles);
-
-	static std::string statsToString(const Results& stats);
-
-private:
-	Stats computeStats(const std::vector<double>& data);
-
-	const double m_l{};
-
-	int m_N{};
+	double mean{};
+	double sigma{};
+	double skewness{};
+	double kurtosis{};
 };
+struct Results
+{
+	Stats y{};
+	Stats theta{};
+	int n{};
+};
+
+Results statistics(const std::vector<Particle>& particles);
+
+std::string statsToString(const Results& stats);
 } // namespace tb
 #endif // STATISTICS_HPP
