@@ -29,13 +29,13 @@ void machaInitial()
 	cInitialGraphs->Divide(2, 1);
 
 	cInitialGraphs->cd(1);
-	h1->SetTitle("Distribuzione di y_{i}; y; G(y)");
+	h1->SetTitle("Distribuzione di y_{i}; y; Occorrenze");
 	h1->SetMarkerStyle(6);
 	h1->SetLineColor(8);
 	h1->Draw();
 
 	cInitialGraphs->cd(2);
-	h2->SetTitle("Distribuzione di #theta_{i}; #theta; G(#theta)");
+	h2->SetTitle("Distribuzione di #theta_{i}; #theta; Occorrenze");
 	h2->SetMarkerStyle(6);
 	h2->SetLineColor(9);
 	h2->Draw();
@@ -67,13 +67,13 @@ void machaFinal()
 	cFinalGraphs->Divide(2, 1);
 
 	cFinalGraphs->cd(1);
-	h1->SetTitle("Distribuzione di y_{f}; y; f(y)");
+	h1->SetTitle("Distribuzione di y_{f}; y; Occorrenze");
 	h1->SetMarkerStyle(6);
 	h1->SetLineColor(8);
 	h1->Draw();
 
 	cFinalGraphs->cd(2);
-	h2->SetTitle("Distribuzione di #theta_{f}; #theta; f(#theta)");
+	h2->SetTitle("Distribuzione di #theta_{f}; #theta; Occorrenze");
 	h2->SetMarkerStyle(6);
 	h2->SetLineColor(9);
 	h2->Draw();
