@@ -1,7 +1,9 @@
 **Initial and final**
 Each particles'simulation should be named with progressive numbers, e.g:
 - the file containing the initial particles for each simulation is named `initial1.txt`, if you want to use the same particles for more than one simulation the file name should be `initialN1-N2.txt` etc.
-- -its histograms are called `cHistoInit1-2.pdf` and `cHistoFin1-2.pdf` etc.
+- the file containing the final particles for each simulation is named `final1.txt`
+- its histograms are called `cHistoInit1-2.pdf` and `cHistoFin1-2.pdf` etc.
+
 **Billiard's simulation**
 Each billiard's simulation should be named with progressive numbers, e.g:
 - `simulation1.txt` contains datas of the first simulation
