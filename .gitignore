@@ -4,3 +4,6 @@ build
 *.pdf
 !cGraphs2Init.pdf
 !cGraphs2Fin.pdf
+!cGraphsA1.pdf
+!cGraphsB1.pdf
+!cGraphC1.pdf
