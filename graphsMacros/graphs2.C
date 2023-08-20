@@ -25,17 +25,17 @@ void macha()
 		h2->Fill(theta);
 	}
 
-	TCanvas* cInitialGraphs = new TCanvas("cInitialGraphs", "Gaussiane distribuzioni iniziali", 10, 30, 1000, 600);
+	TCanvas* cInitialGraphs = new TCanvas("cGraphs2", "Gaussiane distribuzioni iniziali", 10, 30, 1000, 600);
 	cInitialGraphs->Divide(2, 1);
 
 	cInitialGraphs->cd(1);
-	h1->SetTitle("; y; G(y)");
+	h1->SetTitle("Distribuzione di y_i; y; G(y)");
 	h1->SetMarkerStyle(6);
 	h1->SetLineColor(2);
 	h1->Draw();
 
 	cInitialGraphs->cd(2);
-	h2->SetTitle("; theta; G(theta)");
+	h2->SetTitle("Distribuzione di theta_i; theta; G(theta)");
 	h2->SetMarkerStyle(6);
 	h2->SetLineColor(2);
 	h2->Draw();
