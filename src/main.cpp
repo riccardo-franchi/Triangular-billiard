@@ -2,18 +2,17 @@
 
 int main()
 {
-
-	const std::string commands{
-		"b = set the parameters of the billiard, if you don't select this option default "
-		"parameters (1., 1., 1.) will be used in your simulation\n"
-		"g = generate a sample of N particles and run the simulation\n"
-		"r = read the sample's particles from a file and run the simulation\n"
-		"s = print results' statistics onscreen\n"
-		"f = save results' statistics on a file\n"
-		"p = save final coordinates of each particle on a file\n"
-		"x = run multiple simulations varying billiard's length l with fixed step, with the same particle sample\n"
-		"q = quit the program\n"
-		"h = list of commands\n"};
+	const std::string commands{"b = set the parameters of the billiard, if you don't select this option default "
+							   "parameters (1., 1., 1.) will be used\n"
+							   "g = generate a sample of N particles and run the simulation\n"
+							   "r = read the sample particles from a file and run the simulation\n"
+							   "s = compute and print statistics onscreen\n"
+							   "f = compute and save statistics on a file\n"
+							   "p = save the final coordinates of each particle on a file\n"
+							   "x = run multiple simulations varying billiard's length l with fixed step, with the "
+							   "same particle sample, and save result statistics on a file\n"
+							   "q = quit the program\n"
+							   "h = list of commands\n"};
 
 	std::cout << "Enter a command:\n" << commands;
 	printStars(5);
@@ -30,8 +29,9 @@ int main()
 			case 'b':
 			{
 				setBilliardParams(billiard);
-				std::cout << "Parameters successfully entered.\n";
-				std::cout << "Type \'g\' to generate a sample of N particles and run the simulation, or \'r\' to read "
+				std::cout << "Parameters successfully entered.\n"
+						  << "Type \'g\' to generate a gaussian sample of N particles and run the simulation, or \'r\' "
+							 "to read "
 							 "the sample's "
 							 "particles from a file and run the simulation.\n";
 				printStars(5);
@@ -50,7 +50,7 @@ int main()
 
 				printStars(5);
 				std::cout << "Simulation successfully run.\n";
-				std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
+				std::cout << "Type \'s\' to compute and print statistics, or \'f\' to save them on a file.\n";
 				printStars(5);
 				break;
 			}
@@ -64,7 +64,7 @@ int main()
 			{
 				if (billiard.size() == 0)
 				{
-					std::cout << "A valid simulation must be run before! Enter another command.\n";
+					std::cout << "A valid simulation must be run first! Enter another command.\n";
 					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					printStars(5);
 					break;
@@ -76,7 +76,7 @@ int main()
 			{
 				if (billiard.size() == 0)
 				{
-					std::cout << "A valid simulation must be run before! Enter another command.\n";
+					std::cout << "A valid simulation must be run first! Enter another command.\n";
 					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					printStars(5);
 					break;
@@ -88,7 +88,7 @@ int main()
 			{
 				if (billiard.size() == 0)
 				{
-					std::cout << "A valid simulation must be run before! Enter another command.\n";
+					std::cout << "A valid simulation must be run first! Enter another command.\n";
 					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					printStars(5);
 					break;

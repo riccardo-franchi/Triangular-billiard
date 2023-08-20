@@ -87,7 +87,7 @@ int readFromFile(tb::Billiard& billiard)
 	std::ifstream inFile(fileName);
 	if (!inFile)
 	{
-		throw std::runtime_error{"File not found"};
+		throw std::runtime_error{"Cannot open file"};
 	}
 
 	double y;
@@ -134,7 +134,7 @@ int readFromFile(tb::Billiard& billiard)
 		std::cout << invalidParts << " particle(s) had invalid initial coordinates and have been excluded.\n";
 	}
 	printStars(5);
-	std::cout << "Type \'s\' to print onscreen statistics, or \'f\' to save them on a file.\n";
+	std::cout << "Type \'s\' to compute and print statistics, or \'f\' to save them on a file.\n";
 
 	printStars(5);
 	return billiard.size();
@@ -180,14 +180,14 @@ void printStatsToFile(const tb::Billiard& billiard)
 void printValuesToFile(const tb::Billiard& billiard)
 {
 	std::string fileName{};
-	std::cout << "Insert the name of the file to be created (include .txt): ";
+	std::cout << "Insert the name of the file to be created: ";
 	getInput(fileName);
 
 	std::ofstream outFile{fileName};
 
 	if (!outFile)
 	{
-		throw std::runtime_error{"Could not open file"};
+		throw std::runtime_error{"Cannot open file"};
 	}
 
 	for (const auto& p : billiard.getEscapedParticles())
