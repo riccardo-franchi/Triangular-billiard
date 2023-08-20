@@ -10,8 +10,7 @@ void machaInitial()
 	TH1F* h1 = new TH1F("h1", "Distribuzione di y_i", 1000, -5, 5);
 	TH1F* h2 = new TH1F("h2", "Distribuzione di theta_i", 1000, -TMath::PiOver2(), TMath::PiOver2());
 
-	double y;
-	double theta;
+	double y double theta;
 
 	fstream file;
 	file.open("initial2.txt", ios::in);
@@ -40,7 +39,7 @@ void machaInitial()
 	h2->SetLineColor(9);
 	h2->Draw();
 
-	cInitialGraphs->Print("cGraphs2Init.pdf");
+	cInitialGraphs->Print("cHistosInit1.pdf");
 }
 
 void machaFinal()
@@ -78,5 +77,5 @@ void machaFinal()
 	h2->SetLineColor(9);
 	h2->Draw();
 
-	cFinalGraphs->Print("cGraphs2Fin.pdf");
+	cFinalGraphs->Print("cHistosFin1.pdf");
 }
