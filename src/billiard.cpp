@@ -31,8 +31,8 @@ std::vector<Particle> Billiard::getEscapedParticles() const
 {
 	std::vector<Particle> escapedParticles{};
 	escapedParticles.reserve(m_particles.size());
-	std::remove_copy_if(/*std::execution::par_unseq,*/ m_particles.begin(), m_particles.end(),
-						std::back_inserter(escapedParticles), [this](const Particle& p) { return p.x < m_l; });
+	std::remove_copy_if(m_particles.begin(), m_particles.end(), std::back_inserter(escapedParticles),
+						[this](const Particle& p) { return p.x < m_l; });
 	escapedParticles.shrink_to_fit();
 	return escapedParticles;
 }
@@ -45,13 +45,12 @@ void Billiard::runSimulation()
 	}
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
-	std::transform(/*std::execution::par_unseq,*/ m_particles.begin(), m_particles.end(), m_particles.begin(),
+	std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
 				   [&](const Particle& p) { return calcTrajectory(p, alpha); });
 }
 
-Particle Billiard::calcTrajectory(const Particle& p, const double alpha)
+Particle Billiard::calcTrajectory(Particle particle, const double alpha)
 {
-	Particle particle{p};
 	double coeff{std::tan(particle.theta)};
 	double yl{coeff * (m_l - particle.x) + particle.y};
 

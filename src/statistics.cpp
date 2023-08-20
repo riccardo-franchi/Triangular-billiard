@@ -27,9 +27,13 @@ Stats computeStats(const std::vector<double>& data)
 										  [mean](Moments m, double x)
 										  {
 											  const double gap{x - mean};
-											  m.x2 += std::pow(gap, 2);
-											  m.x3 += std::pow(gap, 3);
-											  m.x4 += std::pow(gap, 4);
+											  const double gap2{gap * gap};
+											  const double gap3{gap2 * gap};
+											  const double gap4{gap3 * gap};
+
+											  m.x2 += gap2;
+											  m.x3 += gap3;
+											  m.x4 += gap4;
 											  return m;
 										  })};
 
