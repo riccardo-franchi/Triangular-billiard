@@ -31,7 +31,7 @@ void machaInitial()
 	cInitialGraphs->cd(1);
 	h1->SetTitle("Distribuzione di y_i; y; G(y)");
 	h1->SetMarkerStyle(6);
-	h1->SetLineColor(2);
+	h1->SetLineColor(7);
 	h1->Draw();
 
 	cInitialGraphs->cd(2);
@@ -69,7 +69,7 @@ void machaFinal()
 	cFinalGraphs->cd(1);
 	h1->SetTitle("Distribuzione di y_f; y; f(y)");
 	h1->SetMarkerStyle(6);
-	h1->SetLineColor(2);
+	h1->SetLineColor(7);
 	h1->Draw();
 
 	cFinalGraphs->cd(2);
