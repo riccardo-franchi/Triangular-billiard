@@ -13,7 +13,7 @@ Each billiard's simulation should be named with progressive numbers, e.g:
 | Simulation | General l | Init. l | r_1 | r_2 | Init. y | \theta_i | Fin. l | Step | N | Comment |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |:---:| :---: | :---: | :---: |
 | 1 | 13 | 1 | 5 | 3 | 1.5 $\pm$ 0.5 | -0.25 $\pm$ 0.5 | 40 | 1.5 | 100'000 | General with $\alpha$ < 0 |
-| 2 | 20 | - | 4 | 6 | -2 $\pm$ 1 | - | - | - | 100'000 |
+| 2 | 20 | - | 4 | 6 | -2 $\pm$ 1 | - | - | - | 10'000'000 |
 | 3 | 20 | - | 4 | 6 | -0.75 $\pm$ 1.5 | 0 $\pm$ 0.25 | - | - | 100'000'000 |
 | 4 | - | 2 | 2 | 4 | 0 $\pm$ 0.5 | 1 $\pm$ 0.5 | 48 | 2 | 100'000 | General with $\alpha$ > 0 |
 
