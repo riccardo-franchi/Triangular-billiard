@@ -14,7 +14,7 @@ void machaInitial()
 	double theta;
 
 	fstream file;
-	file.open("initial3.txt", ios::in);
+	file.open("initial4.txt", ios::in);
 
 	while (1)
 	{
@@ -25,7 +25,7 @@ void machaInitial()
 		h2->Fill(theta);
 	}
 
-	TCanvas* cInitialGraphs = new TCanvas("cGraphs3", "Distribuzioni iniziali di y e theta", 10, 30, 1000, 600);
+	TCanvas* cInitialGraphs = new TCanvas("cGraphs4", "Distribuzioni iniziali di y e theta", 10, 30, 1000, 600);
 	cInitialGraphs->Divide(2, 1);
 
 	cInitialGraphs->cd(1);
@@ -40,7 +40,7 @@ void machaInitial()
 	h2->SetLineColor(9);
 	h2->Draw();
 
-	cInitialGraphs->Print("cHistosInit3.pdf");
+	cInitialGraphs->Print("cHistosInit4.pdf");
 }
 
 void machaFinal()
@@ -52,7 +52,7 @@ void machaFinal()
 	double theta;
 
 	fstream file;
-	file.open("simulation3.txt", ios::in);
+	file.open("simulation4.txt", ios::in);
 
 	while (1)
 	{
@@ -78,5 +78,5 @@ void machaFinal()
 	h2->SetLineColor(9);
 	h2->Draw();
 
-	cFinalGraphs->Print("cHistosFin3.pdf");
+	cFinalGraphs->Print("cHistosFin4.pdf");
 }
