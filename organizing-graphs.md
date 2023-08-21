@@ -15,8 +15,13 @@ Each billiard's simulation should be named with progressive numbers, e.g:
 | 1 | 13 | 1 | 5 | 3 | 1.5 $\pm$ 0.5 | -0.25 $\pm$ 0.5 | 40 | 1.5 | 100'000 | General with $\alpha$ < 0 |
 | 2 | 20 | - | 4 | 6 | -2 $\pm$ 1 | - | - | - | 100'000 |
 | 3 | 20 | - | 4 | 6 | -0.75 $\pm$ 1.5 | 0 $\pm$ 0.25 | - | - | 100'000'000 |
-| 4 | 20 | - | 2 | 4 | 0 $\pm$ 0.5 | 1 $\pm$ 0.5 | 48 | 2 | 100'000 | General with $\alpha$ > 0 |
+| 4 | - | 2 | 2 | 4 | 0 $\pm$ 0.5 | 1 $\pm$ 0.5 | 48 | 2 | 100'000 | General with $\alpha$ > 0 |
 
+Note that:
+- General l is the lenght used to create the histos
+- Init. and Fin. l are the lenghts used in the simulation
+- We should avoid repeating the same type of simulation
+- The cases studied should be as varied as possible
 When you commit changes:
 - you should keep .txt file in .gitignore
 - exclude .pdf from the .gitignore
