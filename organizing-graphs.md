@@ -17,3 +17,13 @@ Each billiard's simulation should be named with progressive numbers, e.g:
 When you commit changes:
 - you should keep .txt file in .gitignore
 - exclude .pdf from the .gitignore
+
+#### simulation #3
+Billiard: 4 6 20
+
+$y_i$ = 
+
+#### simulation #4
+Billiard: 4 6 20
+
+$y_i = -0.75 \pm 1.5 \quad \theta_i = 0 \pm 0.25$
