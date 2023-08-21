@@ -10,10 +10,11 @@ void machaInitial()
 	TH1F* h1 = new TH1F("h1", "Distribuzione di y_i", 1000, -5, 5);
 	TH1F* h2 = new TH1F("h2", "Distribuzione di theta_i", 1000, -TMath::PiOver2(), TMath::PiOver2());
 
-	double y double theta;
+	double y;
+	double theta;
 
 	fstream file;
-	file.open("initial2.txt", ios::in);
+	file.open("initial3.txt", ios::in);
 
 	while (1)
 	{
@@ -24,7 +25,7 @@ void machaInitial()
 		h2->Fill(theta);
 	}
 
-	TCanvas* cInitialGraphs = new TCanvas("cGraphs2", "Distribuzioni iniziali di y e theta", 10, 30, 1000, 600);
+	TCanvas* cInitialGraphs = new TCanvas("cGraphs3", "Distribuzioni iniziali di y e theta", 10, 30, 1000, 600);
 	cInitialGraphs->Divide(2, 1);
 
 	cInitialGraphs->cd(1);
@@ -39,7 +40,7 @@ void machaInitial()
 	h2->SetLineColor(9);
 	h2->Draw();
 
-	cInitialGraphs->Print("cHistosInit1.pdf");
+	cInitialGraphs->Print("cHistosInit3.pdf");
 }
 
 void machaFinal()
@@ -51,7 +52,7 @@ void machaFinal()
 	double theta;
 
 	fstream file;
-	file.open("simulation2.txt", ios::in);
+	file.open("simulation3.txt", ios::in);
 
 	while (1)
 	{
@@ -62,7 +63,7 @@ void machaFinal()
 		h2->Fill(theta);
 	}
 
-	TCanvas* cFinalGraphs = new TCanvas("cGraphs2", "Distribuzioni finali di y e theta", 10, 30, 1000, 600);
+	TCanvas* cFinalGraphs = new TCanvas("cGraphs3", "Distribuzioni finali di y e theta", 10, 30, 1000, 600);
 	cFinalGraphs->Divide(2, 1);
 
 	cFinalGraphs->cd(1);
@@ -77,5 +78,5 @@ void machaFinal()
 	h2->SetLineColor(9);
 	h2->Draw();
 
-	cFinalGraphs->Print("cHistosFin1.pdf");
+	cFinalGraphs->Print("cHistosFin3.pdf");
 }
