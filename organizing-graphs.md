@@ -10,20 +10,18 @@ Each billiard's simulation should be named with progressive numbers, e.g:
 - its graphs are called `cGraphsA1.pdf`, `cGraphsB1.pdf` and `cGraphC1.pdf`
 - billiard's conditions are put in the following table (note that r_1 and r_2 values are considered also in the name of the canvas)
 
-| General l | Init. l | r_1 | r_2 | Init. y | Init. theta | Fin. l | Step | N |
-| :---: | :---: | :---: | :---: | :---: | :---: |:---:| :---: | :---: |
-| 13 | 1 | 5 | 3 | 1.5 $\pm$ 0.5 | -0.25 $\pm$ 0.5 | 40 | 1.5 | 100'000 |
+| Simulation | General l | Init. l | r_1 | r_2 | Init. y | \theta_i | Fin. l | Step | N |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |:---:| :---: | :---: |
+| 1 | 13 | 1 | 5 | 3 | 1.5 $\pm$ 0.5 | -0.25 $\pm$ 0.5 | 40 | 1.5 | 100'000 |
+| 2 | 20 | - | 4 | 6 | -2 $\pm$ 1 | - | - | - | 100'000 |
+| 3 | 20 | - | 4 | 6 | -0.75 $\pm$ 1.5 | 0 $\pm$ 0.25 | - | - | 100'000'000 |
+| 4 | 20 | - | 2 | 4 | 0 $\pm$ 0.5 | 1 $\pm$ 0.5 | 48 | 2 | 100'000 |
 
 When you commit changes:
 - you should keep .txt file in .gitignore
 - exclude .pdf from the .gitignore
 
-#### simulation #3
+#### simulation #2
 Billiard: 4 6 20
 
 $y_i$ = 
-
-#### simulation #4
-Billiard: 4 6 20
-
-$y_i = -0.75 \pm 1.5 \quad \theta_i = 0 \pm 0.25$
