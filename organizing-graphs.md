@@ -13,8 +13,8 @@ Each billiard's simulation should be named with progressive numbers, e.g:
 | Simulation | General l | Init. l | r_1 | r_2 | Init. y | \theta_i | Fin. l | Step | N |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |:---:| :---: | :---: |
 | 1 | 13 | 1 | 5 | 3 | 1.5 $\pm$ 0.5 | -0.25 $\pm$ 0.5 | 40 | 1.5 | 100'000 |
-| 2 | 20 | - | 4 | 6 | 1.5 $\pm$ 0.5 | -0.25 $\pm$ 0.5 | 40 | 1.5 | 100'000 |
-| 3 | 20 | - | 4 | 6 | -0.75 $\pm$ 1.5 | 0 $\pm$ 0.25 | 40 | 1.5 | 100'000 |
+| 2 | 20 | - | 4 | 6 | -0.75 $\pm$ 1.5 | 0 $\pm$ 0.25 | - | - | 100'000 |
+| 3 | 20 | - | 4 | 6 | - | - | - | - | 100'000 |
 
 When you commit changes:
 - you should keep .txt file in .gitignore
