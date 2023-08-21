@@ -10,9 +10,11 @@ Each billiard's simulation should be named with progressive numbers, e.g:
 - its graphs are called `cGraphsA1.pdf`, `cGraphsB1.pdf` and `cGraphC1.pdf`
 - billiard's conditions are put in the following table (note that r_1 and r_2 values are considered also in the name of the canvas)
 
-| General l | Init. l | r_1 | r_2 | Init. y | Init. theta | Fin. l | Step | N |
-| :---: | :---: | :---: | :---: | :---: | :---: |:---:| :---: | :---: |
-| 13 | 1 | 5 | 3 | 1.5 $\pm$ 0.5 | -0.25 $\pm$ 0.5 | 40 | 1.5 | 100'000 |
+| Simulation | General l | Init. l | r_1 | r_2 | Init. y | Init. theta | Fin. l | Step | N |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |:---:| :---: | :---: |
+| 1 | 13 | 1 | 5 | 3 | 1.5 $\pm$ 0.5 | -0.25 $\pm$ 0.5 | 40 | 1.5 | 100'000 |
+| 2 | 13 | 1 | 5 | 3 | 1.5 $\pm$ 0.5 | -0.25 $\pm$ 0.5 | 40 | 1.5 | 100'000 |
+| 3 | 13 | 1 | 5 | 3 | 1.5 $\pm$ 0.5 | -0.25 $\pm$ 0.5 | 40 | 1.5 | 100'000 |
 
 When you commit changes:
 - you should keep .txt file in .gitignore
