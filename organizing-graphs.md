@@ -16,6 +16,10 @@ Each billiard's simulation should be named with progressive numbers, e.g:
 | 2 | 20 | - | 4 | 6 | -2 $\pm$ 1 | - | - | - | 10'000'000 |
 | 3 | 20 | - | 4 | 6 | -0.75 $\pm$ 1.5 | 0 $\pm$ 0.25 | - | - | 100'000'000 |
 | 4 | - | 2 | 2 | 4 | 0 $\pm$ 0.5 | 1 $\pm$ 0.5 | 48 | 2 | 100'000 | General with $\alpha$ > 0 |
+| 5 | - | - | 5 | 3 | 1.5 $\pm$ 0.5 | -0.25 $\pm$ 0.5 | 40 | 1.5 | 100'000 | General with $\alpha$ < 0 |
+| 6 | - | - | 4 | 6 | -2 $\pm$ 1 | - | - | - | 10'000'000 |
+| 7 | - | - | 4 | 6 | -0.75 $\pm$ 1.5 | 0 $\pm$ 0.25 | - | - | 100'000'000 |
+| 8 | - | - | 2 | 4 | 0 $\pm$ 0.5 | 1 $\pm$ 0.5 | 48 | 2 | 100'000 | General with $\alpha$ > 0 |
 
 Note that:
 - General l is the lenght used to create the histos
@@ -25,8 +29,3 @@ Note that:
 When you commit changes:
 - you should keep .txt file in .gitignore
 - exclude .pdf from the .gitignore
-
-#### simulation #2
-Billiard: 4 6 20
-
-$y_i$ = 
