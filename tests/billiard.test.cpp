@@ -5,7 +5,7 @@
 
 bool approx_eq(const tb::Particle& particle1, const tb::Particle& particle2)
 {
-	const double epsilon{0.0001};
+	constexpr double epsilon{0.0001};
 	return (particle1.x == doctest::Approx(particle2.x).epsilon(epsilon) && //
 			particle1.y == doctest::Approx(particle2.y).epsilon(epsilon) && //
 			particle1.theta == doctest::Approx(particle2.theta).epsilon(epsilon));
