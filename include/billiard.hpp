@@ -40,9 +40,9 @@ public:
 private:
 	Particle calcTrajectory(Particle particle, double alpha);
 
-	double m_r1{1.};
-	double m_r2{1.};
-	double m_l{1.};
+	double m_r1{5.};
+	double m_r2{3.};
+	double m_l{13.};
 
 	std::vector<Particle> m_particles{};
 };

@@ -3,7 +3,7 @@
 int main()
 {
 	const std::string commands{"b = set the parameters of the billiard, if you don't select this option default "
-							   "parameters (1., 1., 1.) will be used\n"
+							   "parameters (5., 3., 13.) will be used\n"
 							   "g = generate a sample of N particles and run the simulation\n"
 							   "r = read the sample particles from a file and run the simulation\n"
 							   "s = compute and print statistics onscreen\n"
