@@ -17,8 +17,8 @@ Each billiard's simulation should be named with progressive numbers, e.g:
 | 3 | 20 | - | 4 | 6 | -0.75 $\pm$ 1.5 | 0 $\pm$ 0.25 | - | - | 100'000'000 | - |
 | 4 | - | 2 | 2 | 4 | 0 $\pm$ 0.5 | 1 $\pm$ 0.5 | 48 | 2 | 100'000 | General with $\alpha$ > 0 |
 | 5 | - | - | - | - | - | - | - | - | - | $\alpha$ > 0 and $l_{fin}$ molto grande |
-| 6 | - | - | - | - | - | - | - | - | $\alpha$ < 0 and $l_{fin}$ molto grande |
-| 7 | - | - | - | - | - | - | - | - | $\alpha$ = 0 |
+| 6 | - | - | - | - | - | - | - | - | - | $\alpha$ < 0 and $l_{fin}$ molto grande |
+| 7 | - | - | - | - | - | - | - | - | - | $\alpha$ = 0 |
 | 8 | - | - | - | - | - | - | - | - | - | $\alpha$ << 0 |
 
 Note that:
