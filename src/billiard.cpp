@@ -59,7 +59,7 @@ void Billiard::runSimulation()
 	}
 }
 
-Particle Billiard::calcTrajectory(Particle particle, const double alpha)
+Particle Billiard::calcTrajectory(Particle particle, double alpha)
 {
 	double coeff{std::tan(particle.theta)};
 	double yl{coeff * (m_l - particle.x) + particle.y};

@@ -25,6 +25,11 @@ void setBilliardParams(tb::Billiard& billiard)
 	billiard = tb::Billiard{r1, r2, l};
 
 	printStars(5);
+	std::cout << "Parameters successfully entered.\n"
+			  << "Type \'g\' to generate a gaussian sample of N particles and run the simulation, or \'r\' "
+				 "to read "
+				 "the sample's particles from a file and run the simulation.\n";
+	printStars(5);
 }
 
 void generateParticles(tb::Billiard& billiard)
@@ -60,16 +65,17 @@ void generateParticles(tb::Billiard& billiard)
 	std::normal_distribution<double> thetaDistr{meanTheta0, std::abs(sigmaTheta0)};
 
 	billiard.clear();
-
+	billiard.reserve(N);
 	for (int n{0}; n != N; ++n)
 	{
-		tb::Particle particle{yDistr(engine), thetaDistr(engine)};
+		tb::Particle p{yDistr(engine), thetaDistr(engine)};
 
-		if (std::abs(particle.y) < billiard.getR1() && std::abs(particle.theta) < M_PI_2)
+		if (billiard.isParticleValid(p))
 		{
-			billiard.push_back(particle);
+			billiard.push_back(p);
 		}
 	}
+	billiard.shrink_to_fit();
 
 	if (billiard.size() == 0)
 	{
@@ -105,9 +111,10 @@ void readFromFile(tb::Billiard& billiard)
 		std::istringstream iss{line};
 		if ((iss >> y >> theta) && iss.eof())
 		{
-			if (std::abs(y) < billiard.getR1() && std::abs(theta) < M_PI_2)
+			tb::Particle p{y, theta};
+			if (billiard.isParticleValid(p))
 			{
-				billiard.push_back({y, theta});
+				billiard.push_back(p);
 			}
 			else
 			{
@@ -195,7 +202,6 @@ void printValuesToFile(const tb::Billiard& billiard)
 
 void generateL(tb::Billiard& billiard)
 {
-	setBilliardParams(billiard);
 	generateParticles(billiard);
 
 	printStars(5);
@@ -209,16 +215,16 @@ void generateL(tb::Billiard& billiard)
 		throw std::runtime_error{"Cannot open file"};
 	}
 
-	double lF{};
+	double lf{};
 	std::cout << "Insert the final value of l: ";
-	getInput(lF);
+	getInput(lf);
 
 	double step{};
 	std::cout << "Insert the step with which l will be incremented (or decremented): ";
 	getInput(step);
 
 	double l{billiard.getL()};
-	if (l > lF)
+	if (l > lf)
 	{
 		step = -step;
 	}
@@ -226,7 +232,7 @@ void generateL(tb::Billiard& billiard)
 	int i{0};
 	const tb::Billiard startBilliard{billiard};
 
-	for (; (step > 0) ? l < lF : lF < l; l += step)
+	for (; (step > 0) ? l < lf : lf < l; l += step)
 	{
 		billiard = startBilliard;
 
