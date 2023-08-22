@@ -10,6 +10,17 @@
 #include <sstream>
 #include <string>
 
+bool canPrintResults(const tb::Billiard& billiard)
+{
+	if (billiard.size() == 0)
+	{
+		std::cout << "A valid simulation must be run first! Enter another command.\n";
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		return false;
+	}
+	return true;
+}
+
 void setBilliardParams(tb::Billiard& billiard)
 {
 	std::cout << "Insert the y-value of the left and right vertices of the billiard, and its length. Separate the "
@@ -142,6 +153,11 @@ void readFromFile(tb::Billiard& billiard)
 
 void printStatistics(const tb::Billiard& billiard)
 {
+	if (!canPrintResults(billiard))
+	{
+		return;
+	}
+
 	const auto stats{statistics(billiard.getEscapedParticles())};
 
 	const double escPerc{stats.n * 100. / billiard.size()};
@@ -154,6 +170,10 @@ void printStatistics(const tb::Billiard& billiard)
 
 void printStatsToFile(const tb::Billiard& billiard)
 {
+	if (!canPrintResults(billiard))
+	{
+		return;
+	}
 
 	std::string fileName{};
 	std::cout << "Insert the name of the file to be created: ";
@@ -180,6 +200,11 @@ void printStatsToFile(const tb::Billiard& billiard)
 
 void printValuesToFile(const tb::Billiard& billiard)
 {
+	if (!canPrintResults(billiard))
+	{
+		return;
+	}
+
 	std::string fileName{};
 	std::cout << "Insert the name of the file to be created: ";
 	getInput(fileName);
@@ -234,8 +259,6 @@ void generateL(tb::Billiard& billiard)
 
 	for (; (step > 0) ? l < lf : lf < l; l += step)
 	{
-		billiard = startBilliard;
-
 		billiard.setL(l);
 		billiard.runSimulation();
 		const auto stats{statistics(billiard.getEscapedParticles())};
@@ -244,6 +267,7 @@ void generateL(tb::Billiard& billiard)
 				<< stats.theta.sigma << ' ' << stats.y.skewness << ' ' << stats.y.kurtosis << ' '
 				<< stats.theta.skewness << ' ' << stats.theta.kurtosis << ' ' << stats.n << '\n';
 
+		billiard = startBilliard;
 		++i;
 	}
 	printStars(5);
