@@ -12,7 +12,7 @@ void getInput(T& input)
 	std::cin >> input;
 	if (!std::cin)
 	{
-		throw std::runtime_error{"input error"};
+		throw std::runtime_error{"Input error"};
 	}
 }
 

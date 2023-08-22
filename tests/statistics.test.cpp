@@ -6,7 +6,7 @@
 
 bool statisticsApproxEq(const tb::Results& stat1, const tb::Results& stat2)
 {
-	const double epsilon{0.0001};
+	constexpr double epsilon{0.0001};
 	return (stat1.y.mean == doctest::Approx(stat2.y.mean).epsilon(epsilon) &&
 			stat1.y.sigma == doctest::Approx(stat2.y.sigma).epsilon(epsilon) &&
 			stat1.theta.mean == doctest::Approx(stat2.theta.mean).epsilon(epsilon) &&
@@ -15,7 +15,7 @@ bool statisticsApproxEq(const tb::Results& stat1, const tb::Results& stat2)
 
 bool statisticsApproxEq2(const tb::Results& stat1, const tb::Results& stat2)
 {
-	const double epsilon{0.0001};
+	constexpr double epsilon{0.0001};
 	return (stat1.y.mean == doctest::Approx(stat2.y.mean).epsilon(epsilon) &&
 			stat1.y.sigma == doctest::Approx(stat2.y.sigma).epsilon(epsilon) &&
 			stat1.y.skewness == doctest::Approx(stat2.y.skewness).epsilon(epsilon) &&

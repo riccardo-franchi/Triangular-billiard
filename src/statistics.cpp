@@ -69,7 +69,7 @@ Results statistics(const std::vector<Particle>& particles)
 
 std::string statsToString(const Results& stats)
 {
-	const int w{20};
+	constexpr int w{20};
 	std::ostringstream oss{};
 
 	oss << std::setw(w) << std::left << "y_f mean: " << stats.y.mean << '\n'				 //
