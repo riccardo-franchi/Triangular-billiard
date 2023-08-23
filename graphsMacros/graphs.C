@@ -81,5 +81,5 @@ void grafico()
 	graph9->SetLineColor(2);
 	graph9->Draw();
 
-	cGraphC->Print("cGraphC5.pdf");
+	cGraphC->Print("cGraphsC5.pdf");
 }
