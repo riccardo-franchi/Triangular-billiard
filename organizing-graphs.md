@@ -10,13 +10,13 @@ Each billiard's simulation should be named with progressive numbers, e.g:
 - its graphs are called `cGraphsA1.pdf`, `cGraphsB1.pdf` and `cGraphC1.pdf`
 - billiard's conditions are put in the following table (note that r_1 and r_2 values are considered also in the name of the canvas)
 
-| Simulation | General l | Init. l | r_1 | r_2 | Init. y | \theta_i | Fin. l | Step | N | Comment |
+| Simulation | General l | Init. l | r_1 | r_2 | $y_0$ | $\theta_0$ | Fin. l | Step | N | Comment |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |:---:| :---: | :---: | :---: |
 | 1 | 13 | 1 | 5 | 3 | 1.5 $\pm$ 0.5 | -0.25 $\pm$ 0.5 | 40 | 1.5 | 100'000 | General with $\alpha$ < 0 |
 | 2 | 20 | - | 4 | 6 | -2 $\pm$ 1 | - | - | - | 10'000'000 | - |
 | 3 | 20 | - | 4 | 6 | -0.75 $\pm$ 1.5 | 0 $\pm$ 0.25 | - | - | 100'000'000 | - |
 | 4 | - | 2 | 2 | 4 | 0 $\pm$ 0.5 | 1 $\pm$ 0.5 | 48 | 2 | 100'000 | General with $\alpha$ > 0 |
-| 5 | - | - | - | - | - | - | - | - | - | $\alpha$ > 0 and $l_{fin}$ molto grande |
+| 5 | - | 10 | 2 | 6 | 1.2 $\pm$ 0.7 | 0.8 $\pm$ 1.1 | 1500 | 0.1 | 100'000| $\alpha$ > 0 and $l_{fin}$ molto grande |
 | 6 | - | - | - | - | - | - | - | - | - | $\alpha$ < 0 and $l_{fin}$ molto grande |
 | 7 | - | - | - | - | - | - | - | - | - | $\alpha$ = 0 |
 | 8 | - | - | - | - | - | - | - | - | - | $\alpha$ << 0 |
@@ -27,5 +27,5 @@ Note that:
 - We should avoid repeating the same type of simulation
 - The cases studied should be as varied as possible
 When you commit changes:
-- you should keep .txt file in .gitignore
-- exclude .pdf from the .gitignore
+    - keep .txt file in .gitignore
+    - exclude .pdf from the .gitignore
