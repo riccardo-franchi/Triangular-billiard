@@ -1,13 +1,3 @@
 .vscode
 build
 *.txt
-*.pdf
-!cGraphs2Init.pdf
-!cGraphs2Fin.pdf
-!cGraphsA1.pdf
-!cGraphsB1.pdf
-!cGraphsC1.pdf
-!cHistosInit3.pdf
-!cHistosFin3.pdf
-!cHistosInit4.pdf
-!cHistosFin4.pdf
