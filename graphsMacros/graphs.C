@@ -7,15 +7,15 @@ void setStyle()
 
 void grafico()
 {
-	TGraphErrors* graph1 = new TGraphErrors("simulation9.txt", "%lg %lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg");
-	TGraphErrors* graph2 = new TGraphErrors("simulation9.txt", "%lg %*lg %lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg");
-	TGraphErrors* graph3 = new TGraphErrors("simulation9.txt", "%lg %*lg %*lg %lg %*lg %*lg %*lg %*lg %*lg %*lg");
-	TGraphErrors* graph4 = new TGraphErrors("simulation9.txt", "%lg %*lg %*lg %*lg %lg %*lg %*lg %*lg %*lg %*lg");
-	TGraphErrors* graph5 = new TGraphErrors("simulation9.txt", "%lg %*lg %*lg %*lg %*lg %lg %*lg %*lg %*lg %*lg");
-	TGraphErrors* graph6 = new TGraphErrors("simulation9.txt", "%lg %*lg %*lg %*lg %*lg %*lg %lg %*lg %*lg %*lg");
-	TGraphErrors* graph7 = new TGraphErrors("simulation9.txt", "%lg %*lg %*lg %*lg %*lg %*lg %*lg %lg %*lg %*lg");
-	TGraphErrors* graph8 = new TGraphErrors("simulation9.txt", "%lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg %lg %*lg");
-	TGraphErrors* graph9 = new TGraphErrors("simulation9.txt", "%lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg %lg");
+	TGraphErrors* graph1 = new TGraphErrors("simulation12.txt", "%lg %lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg");
+	TGraphErrors* graph2 = new TGraphErrors("simulation12.txt", "%lg %*lg %lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg");
+	TGraphErrors* graph3 = new TGraphErrors("simulation12.txt", "%lg %*lg %*lg %lg %*lg %*lg %*lg %*lg %*lg %*lg");
+	TGraphErrors* graph4 = new TGraphErrors("simulation12.txt", "%lg %*lg %*lg %*lg %lg %*lg %*lg %*lg %*lg %*lg");
+	TGraphErrors* graph5 = new TGraphErrors("simulation12.txt", "%lg %*lg %*lg %*lg %*lg %lg %*lg %*lg %*lg %*lg");
+	TGraphErrors* graph6 = new TGraphErrors("simulation12.txt", "%lg %*lg %*lg %*lg %*lg %*lg %lg %*lg %*lg %*lg");
+	TGraphErrors* graph7 = new TGraphErrors("simulation12.txt", "%lg %*lg %*lg %*lg %*lg %*lg %*lg %lg %*lg %*lg");
+	TGraphErrors* graph8 = new TGraphErrors("simulation12.txt", "%lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg %lg %*lg");
+	TGraphErrors* graph9 = new TGraphErrors("simulation12.txt", "%lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg %lg");
 
 	TCanvas* cGraphsA = new TCanvas("cGraphsA", "Dipendenza dei parametri da l (r_1 = 5, r_2 = 4)", 10, 30, 1000, 600);
 	cGraphsA->Divide(2, 2);
