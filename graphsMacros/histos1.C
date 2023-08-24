@@ -7,14 +7,14 @@ void setStyle()
 
 void machaInitial()
 {
-	TH1F* h1 = new TH1F("h1", "Distribuzione di y_i", 1000, -5, 5);
+	TH1F* h1 = new TH1F("h1", "Distribuzione di y_i", 1000, -200, 200);
 	TH1F* h2 = new TH1F("h2", "Distribuzione di theta_i", 1000, -TMath::PiOver2(), TMath::PiOver2());
 
 	double y;
 	double theta;
 
 	fstream file;
-	file.open("initial4.txt", ios::in);
+	file.open("initial11.txt", ios::in);
 
 	while (1)
 	{
@@ -40,19 +40,19 @@ void machaInitial()
 	h2->SetLineColor(9);
 	h2->Draw();
 
-	cInitialGraphs->Print("cHistosInit4.pdf");
+	cInitialGraphs->Print("cHistosInit11.pdf");
 }
 
 void machaFinal()
 {
-	TH1F* h1 = new TH1F("h1", "Distribuzione di y_f", 1000, -5, 5);
+	TH1F* h1 = new TH1F("h1", "Distribuzione di y_f", 1000, -15, 15);
 	TH1F* h2 = new TH1F("h2", "Distribuzione di theta_f", 1000, -TMath::PiOver2(), TMath::PiOver2());
 
 	double y;
 	double theta;
 
 	fstream file;
-	file.open("simulation4.txt", ios::in);
+	file.open("simulation11.txt", ios::in);
 
 	while (1)
 	{
@@ -78,5 +78,5 @@ void machaFinal()
 	h2->SetLineColor(9);
 	h2->Draw();
 
-	cFinalGraphs->Print("cHistosFin4.pdf");
+	cFinalGraphs->Print("cHistosFin11.pdf");
 }

@@ -16,10 +16,14 @@ Each billiard's simulation should be named with progressive numbers, e.g:
 | 2 | 20 | - | 4 | 6 | -2 $\pm$ 1 | - | - | - | 10'000'000 | - |
 | 3 | 20 | - | 4 | 6 | -0.75 $\pm$ 1.5 | 0 $\pm$ 0.25 | - | - | 100'000'000 | - |
 | 4 | - | 2 | 2 | 4 | 0 $\pm$ 0.5 | 1 $\pm$ 0.5 | 48 | 2 | 100'000 | General with $\alpha$ > 0 |
-| 5 | - | 10 | 2 | 6 | 1.2 $\pm$ 0.7 | 0.8 $\pm$ 1.1 | 1500 | 0.1 | 100'000| $\alpha$ > 0 and $l_{fin}$ molto grande |
-| 6 | - | - | - | - | - | - | - | - | - | $\alpha$ < 0 and $l_{fin}$ molto grande |
-| 7 | - | - | - | - | - | - | - | - | - | $\alpha$ = 0 |
-| 8 | - | - | - | - | - | - | - | - | - | $\alpha$ << 0 |
+| 5 | - | 10 | 2 | 6 | 1.2 $\pm$ 0.7 | 0.8 $\pm$ 1.1 | 1500 | 0.1 | 100'000| $\alpha$ > 0 and $l_f$ molto grande |
+| 6 | - | 10 | 7 | 4 | 0.5 $\pm$ 2.1 | 0.4 $\pm$ 1.3 | 1500 | 0.2 | 10'000 | $\alpha$ < 0 and $l_f$ molto grande |
+| 7 | - | 15 | 4 | 4 | 3.2 $\pm$ 0.2 | -1.1 $\pm$ 0.4 | 45 | 0.1 | 20'000 | $\alpha$ = 0 |
+| 8 | - | 3 | 4 | 0.2 | -1 $\pm$ 0.8| -0.7 $\pm$ 0.5 | 10 | 0.05 | 100'000 | $\alpha$ << 0 |
+| 9 | - | 10 | 5 | 4 | 2.5 $\pm$ 1 | 1 $\pm$ 0.5 | 200 | 0.05 | 50'000 | $\ell_f$ $\simeq$ 150 to study $\sigma$ |
+10 | 250 | - | 50 | 2 | 1.5 $\pm$ 2 | 0.2 $\pm$ 0.1 | - | - | 50'000'000 | |
+11 | 5'000 | - | 200 | 15 | 150 $\pm$ 20 | -0.5 $\pm$ 0.4 | - | - | 200'000'000
+
 
 Note that:
 - General l is the lenght used to create the histos
@@ -29,3 +33,15 @@ Note that:
 When you commit changes:
     - keep .txt file in .gitignore
     - exclude .pdf from the .gitignore
+
+---
+
+Considerations (varying $\ell$ ):
+- skewness goes to 0, while kurtosis to a fixed value, always (from what we have seen)
+- same thing for mean, which goes to 0, and st. dev., which tends to a fixed value.
+- correlation between $\sigma_0$ and $\sigma_f$ ????
+- st. dev. has a spike for low $\ell$ (less than 100/50), sometimes only $\sigma_{\theta}$, some other times both.
+    - confirmed by 3 simulations
+
+Considerations (normal simulation):
+- histo of sim. #10 is VERY interesting ($\theta_f$ pseudo-periodicity)
