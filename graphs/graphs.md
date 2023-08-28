@@ -16,15 +16,12 @@ Billiard's initial conditions are put in the following table (note that $r_1$ an
 | 11 | 5'000  | 200 | 15 | 150 $\pm$ 20 | -0.5 $\pm$ 0.4 | - | - | 200'000'000 | - |
 | 13 | 1 | 1 | 1 | 1 $\pm$ 1 | 1 $\pm$ 1 | 100 | 1 | 10'000 | $\alpha$ = 0 & $l_f$ very big |
 
-> Note that:
-> - Initial and Final $\ell$ are the lenghts used in the simulation
-> - We should avoid repeating the same type of simulation
-> - The cases studied should be as varied as possible.
+> Note that $\ell_f$ and step are only used in simulations incrementing $\ell$ (`x` command).
 
 ---
 
-Considerations (varying $\ell$ ):
-- skewness goes to 0, while kurtosis to a fixed value, always (from what we have seen)
+Considerations (varying $\ell$):
+- skewness goes to 0, while kurtosis always tends to a fixed value,  (from what we have seen)
 - same thing for mean, which goes to 0, and st. dev., which tends to a fixed value.
 - correlation between $\sigma_0$ and $\sigma_f$ ????
 - st. dev. has a spike for low $\ell$ (less than 100/50), sometimes only $\sigma_{\theta}$, some other times both.
