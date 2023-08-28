@@ -21,7 +21,7 @@ Billiard's initial conditions are put in the following table (note that $r_1$ an
 ---
 
 Considerations (varying $\ell$):
-- skewness goes to 0, while kurtosis always tends to 1.8. This behavior is consistent with a uniform distribution.
+- skewness goes to 0, while kurtosis always tends to $1.8$. This behavior is consistent with a uniform distribution.
 - same thing for mean, which goes to 0, and st. dev., which tends to a fixed value.
 - correlation between $\sigma_0$ and $\sigma_f$ ????
 - st. dev. has a spike for low $\ell$ (less than 100/50), sometimes only $\sigma_{\theta}$, some other times both.
