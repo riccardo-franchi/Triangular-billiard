@@ -9,7 +9,7 @@ int main()
 							   "s = compute and print statistics onscreen\n"
 							   "f = compute and save statistics on a file\n"
 							   "p = save the final coordinates of each particle on a file\n"
-							   "x = run multiple simulations varying billiard's length l with fixed step, with the "
+							   "x = run multiple simulations increasing billiard's length l with fixed step, with the "
 							   "same particle sample, and save result statistics on a file\n"
 							   "q = quit the program\n"
 							   "h = list of commands\n"};

@@ -158,7 +158,7 @@ void printStatistics(const tb::Billiard& billiard)
 		return;
 	}
 
-	const auto stats{statistics(billiard.getEscapedParticles())};
+	const auto stats{tb::statistics(billiard.getEscapedParticles())};
 
 	const double escPerc{stats.n * 100. / billiard.size()};
 
@@ -186,7 +186,7 @@ void printStatsToFile(const tb::Billiard& billiard)
 		throw std::runtime_error{"Cannot open file"};
 	}
 
-	const auto stats{statistics(billiard.getEscapedParticles())};
+	const auto stats{tb::statistics(billiard.getEscapedParticles())};
 
 	const double escPerc{stats.n * 100. / billiard.size()};
 
@@ -244,24 +244,29 @@ void generateL(tb::Billiard& billiard)
 	std::cout << "Insert the final value of l: ";
 	getInput(lf);
 
+	double l{billiard.getL()};
+	if (lf < l)
+	{
+		throw std::domain_error{"Final value of l must be greater than the initial one"};
+	}
+
 	double step{};
-	std::cout << "Insert the step with which l will be incremented (or decremented): ";
+	std::cout << "Insert the step with which l will be incremented: ";
 	getInput(step);
 
-	double l{billiard.getL()};
-	if (l > lf)
+	if (step <= 0)
 	{
-		step = -step;
+		throw std::domain_error{"Step must be grater than 0"};
 	}
 
 	int i{0};
 	const tb::Billiard startBilliard{billiard};
 
-	for (; (step > 0) ? l < lf : lf < l; l += step)
+	for (; l < lf; l += step)
 	{
 		billiard.setL(l);
 		billiard.runSimulation();
-		const auto stats{statistics(billiard.getEscapedParticles())};
+		const auto stats{tb::statistics(billiard.getEscapedParticles())};
 
 		outFile << l << ' ' << stats.y.mean << ' ' << stats.y.sigma << ' ' << stats.theta.mean << ' '
 				<< stats.theta.sigma << ' ' << stats.y.skewness << ' ' << stats.y.kurtosis << ' '
