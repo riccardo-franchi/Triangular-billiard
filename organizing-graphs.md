@@ -26,6 +26,8 @@ Each billiard's simulation should be named with progressive numbers, e.g:
 | 12 | - | 1 | 3 | 4 | -2 $\pm$ 0.5 | 1 $\pm$ 0.1 | 100 | 1 | 100'000 | $\alpha$ > 0 e $l_f$ molto grande |
 | 13 | - | 1 | 1 | 1 | 1 $\pm$ 1 | 1 $\pm$ 1 | 100 | 1 | 10'000 | $\alpha$ = 0 e $l_f$ molto grande |
 | 14 | - | 2 | 8 | 4 | 1.4 $\pm$ 0.5 | -1 $\pm$ 0.2 | 200 | 2 | 100'000 | per relazione |
+| 15 | - | 20 | 5 | 3 | 0 $\pm$ 0.5 | 1 $\pm$ 0.2 | 1 | -0.5 | 100'000 | l decrementa |
+| 16 | - | 20 | 5 | 3 | 0 $\pm$ 0.5 | 1 $\pm$ 0.2 | -4 | -0.5 | 100'000 | errore |
 
 
 Note that:
