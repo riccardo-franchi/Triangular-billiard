@@ -20,7 +20,7 @@ string(APPEND CMAKE_CXX_FLAGS " -Wall -Wextra")
 string(APPEND CMAKE_CXX_FLAGS_DEBUG " -fsanitize=address,undefined -fno-omit-frame-pointer")
 string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " -fsanitize=address,undefined -fno-omit-frame-pointer")
 
-add_executable(Triangular-billiard src/main.cpp src/billiard.cpp src/statistics.cpp)
+add_executable(Triangular-billiard src/main.cpp src/billiard.cpp src/statistics.cpp src/commands.cpp)
 target_link_libraries(Triangular-billiard PRIVATE TBB::tbb)
 
 # se il testing e' abilitato...
