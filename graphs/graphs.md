@@ -1,6 +1,7 @@
 ## Naming convention
 Each graph is named with progressive numbers, e.g, for the 1st simulation, its graphs are called `cGraphsA1.pdf`, `cGraphsB1.pdf` and `cGraphC1.pdf`.
 
+## Initial parameters
 Billiard's initial conditions are put in the following table (note that $r_1$ and $r_2$ values are considered also in the name of the canvas)
 
 | Simulation  | $\ell_i$ | $r_1$ | $r_2$ | $y_0$ | $\theta_0$ | $\ell_f$ | Step | N | Comment |
@@ -20,7 +21,7 @@ Billiard's initial conditions are put in the following table (note that $r_1$ an
 
 ---
 
-Considerations (varying $\ell$):
+### Considerations (varying $\ell$):
 - skewness goes to 0, while kurtosis always tends to $1.8$. This behavior is consistent with a uniform distribution.
 - same thing for mean, which goes to 0, and st. dev., which tends to a fixed value.
 - correlation between $\sigma_0$ and $\sigma_f$ ????
