@@ -115,6 +115,15 @@ TEST_CASE("Testing statistics() numerical values, alpha > 0")
 
 	tb::Billiard billiard{3., 5., 13.};
 
+	SUBCASE("Same particles")
+	{
+		billiard.push_back({2., 0.4500214252}); // one collision
+		billiard.push_back({2., 0.4500214252}); // one collisions
+		billiard.runSimulation();
+		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
+								 tb::Results{{2.0153084196, 0.}, {0. - 0.1447227684, 0.}}));
+	}
+
 	SUBCASE("Two particles")
 	{
 		billiard.push_back({1., 0.0767718913}); // no collisions, y_f = 2
@@ -144,17 +153,17 @@ TEST_CASE("Testing statistics() numerical values, alpha > 0, different billiard"
 		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
 								 tb::Results{{-0.047380676, 0.566122567}, {-0.529300322, 0.06973096}}));
 	}
-	/*
-		SUBCASE("Three particles")
-		{
-			billiard.push_back({2., 0.0831412319}); // no collision
-			billiard.push_back({2., 0.2467060084}); // one collision
-			billiard.push_back({3., 0.});			// no collisions
+
+	SUBCASE("Three particles")
+	{
+		billiard.push_back({2., 0.0831412319}); // no collision
+		billiard.push_back({2., 0.2477287421}); // one collision
+		billiard.push_back({3., 0.});			// no collisions
 		billiard.runSimulation();
-			CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
-									 tb::Results{{3.001899335, 0.003289745}, {0.054521592, 0.047236633}}));
-		}
-	*/
+		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
+								 tb::Results{{2.997724687, 0.003940957}, {0.000564985, 0.08229521}}));
+	}
+
 	SUBCASE("Four particles")
 	{
 		billiard.push_back({0.49, 0.});			 // no collision
