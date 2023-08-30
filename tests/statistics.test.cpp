@@ -100,9 +100,9 @@ TEST_CASE("Testing statistics() numerical values, alpha < 0")
 	SUBCASE("Four particles w/ skewness and kurtosis")
 	{
 		billiard.push_back({0., 0.});			  // no collisions
-		billiard.push_back({1., 0.4357084939});	  // one collision, fin. (-1.9791249643, -0.7410071507)
-		billiard.push_back({2., -0.6654199111});  // two collisions, fin. (0.5749856482, -1.2760172247)
-		billiard.push_back({2.65, 0.5565549784}); // three collision, fin. (-0.1311178052, -1.4724509487)
+		billiard.push_back({1., 0.4357084939});	  // one collision
+		billiard.push_back({2., -0.6654199111});  // two collisions
+		billiard.push_back({2.65, 0.5565549784}); // three collision
 		billiard.runSimulation();
 		CHECK(statisticsApproxEq2(statistics(billiard.getParticles()),
 								  tb::Results{{-0.383814280325, 1.10687, -0.57259892459, 1.2238334345},
@@ -126,8 +126,8 @@ TEST_CASE("Testing statistics() numerical values, alpha > 0")
 
 	SUBCASE("Two particles")
 	{
-		billiard.push_back({1., 0.0767718913}); // no collisions, y_f = 2
-		billiard.push_back({0., 0.1526493284}); // no collisions, y_f = 2
+		billiard.push_back({1., 0.0767718913}); // no collisions
+		billiard.push_back({0., 0.1526493284}); // no collisions
 		billiard.runSimulation();
 		CHECK(statisticsApproxEq(statistics(billiard.getParticles()), tb::Results{{2., 0.}, {0.114711, 0.053653}}));
 	}
