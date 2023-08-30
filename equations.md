@@ -24,19 +24,41 @@ where $\alpha$ is the angle of the edge, that varies for each shape of the billi
 
 ## Straight line billiard
 1. Equation of the upper wall:
-$$y = \frac{r_2 - r_1}{l}\ x + r_1$$
+$$y = \frac{r_2 - r_1}{\ell}\ x + r_1$$
 
 2. Equation of the lower wall:
-$$y = \frac{r_1 - r_2}{l}\ x - r_1$$
+$$y = \frac{r_1 - r_2}{\ell}\ x - r_1$$
 
 3. Equation for $x_{i+1}$ after a collision:  
 Upper wall:
-$$x_{i+1}=\frac{r_1+\tan\theta_i\ x_i-y_i}{\tan\theta_i+\frac{r_1-r_2}{l}}$$
+$$x_{i+1}=\frac{r_1+\tan\theta_i\ x_i-y_i}{\tan\theta_i+\frac{r_1-r_2}{\ell}}$$
 Lower wall:
-$$x_{i+1}=\frac{-r_1+\tan\theta_i\ x_i-y_i}{\tan\theta_i+\frac{r_2-r_1}{l}}$$
+$$x_{i+1}=\frac{-r_1+\tan\theta_i\ x_i-y_i}{\tan\theta_i+\frac{r_2-r_1}{\ell}}$$
 
 4. Equation for upper wall angle $\alpha$:
-$$\arctan(\frac{r_2-r_1}{l})$$
+$$\arctan(\frac{r_2-r_1}{\ell})$$
+
+## Parabolic billiard
+For simplicity, let 
+$$k = \frac{2(r_1-r_2)}{\ell}.$$
+
+1. Equation of the upper wall:
+$$y=\frac{k}{2\ell} x^2 -kx+r_1$$
+
+2. Equation of the lower wall:
+$$y=-\frac{k}{2\ell} x^2 +kx-r_1$$
+
+3. Equation for $x_{i+1}$ after a collision:  
+For simplicity, let 
+$$m =\tan\theta_i.$$
+Upper wall:
+$$x_{i+1}=\frac{k+m-\sqrt{(k+m)^2-2\frac{k}{\ell}(mx_i+r_1-y_i)}}{\frac{k}{\ell}}$$
+Lower wall:
+$$x_{i+1}=\frac{k-m+\sqrt{(k-m)^2+2\frac{k}{\ell}(mx_i-r_1-y_i)}}{\frac{k}{\ell}}$$
+
+5. Equation for upper wall angle $\alpha$:
+$$\arctan(\frac{k}{\ell}(x_i-\ell))$$
+
 
 ## Statistics
 1. Standard deviation
