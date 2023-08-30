@@ -36,11 +36,11 @@ Lower wall:
 $$x_{i+1}=\frac{-r_1+\tan\theta_i\ x_i-y_i}{\tan\theta_i+\frac{r_2-r_1}{\ell}}$$
 
 4. Equation for upper wall angle $\alpha$:
-$$\arctan(\frac{r_2-r_1}{\ell})$$
+$$\alpha=\arctan{\frac{r_2-r_1}{\ell}}$$
 
 ## Parabolic billiard
 For simplicity, let 
-$$k = \frac{2(r_1-r_2)}{\ell}.$$
+$$k = \frac{2(r_1-r_2)}{\ell}$$
 
 1. Equation of the upper wall:
 $$y=\frac{k}{2\ell} x^2 -kx+r_1$$
@@ -50,15 +50,39 @@ $$y=-\frac{k}{2\ell} x^2 +kx-r_1$$
 
 3. Equation for $x_{i+1}$ after a collision:  
 For simplicity, let 
-$$m =\tan\theta_i.$$
+$$m =\tan\theta_i$$
 Upper wall:
 $$x_{i+1}=\frac{k+m-\sqrt{(k+m)^2-2\frac{k}{\ell}(mx_i+r_1-y_i)}}{\frac{k}{\ell}}$$
 Lower wall:
 $$x_{i+1}=\frac{k-m+\sqrt{(k-m)^2+2\frac{k}{\ell}(mx_i-r_1-y_i)}}{\frac{k}{\ell}}$$
 
 5. Equation for upper wall angle $\alpha$:
-$$\arctan(\frac{k}{\ell}(x_i-\ell))$$
+$$\alpha=\arctan(\frac{k}{\ell}(x_i-\ell))$$
 
+## Semicircular Billiard
+For simplicity, let 
+$$R = \frac{\ell^2+(r_1-r_2)^2}{2(r_1-r_2)}.$$
+
+1. Equation of the upper wall:
+$$y=R+r_2-\sqrt{R^2-x^2-\ell^2+2\ell x}$$
+
+2. Equation of the lower wall:
+$$y=-R-r_2-\sqrt{R^2-x^2-\ell^2+2\ell x}$$
+
+3. Equation for $x_{i+1}$ after a collision:  
+For simplicity, let 
+$$m =\tan\theta_i$$
+Upper wall:  
+Let
+$$k =R+r_2-y_i+mx_i$$
+Lower wall:  
+Let
+$$k =-R-r_2-y_i+mx_i$$
+Hence, for both walls:
+$$x_{i+1}=\frac{l-mk-\sqrt{(l-mk)^2-(m^2+1)(k^2-R^2+\ell)}}{m^2+1}$$
+
+5. Equation for upper wall angle $\alpha$:
+$$\alpha=\arctan{\frac{x_i-\ell}{R+r_2-y_i}}$$
 
 ## Statistics
 1. Standard deviation
