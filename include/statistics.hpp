@@ -14,6 +14,7 @@ struct Stats
 	double skewness{};
 	double kurtosis{};
 };
+
 struct Results
 {
 	Stats y{};
@@ -25,4 +26,5 @@ Results statistics(const std::vector<Particle>& particles);
 
 std::string statsToString(const Results& stats);
 } // namespace tb
+
 #endif // STATISTICS_HPP
