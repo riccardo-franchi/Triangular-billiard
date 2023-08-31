@@ -3,6 +3,7 @@
 
 #include "particle.hpp"
 
+#include <cmath>
 #include <vector>
 
 namespace tb

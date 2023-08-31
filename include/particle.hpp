@@ -1,7 +1,6 @@
 #ifndef PARTICLE_HPP
 #define PARTICLE_HPP
 
-#include <cmath>
 #include <stdexcept>
 
 namespace tb
