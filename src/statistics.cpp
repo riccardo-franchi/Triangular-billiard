@@ -50,7 +50,7 @@ Results statistics(const std::vector<Particle>& particles)
 	if (N < 2)
 	{
 		throw std::runtime_error{"Not enough particles to compute statistics: " + std::to_string(N) +
-								 "particle(s) escaped the billiard"};
+								 " particle(s) escaped the billiard"};
 	}
 
 	std::vector<double> y{};
