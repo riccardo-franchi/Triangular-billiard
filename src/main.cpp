@@ -43,7 +43,7 @@ int main()
 
 				printStars(5);
 				std::cout << "Simulation successfully run.\n";
-				std::cout << "Type \'s\' to compute and print statistics, \'f\' to save them on a file or \'p\' to "
+				std::cout << "Type \'s\' to compute and print statistics, \'f\' to save them on a file, or \'p\' to "
 							 "save the final coordinates of each particle on a file.\n";
 				printStars(5);
 				break;
