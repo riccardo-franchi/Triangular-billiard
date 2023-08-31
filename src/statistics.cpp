@@ -1,5 +1,6 @@
 #include "../include/statistics.hpp"
 
+#include <cassert>
 #include <cmath>
 #include <iomanip>
 #include <numeric>
@@ -18,6 +19,7 @@ struct Moments
 Stats computeStats(const std::vector<double>& data)
 {
 	const int N{static_cast<int>(data.size())};
+	assert(N > 1);
 
 	const double sum{std::accumulate(data.begin(), data.end(), 0., [](double s, double x) { return s += x; })};
 	const double mean{sum / N};
@@ -37,6 +39,12 @@ Stats computeStats(const std::vector<double>& data)
 										  })};
 
 	const double sigma{std::sqrt(moments.x2 / (N - 1))};
+
+	if (sigma == 0)
+	{
+		return {mean, sigma, 0., 0.};
+	}
+
 	const double skewness{moments.x3 / (N * std::pow(sigma, 3))};
 	const double kurtosis{moments.x4 / (N * std::pow(sigma, 4))};
 
@@ -62,6 +70,8 @@ Results statistics(const std::vector<Particle>& particles)
 		y.push_back(p.y);
 		theta.push_back(p.theta);
 	}
+	assert(y.size() == N);
+	assert(theta.size() == N);
 
 	return {computeStats(y), computeStats(theta), static_cast<int>(N)};
 }
