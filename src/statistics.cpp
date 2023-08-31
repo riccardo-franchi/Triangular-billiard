@@ -19,7 +19,6 @@ struct Moments
 Stats computeStats(const std::vector<double>& data)
 {
 	const int N{static_cast<int>(data.size())};
-	assert(N > 1);
 
 	const double sum{std::accumulate(data.begin(), data.end(), 0., [](double s, double x) { return s += x; })};
 	const double mean{sum / N};
