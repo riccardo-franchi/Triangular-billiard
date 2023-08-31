@@ -73,7 +73,7 @@ TEST_CASE("Testing statistics() numerical values, alpha < 0")
 	SUBCASE("Two particles")
 	{
 		billiard.push_back({1.85, 0.});			// no collisions
-		billiard.push_back({1., 0.0767718913}); // no collisions, y_f = 2
+		billiard.push_back({1., 0.0767718913}); // no collisions
 		billiard.runSimulation();
 		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
 								 tb::Results{{1.925, 0.106066}, {0.038385946, 0.0542859}}));

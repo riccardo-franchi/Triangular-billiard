@@ -36,6 +36,7 @@ TEST_CASE("Testing the runSimulation() function")
 	{
 		billiard.push_back({-2.47, 0.32083});
 		billiard.runSimulation();
+		// coordinates of the last position before the collision
 		CHECK(approx_eq(billiard.getParticle(0), {13., 1.85004, 0.32083}));
 	}
 
@@ -71,7 +72,6 @@ TEST_CASE("Testing the runSimulation() function")
 	{
 		billiard.push_back({-4.51, 1.4521870679});
 		billiard.runSimulation();
-		// coordinates of the last position before the collision
 		CHECK(approx_eq(billiard.getParticle(0), {-4.51, 1.4521870679}));
 		CHECK(billiard.getEscapedParticles().size() == 0);
 	}
