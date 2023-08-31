@@ -253,7 +253,7 @@ void generateL(tb::Billiard& billiard)
 
 	if (step <= 0)
 	{
-		throw std::domain_error{"Step must be grater than 0"};
+		throw std::domain_error{"Step must be greater than 0"};
 	}
 
 	int i{0};
@@ -274,7 +274,7 @@ void generateL(tb::Billiard& billiard)
 	}
 	printStars(5);
 	std::cout << "Output file written successfully. " << i << " simulations have been run.\n";
-	std::cout << "From left to right you'll find:\nvalue of l, y_f mean, y_f st. dev., theta_f mean, theta_f st. dev, "
+	std::cout << "From left to right you'll find:\nvalue of l, y_f mean, y_f st. dev., theta_f mean, theta_f st. dev., "
 				 "y_f skwness, y_f kurtosis, theta_f skewness, theta_f kurtosis, no. of escaped particles.\n";
 	std::cout << "Press \'h\' to see the list of commands.\n";
 	printStars(5);
