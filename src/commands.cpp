@@ -98,8 +98,6 @@ void readFromFile(tb::Billiard& billiard)
 	std::cout << "Insert the file name: ";
 	getInput(fileName);
 
-	printStars(5);
-
 	std::ifstream inFile(fileName);
 	if (!inFile)
 	{
