@@ -54,10 +54,10 @@ $$m =\tan\theta_i$$
 Upper wall:
 $$x_{i+1}=\frac{k+m-\sqrt{(k+m)^2-2\frac{k}{\ell}(mx_i+r_1-y_i)}}{\frac{k}{\ell}}$$
 Lower wall:
-$$x_{i+1}=\frac{k-m+\sqrt{(k-m)^2+2\frac{k}{\ell}(mx_i-r_1-y_i)}}{\frac{k}{\ell}}$$
+$$x_{i+1}=\frac{k-m-\sqrt{(k-m)^2+2\frac{k}{\ell}(mx_i-r_1-y_i)}}{\frac{k}{\ell}}$$
 
 5. Equation for upper wall angle $\alpha$:
-$$\alpha=\arctan(\frac{k}{\ell}(x_i-\ell))$$
+$$\alpha=\arctan(\frac{k}{\ell}(x_{i+1}-\ell))$$
 
 ## Semicircular Billiard
 For simplicity, let 
@@ -79,10 +79,10 @@ Lower wall:
 Let
 $$k =-R-r_2-y_i+mx_i$$
 Hence, for both walls:
-$$x_{i+1}=\frac{l-mk-\sqrt{(l-mk)^2-(m^2+1)(k^2-R^2+\ell)}}{m^2+1}$$
+$$x_{i+1}=\frac{l+mk-\sqrt{(l+mk)^2-(m^2+1)(k^2-R^2+\ell^2)}}{m^2+1}$$
 
 5. Equation for upper wall angle $\alpha$:
-$$\alpha=\arctan{\frac{x_i-\ell}{R+r_2-y_i}}$$
+$$\alpha=\arctan{\frac{x_{i+1}-\ell}{R+r_2-y_{i+1}}}$$
 
 ## Statistics
 1. Standard deviation
