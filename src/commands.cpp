@@ -3,12 +3,10 @@
 #include "../include/statistics.hpp"
 
 #include <algorithm>
-#include <execution>
 #include <fstream>
 #include <iomanip>
 #include <random>
 #include <sstream>
-#include <string>
 
 bool canPrintResults(const tb::Billiard& billiard)
 {
