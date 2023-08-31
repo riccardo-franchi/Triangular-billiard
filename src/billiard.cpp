@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <execution>
+#include <stdexcept>
 
 namespace tb
 {
@@ -11,6 +12,16 @@ Billiard::Billiard(double r1, double r2, double l) : m_r1{r1}, m_r2{r2}, m_l{l}
 	{
 		throw std::domain_error{"Negative argument in constructor"};
 	}
+}
+
+std::vector<Particle> Billiard::getEscapedParticles() const
+{
+	std::vector<Particle> escapedParticles{};
+	escapedParticles.reserve(m_particles.size());
+	std::remove_copy_if(m_particles.begin(), m_particles.end(), std::back_inserter(escapedParticles),
+						[this](const Particle& p) { return p.x < m_l; });
+	escapedParticles.shrink_to_fit();
+	return escapedParticles;
 }
 
 void Billiard::push_back(const Particle& particle)
@@ -25,16 +36,6 @@ void Billiard::push_back(const Particle& particle)
 	}
 
 	m_particles.push_back(particle);
-}
-
-std::vector<Particle> Billiard::getEscapedParticles() const
-{
-	std::vector<Particle> escapedParticles{};
-	escapedParticles.reserve(m_particles.size());
-	std::remove_copy_if(m_particles.begin(), m_particles.end(), std::back_inserter(escapedParticles),
-						[this](const Particle& p) { return p.x < m_l; });
-	escapedParticles.shrink_to_fit();
-	return escapedParticles;
 }
 
 void Billiard::runSimulation()

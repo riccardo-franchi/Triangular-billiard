@@ -3,12 +3,10 @@
 #include "../include/statistics.hpp"
 
 #include <algorithm>
-#include <execution>
 #include <fstream>
 #include <iomanip>
 #include <random>
 #include <sstream>
-#include <string>
 
 bool canPrintResults(const tb::Billiard& billiard)
 {
@@ -37,9 +35,8 @@ void setBilliardParams(tb::Billiard& billiard)
 
 	printStars(5);
 	std::cout << "Parameters successfully entered.\n"
-			  << "Type \'g\' to generate a gaussian sample of N particles and run the simulation, or \'r\' "
-				 "to read "
-				 "the sample's particles from a file and run the simulation.\n";
+			  << "Type \'g\' to generate a gaussian sample of N particles and run the simulation, or \'r\' to read the "
+				 "sample's particles from a file and run the simulation.\n";
 	printStars(5);
 }
 
@@ -71,7 +68,6 @@ void generateParticles(tb::Billiard& billiard)
 	getInput(N);
 
 	std::default_random_engine engine{std::random_device{}()};
-
 	std::normal_distribution<double> yDistr{meanY0, std::abs(sigmaY0)};
 	std::normal_distribution<double> thetaDistr{meanTheta0, std::abs(sigmaTheta0)};
 
@@ -99,8 +95,6 @@ void readFromFile(tb::Billiard& billiard)
 	std::string fileName{};
 	std::cout << "Insert the file name: ";
 	getInput(fileName);
-
-	printStars(5);
 
 	std::ifstream inFile(fileName);
 	if (!inFile)
@@ -146,7 +140,8 @@ void readFromFile(tb::Billiard& billiard)
 		std::cout << invalidParts << " particle(s) had invalid initial coordinates and have been excluded.\n";
 	}
 
-	std::cout << "Type \'s\' to compute and print statistics, or \'f\' to save them on a file.\n";
+	std::cout << "Type \'s\' to compute and print statistics,  \'f\' to save them on a file, or \'p\' to save the "
+				 "final coordinates of each particle on a file.\n";
 
 	printStars(5);
 }
@@ -256,7 +251,7 @@ void generateL(tb::Billiard& billiard)
 
 	if (step <= 0)
 	{
-		throw std::domain_error{"Step must be grater than 0"};
+		throw std::domain_error{"Step must be greater than 0"};
 	}
 
 	int i{0};
@@ -277,7 +272,8 @@ void generateL(tb::Billiard& billiard)
 	}
 	printStars(5);
 	std::cout << "Output file written successfully. " << i << " simulations have been run.\n";
-	std::cout << "From left to right you'll find:\nvalue of l, y_f mean, y_f st. dev., theta_f mean, theta_f st. dev, "
+	std::cout << "From left to right you'll find:\nvalue of l, y_f mean, y_f st. dev., theta_f mean, theta_f st. dev., "
 				 "y_f skwness, y_f kurtosis, theta_f skewness, theta_f kurtosis, no. of escaped particles.\n";
+	std::cout << "Press \'h\' to see the list of commands.\n";
 	printStars(5);
 }
