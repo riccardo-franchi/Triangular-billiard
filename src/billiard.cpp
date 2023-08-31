@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <execution>
+#include <stdexcept>
 
 namespace tb
 {
