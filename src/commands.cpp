@@ -37,9 +37,8 @@ void setBilliardParams(tb::Billiard& billiard)
 
 	printStars(5);
 	std::cout << "Parameters successfully entered.\n"
-			  << "Type \'g\' to generate a gaussian sample of N particles and run the simulation, or \'r\' "
-				 "to read "
-				 "the sample's particles from a file and run the simulation.\n";
+			  << "Type \'g\' to generate a gaussian sample of N particles and run the simulation, or \'r\' to read the "
+				 "sample's particles from a file and run the simulation.\n";
 	printStars(5);
 }
 
@@ -71,7 +70,6 @@ void generateParticles(tb::Billiard& billiard)
 	getInput(N);
 
 	std::default_random_engine engine{std::random_device{}()};
-
 	std::normal_distribution<double> yDistr{meanY0, std::abs(sigmaY0)};
 	std::normal_distribution<double> thetaDistr{meanTheta0, std::abs(sigmaTheta0)};
 
@@ -146,8 +144,8 @@ void readFromFile(tb::Billiard& billiard)
 		std::cout << invalidParts << " particle(s) had invalid initial coordinates and have been excluded.\n";
 	}
 
-	std::cout << "Type \'s\' to compute and print statistics,  \'f\' to save them on a file or \'p\' to save the final "
-				 "coordinates of each particle on a file.\n";
+	std::cout << "Type \'s\' to compute and print statistics,  \'f\' to save them on a file, or \'p\' to save the "
+				 "final coordinates of each particle on a file.\n";
 
 	printStars(5);
 }
