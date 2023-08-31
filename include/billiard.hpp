@@ -8,11 +8,18 @@
 
 namespace tb
 {
+enum class BilliardType
+{
+	Linear,
+	Parabolic,
+	Semicircular
+};
+
 class Billiard
 {
 public:
 	Billiard() = default;
-	Billiard(double r1, double r2, double l);
+	Billiard(double r1, double r2, double l, BilliardType type = BilliardType::Linear);
 
 	double getR1() const { return m_r1; }
 	double getL() const { return m_l; }
@@ -44,6 +51,8 @@ private:
 	double m_r1{5.};
 	double m_r2{3.};
 	double m_l{13.};
+
+	BilliardType m_type{BilliardType::Linear};
 
 	std::vector<Particle> m_particles{};
 };
