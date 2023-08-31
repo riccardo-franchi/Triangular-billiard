@@ -67,7 +67,7 @@ $$R = \frac{\ell^2+(r_1-r_2)^2}{2(r_1-r_2)}.$$
 $$y=R+r_2-\sqrt{R^2-x^2-\ell^2+2\ell x}$$
 
 2. Equation of the lower wall:
-$$y=-R-r_2-\sqrt{R^2-x^2-\ell^2+2\ell x}$$
+$$y=-R-r_2+\sqrt{R^2-x^2-\ell^2+2\ell x}$$
 
 3. Equation for $x_{i+1}$ after a collision:  
 For simplicity, let 
