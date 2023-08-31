@@ -3,6 +3,7 @@
 
 #include "particle.hpp"
 
+#include <string>
 #include <vector>
 
 namespace tb
