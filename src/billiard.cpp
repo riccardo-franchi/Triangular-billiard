@@ -43,26 +43,58 @@ void Billiard::runSimulation()
 	{
 		throw std::domain_error{"No particles to run"};
 	}
-	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
 	// If the number of particles is small, don't use parallel execution
 	constexpr int maxSequentialParts{20'000};
-	if (size() < maxSequentialParts)
+
+	if (m_type == BilliardType::Linear)
 	{
-		std::transform(m_particles.begin(), m_particles.end(), m_particles.begin(),
-					   [&](const Particle& p) { return calcTrajectory(p, alpha); });
+		const double alpha{std::atan((m_r2 - m_r1) / m_l)};
+		if (size() < maxSequentialParts)
+		{
+			std::transform(m_particles.begin(), m_particles.end(), m_particles.begin(),
+						   [&](const Particle& p) { return calcLinearTrajectory(p, alpha); });
+		}
+		else
+		{
+			std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
+						   [&](const Particle& p) { return calcLinearTrajectory(p, alpha); });
+		}
 	}
-	else
+	else if (m_type == BilliardType::Parabolic)
 	{
-		std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
-					   [&](const Particle& p) { return calcTrajectory(p, alpha); });
+		const double k{2. * (m_r1 - m_r2) / m_l};
+		if (size() < maxSequentialParts)
+		{
+			std::transform(m_particles.begin(), m_particles.end(), m_particles.begin(),
+						   [&](const Particle& p) { return calcParabolicTrajectory(p, k); });
+		}
+		else
+		{
+			std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
+						   [&](const Particle& p) { return calcParabolicTrajectory(p, k); });
+		}
+	}
+	else // Semicircular
+	{
+		const double R{(m_l * m_l + (m_r1 - m_r2) * (m_r1 - m_r2)) / (2. * (m_r1 - m_r2))};
+		if (size() < maxSequentialParts)
+		{
+			std::transform(m_particles.begin(), m_particles.end(), m_particles.begin(),
+						   [&](const Particle& p) { return calcCircularTrajectory(p, R); });
+		}
+		else
+		{
+			std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
+						   [&](const Particle& p) { return calcCircularTrajectory(p, R); });
+		}
 	}
 }
 
-Particle Billiard::calcTrajectory(Particle particle, double alpha)
+Particle Billiard::calcLinearTrajectory(Particle particle, double alpha)
 {
-	double coeff{std::tan(particle.theta)};
-	double yl{coeff * (m_l - particle.x) + particle.y};
+	double m{std::tan(particle.theta)};
+	double yl{m * (m_l - particle.x) + particle.y};
 
 	while (std::abs(yl) > m_r2)
 	{
@@ -76,15 +108,15 @@ Particle Billiard::calcTrajectory(Particle particle, double alpha)
 		}
 
 		// True if the the collision happens with the upper wall, false with the lower wall
-		const double xi{(yl > m_r2) ? (coeff * particle.x + m_r1 - particle.y) / (coeff + ((m_r1 - m_r2) / m_l))
-									: (coeff * particle.x - m_r1 - particle.y) / (coeff + ((m_r2 - m_r1) / m_l))};
+		const double xi{(yl > m_r2) ? (m * particle.x + m_r1 - particle.y) / (m + ((m_r1 - m_r2) / m_l))
+									: (m * particle.x - m_r1 - particle.y) / (m + ((m_r2 - m_r1) / m_l))};
 
-		const double yi{coeff * (xi - particle.x) + particle.y};
+		const double yi{m * (xi - particle.x) + particle.y};
 
 		particle = {xi, yi, theta};
 
-		coeff = std::tan(particle.theta);
-		yl = coeff * (m_l - particle.x) + particle.y;
+		m = std::tan(particle.theta);
+		yl = m * (m_l - particle.x) + particle.y;
 	}
 
 	// Set the final coords
@@ -94,4 +126,82 @@ Particle Billiard::calcTrajectory(Particle particle, double alpha)
 	return particle;
 }
 
+Particle Billiard::calcParabolicTrajectory(Particle particle, double k)
+{
+	double m{std::tan(particle.theta)};
+	double yl{m * (m_l - particle.x) + particle.y};
+
+	while (std::abs(yl) > m_r2)
+	{
+		// True if the the collision happens with the upper wall, false with the lower wall
+		const double xi{
+			(yl > m_r2)
+				? ((k + m - std::sqrt((k + m) * (k + m) - 2. * k / m_l * (m * particle.x - particle.y + m_r1))) /
+				   (k / m_l))
+				: ((k - m - std::sqrt((k - m) * (k - m) - 2. * k / m_l * (m * particle.x - particle.y - m_r1))) /
+				   (k / m_l))};
+
+		const double alpha{std::atan(k * (xi - m_l) / m_l)};
+		const double theta{(yl > m_r2) ? 2. * alpha - particle.theta //
+									   : -2. * alpha - particle.theta};
+
+		if (std::abs(theta) > M_PI_2)
+		{
+			// end loop if the particle is going to move backwards
+			return particle;
+		}
+
+		const double yi{m * (xi - particle.x) + particle.y};
+
+		particle = {xi, yi, theta};
+
+		m = std::tan(particle.theta);
+		yl = m * (m_l - particle.x) + particle.y;
+	}
+
+	// Set the final coords
+	particle.x = m_l;
+	particle.y = yl;
+
+	return particle;
+}
+
+Particle Billiard::calcCircularTrajectory(Particle particle, double R)
+{
+	double m{std::tan(particle.theta)};
+	double yl{m * (m_l - particle.x) + particle.y};
+
+	while (std::abs(yl) > m_r2)
+	{
+		// True if the the collision happens with the upper wall, false with the lower wall
+		const double k{(yl > m_r2) ? R + m_r2 - particle.y + m * particle.x //
+								   : -R - m_r2 - particle.y + m * particle.x};
+		const double a{m * m + 1.};
+		const double b{m_l + m * k};
+		const double xi{(b - std::sqrt(b * b - a * (k * k - R * R + m_l * m_l))) / a};
+
+		const double yi{m * (xi - particle.x) + particle.y};
+
+		const double alpha{std::atan((xi - m_l) / (R + m_r2 - yi))};
+		const double theta{(yl > m_r2) ? 2. * alpha - particle.theta //
+									   : -2. * alpha - particle.theta};
+
+		if (std::abs(theta) > M_PI_2)
+		{
+			// end loop if the particle is going to move backwards
+			return particle;
+		}
+
+		particle = {xi, yi, theta};
+
+		m = std::tan(particle.theta);
+		yl = m * (m_l - particle.x) + particle.y;
+	}
+
+	// Set the final coords
+	particle.x = m_l;
+	particle.y = yl;
+
+	return particle;
+}
 } // namespace tb

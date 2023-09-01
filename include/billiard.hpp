@@ -45,7 +45,9 @@ public:
 	void runSimulation();
 
 private:
-	Particle calcTrajectory(Particle particle, double alpha);
+	Particle calcLinearTrajectory(Particle particle, double alpha);
+	Particle calcParabolicTrajectory(Particle particle, double k);
+	Particle calcCircularTrajectory(Particle particle, double R);
 
 	double m_r1{5.};
 	double m_r2{3.};
