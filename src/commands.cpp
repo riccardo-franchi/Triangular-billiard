@@ -33,7 +33,16 @@ void setBilliardParams(tb::Billiard& billiard)
 	getInput(r2);
 	getInput(l);
 
-	billiard = tb::Billiard{r1, r2, l};
+	std::cout << "Insert the type of billiard: \'0\' for linear, \'1\' for parabolic, \'2\' for semicircular: ";
+	int type{};
+	getInput(type);
+	if (type < 0 || type > 2)
+	{
+		throw std::domain_error{"Invalid billiard type"};
+	}
+	const auto billiardType{static_cast<tb::BilliardType>(type)};
+
+	billiard = tb::Billiard{r1, r2, l, billiardType};
 
 	printStars(5);
 	std::cout << "Parameters successfully entered.\n"
