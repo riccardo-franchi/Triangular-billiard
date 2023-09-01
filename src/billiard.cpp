@@ -134,12 +134,10 @@ Particle Billiard::calcParabolicTrajectory(Particle particle, double k)
 	while (std::abs(yl) > m_r2)
 	{
 		// True if the the collision happens with the upper wall, false with the lower wall
-		const double xi{
-			(yl > m_r2)
-				? ((k + m - std::sqrt((k + m) * (k + m) - 2. * k / m_l * (m * particle.x - particle.y + m_r1))) /
-				   (k / m_l))
-				: ((k - m - std::sqrt((k - m) * (k - m) - 2. * k / m_l * (m * particle.x - particle.y - m_r1))) /
-				   (k / m_l))};
+		const double numerator{
+			(yl > m_r2) ? k + m - std::sqrt((k + m) * (k + m) - 2. * k / m_l * (m * particle.x - particle.y + m_r1))
+						: k - m - std::sqrt((k - m) * (k - m) + 2. * k / m_l * (m * particle.x - particle.y - m_r1))};
+		const double xi{numerator * m_l / k};
 
 		const double alpha{std::atan(k * (xi - m_l) / m_l)};
 		const double theta{(yl > m_r2) ? 2. * alpha - particle.theta //
