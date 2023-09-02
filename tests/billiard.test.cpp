@@ -16,6 +16,7 @@ TEST_CASE("Testing the Billiard constructor")
 	CHECK_THROWS(tb::Billiard{-1., 1., 1.});
 	CHECK_THROWS(tb::Billiard{1., -1., 1.});
 	CHECK_THROWS(tb::Billiard{1., 1., -1.});
+	CHECK_THROWS(tb::Billiard{1., 1., 1., tb::BilliardType::Semicircular});
 }
 
 TEST_CASE("Testing simulation with linear billiard")

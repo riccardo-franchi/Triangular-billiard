@@ -7,9 +7,14 @@ namespace tb
 {
 Billiard::Billiard(double r1, double r2, double l, BilliardType type) : m_r1{r1}, m_r2{r2}, m_l{l}, m_type{type}
 {
-	if (m_r1 < 0 || m_r2 < 0 || m_l < 0)
+	if (m_r1 <= 0 || m_r2 <= 0 || m_l <= 0)
 	{
-		throw std::domain_error{"Negative argument in constructor"};
+		throw std::domain_error{"Billiard parameters must be positive"};
+	}
+
+	if (m_type == BilliardType::Semicircular && m_r1 <= m_r2)
+	{
+		throw std::domain_error{"For semicircular billiard, r1 must be greater than r2"};
 	}
 }
 
