@@ -73,7 +73,7 @@ TEST_CASE("Testing statistics() numerical values, alpha < 0")
 	SUBCASE("Two particles")
 	{
 		billiard.push_back({1.85, 0.});			// no collisions
-		billiard.push_back({1., 0.0767718913}); // no collisions, y_f = 2
+		billiard.push_back({1., 0.0767718913}); // no collisions
 		billiard.runSimulation();
 		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
 								 tb::Results{{1.925, 0.106066}, {0.038385946, 0.0542859}}));
@@ -96,18 +96,6 @@ TEST_CASE("Testing statistics() numerical values, alpha < 0")
 		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
 								 tb::Results{{0.3537533333, 1.90354}, {-0.194315976, 0.523057}}));
 	}
-
-	SUBCASE("Four particles w/ skewness and kurtosis")
-	{
-		billiard.push_back({0., 0.});			  // no collisions
-		billiard.push_back({1., 0.4357084939});	  // one collision, fin. (-1.9791249643, -0.7410071507)
-		billiard.push_back({2., -0.6654199111});  // two collisions, fin. (0.5749856482, -1.2760172247)
-		billiard.push_back({2.65, 0.5565549784}); // three collision, fin. (-0.1311178052, -1.4724509487)
-		billiard.runSimulation();
-		CHECK(statisticsApproxEq2(statistics(billiard.getParticles()),
-								  tb::Results{{-0.383814280325, 1.10687, -0.57259892459, 1.2238334345},
-											  {-0.872368831025, 0.658613, 0.33630075, 0.977477404}}));
-	}
 }
 
 TEST_CASE("Testing statistics() numerical values, alpha > 0")
@@ -115,10 +103,19 @@ TEST_CASE("Testing statistics() numerical values, alpha > 0")
 
 	tb::Billiard billiard{3., 5., 13.};
 
+	SUBCASE("Same particles")
+	{
+		billiard.push_back({2., 0.4500214252}); // one collision
+		billiard.push_back({2., 0.4500214252}); // one collisions
+		billiard.runSimulation();
+		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
+								 tb::Results{{2.0153084196, 0.}, {0. - 0.1447227684, 0.}}));
+	}
+
 	SUBCASE("Two particles")
 	{
-		billiard.push_back({1., 0.0767718913}); // no collisions, y_f = 2
-		billiard.push_back({0., 0.1526493284}); // no collisions, y_f = 2
+		billiard.push_back({1., 0.0767718913}); // no collisions
+		billiard.push_back({0., 0.1526493284}); // no collisions
 		billiard.runSimulation();
 		CHECK(statisticsApproxEq(statistics(billiard.getParticles()), tb::Results{{2., 0.}, {0.114711, 0.053653}}));
 	}
@@ -144,17 +141,17 @@ TEST_CASE("Testing statistics() numerical values, alpha > 0, different billiard"
 		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
 								 tb::Results{{-0.047380676, 0.566122567}, {-0.529300322, 0.06973096}}));
 	}
-	/*
-		SUBCASE("Three particles")
-		{
-			billiard.push_back({2., 0.0831412319}); // no collision
-			billiard.push_back({2., 0.2467060084}); // one collision
-			billiard.push_back({3., 0.});			// no collisions
+
+	SUBCASE("Three particles")
+	{
+		billiard.push_back({2., 0.0831412319}); // no collision
+		billiard.push_back({2., 0.2477287421}); // one collision
+		billiard.push_back({3., 0.});			// no collisions
 		billiard.runSimulation();
-			CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
-									 tb::Results{{3.001899335, 0.003289745}, {0.054521592, 0.047236633}}));
-		}
-	*/
+		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
+								 tb::Results{{2.997724687, 0.003940957}, {0.000564985, 0.08229521}}));
+	}
+
 	SUBCASE("Four particles")
 	{
 		billiard.push_back({0.49, 0.});			 // no collision
@@ -164,5 +161,66 @@ TEST_CASE("Testing statistics() numerical values, alpha > 0, different billiard"
 		billiard.runSimulation();
 		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
 								 tb::Results{{1.646215724, 1.127653618}, {-0.016274349, 0.198641131}}));
+	}
+}
+
+TEST_CASE("Testing statistics() numerical values, alpha < 0, w/ skewness and kurtosis")
+{
+	tb::Billiard billiard{5., 3., 13.};
+
+	SUBCASE("Two particles")
+	{
+		billiard.push_back({1., 0.0767718913});	 // no collisions
+		billiard.push_back({3., -0.7283865634}); // two collisions
+		billiard.runSimulation();
+		CHECK(statisticsApproxEq(
+			statistics(billiard.getParticles()),
+			tb::Results{{0.09244634, 2.697688257, 0., 0.25}, {-0.631105993, 1.001090504, 0., 0.25}}));
+	}
+
+	SUBCASE("Null particles")
+	{
+		billiard.push_back({0., 0.}); // no collisions
+		billiard.push_back({0., 0.}); // no collisions
+		billiard.push_back({0., 0.}); // no collisions
+		billiard.push_back({0., 0.}); // no collisions
+		billiard.runSimulation();
+		CHECK(statisticsApproxEq(statistics(billiard.getParticles()), tb::Results{{0., 0., 0., 0.}, {0., 0., 0., 0.}}));
+	}
+
+	SUBCASE("Same particles")
+	{
+		billiard.push_back({2., -0.6506834171}); // two collisions
+		billiard.push_back({2., -0.6506834171}); // two collisions
+		billiard.push_back({2., -0.6506834171}); // two collisions
+		billiard.push_back({2., -0.6506834171}); // two collisions
+		billiard.push_back({2., -0.6506834171}); // two collisions
+		billiard.push_back({2., -0.6506834171}); // two collisions
+		billiard.runSimulation();
+		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
+								 tb::Results{{1.570888912, 0., 0., 0.}, {-1.261280731, 0., 0., 0.}}));
+	}
+
+	SUBCASE("Three particles")
+	{
+		billiard.push_back({-2.47, 0.3208271936}); // no collisions
+		billiard.push_back({-2., 0.2984989316});   // no collisions
+		billiard.push_back({4., 0.001002488});	   // one collision
+		billiard.runSimulation();
+		CHECK(statisticsApproxEq(statistics(billiard.getParticles()),
+								 tb::Results{{1.929171752, 0.075347266, -0.109376168, 0.666666667},
+											 {0.104342596, 0.355803148, -0.38319519, 0.666666667}}));
+	}
+
+	SUBCASE("Four particles w/ skewness and kurtosis")
+	{
+		billiard.push_back({0., 0.});			  // no collisions
+		billiard.push_back({1., 0.4357084939});	  // one collision
+		billiard.push_back({2., -0.6654199111});  // two collisions
+		billiard.push_back({2.65, 0.5565549784}); // three collision
+		billiard.runSimulation();
+		CHECK(statisticsApproxEq2(statistics(billiard.getParticles()),
+								  tb::Results{{-0.383814280325, 1.10687, -0.57259892459, 1.2238334345},
+											  {-0.872368831025, 0.658613, 0.33630075, 0.977477404}}));
 	}
 }

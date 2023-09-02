@@ -43,7 +43,8 @@ int main()
 
 				printStars(5);
 				std::cout << "Simulation successfully run.\n";
-				std::cout << "Type \'s\' to compute and print statistics, or \'f\' to save them on a file.\n";
+				std::cout << "Type \'s\' to compute and print statistics, \'f\' to save them on a file, or \'p\' to "
+							 "save the final coordinates of each particle on a file.\n";
 				printStars(5);
 				break;
 			}
@@ -78,7 +79,7 @@ int main()
 			}
 			default:
 			{
-				std::cout << "Invalid input. Type \'h\' to see a list of commands.\n";
+				std::cout << "Invalid input. Type \'h\' to see the list of commands.\n";
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				break;
 			}

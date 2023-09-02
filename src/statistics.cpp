@@ -1,11 +1,11 @@
 #include "../include/statistics.hpp"
 
+#include <cassert>
 #include <cmath>
 #include <iomanip>
 #include <numeric>
 #include <sstream>
 #include <stdexcept>
-#include <string>
 
 namespace tb
 {
@@ -38,6 +38,12 @@ Stats computeStats(const std::vector<double>& data)
 										  })};
 
 	const double sigma{std::sqrt(moments.x2 / (N - 1))};
+
+	if (sigma == 0)
+	{
+		return {mean, sigma, 0., 0.};
+	}
+
 	const double skewness{moments.x3 / (N * std::pow(sigma, 3))};
 	const double kurtosis{moments.x4 / (N * std::pow(sigma, 4))};
 
@@ -51,7 +57,7 @@ Results statistics(const std::vector<Particle>& particles)
 	if (N < 2)
 	{
 		throw std::runtime_error{"Not enough particles to compute statistics: " + std::to_string(N) +
-								 "particle(s) escaped the billiard"};
+								 " particle(s) escaped the billiard"};
 	}
 
 	std::vector<double> y{};
@@ -63,6 +69,8 @@ Results statistics(const std::vector<Particle>& particles)
 		y.push_back(p.y);
 		theta.push_back(p.theta);
 	}
+	assert(y.size() == N);
+	assert(theta.size() == N);
 
 	return {computeStats(y), computeStats(theta), static_cast<int>(N)};
 }
