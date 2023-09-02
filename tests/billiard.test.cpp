@@ -116,8 +116,42 @@ TEST_CASE("Testing simulation with parabolic billiard")
 		billiard.push_back({-3.5, -0.8});
 		billiard.runSimulation();
 		// coordinates of the last position
-		bool iseq = approx_eq(billiard.getParticle(0), {1.132997, -4.6665771, 1.3476413});
-		CHECK(iseq);
+		CHECK(approx_eq(billiard.getParticle(0), {1.132997, -4.6665771, 1.3476413}));
+		CHECK(billiard.getEscapedParticles().size() == 0);
+	}
+}
+
+TEST_CASE("Testing simulation with semicircular billiard")
+{
+	tb::Billiard billiard{5., 3., 13., tb::BilliardType::Semicircular};
+
+	SUBCASE("No collisions, theta > 0")
+	{
+		billiard.push_back({-2.47, 0.32083});
+		billiard.runSimulation();
+		CHECK(approx_eq(billiard.getParticle(0), {13., 1.85004, 0.32083}));
+	}
+
+	SUBCASE("No collisions, theta < 0")
+	{
+		billiard.push_back({3.35, -0.178837928});
+		billiard.runSimulation();
+		CHECK(approx_eq(billiard.getParticle(0), {13., 1., -0.178837928}));
+	}
+
+	SUBCASE("Two collisions, theta > 0")
+	{
+		billiard.push_back({2., 0.35});
+		billiard.runSimulation();
+		CHECK(approx_eq(billiard.getParticle(0), {13., -2.48931, 0.751131}));
+	}
+
+	SUBCASE("One collision, the particle comes back and reaches x = 0")
+	{
+		billiard.push_back({-3.5, -0.8});
+		billiard.runSimulation();
+		// coordinates of the last position
+		CHECK(approx_eq(billiard.getParticle(0), {1.127916, -4.661346, 1.2581945}));
 		CHECK(billiard.getEscapedParticles().size() == 0);
 	}
 }
