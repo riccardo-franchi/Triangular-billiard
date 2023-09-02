@@ -18,7 +18,7 @@ TEST_CASE("Testing the Billiard constructor")
 	CHECK_THROWS(tb::Billiard{1., 1., -1.});
 }
 
-TEST_CASE("Testing the runSimulation() function")
+TEST_CASE("Testing simulation with linear billiard")
 {
 	tb::Billiard billiard{5., 3., 13.};
 
@@ -82,5 +82,41 @@ TEST_CASE("Testing the runSimulation() function")
 		billiard.push_back({1.8113483394, -1.1240743979});
 		billiard.runSimulation();
 		CHECK(approx_eq(billiard.getParticle(0), {13., 2.760673806, -0.5134770843}));
+	}
+}
+
+TEST_CASE("Testing simulation with parabolic billiard")
+{
+	tb::Billiard billiard{5., 3., 13., tb::BilliardType::Parabolic};
+
+	SUBCASE("No collisions, theta > 0")
+	{
+		billiard.push_back({-2.47, 0.32083});
+		billiard.runSimulation();
+		CHECK(approx_eq(billiard.getParticle(0), {13., 1.85004, 0.32083}));
+	}
+
+	SUBCASE("No collisions, theta < 0")
+	{
+		billiard.push_back({3.35, -0.178837928});
+		billiard.runSimulation();
+		CHECK(approx_eq(billiard.getParticle(0), {13., 1., -0.178837928}));
+	}
+
+	SUBCASE("Two collisions, theta > 0")
+	{
+		billiard.push_back({2., 0.35});
+		billiard.runSimulation();
+		CHECK(approx_eq(billiard.getParticle(0), {13., -2.49621, 0.755332}));
+	}
+
+	SUBCASE("One collision, the particle comes back and reaches x = 0")
+	{
+		billiard.push_back({-3.5, -0.8});
+		billiard.runSimulation();
+		// coordinates of the last position
+		bool iseq = approx_eq(billiard.getParticle(0), {1.132997, -4.6665771, 1.3476413});
+		CHECK(iseq);
+		CHECK(billiard.getEscapedParticles().size() == 0);
 	}
 }
