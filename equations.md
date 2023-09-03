@@ -24,9 +24,9 @@ where $\alpha$ is the angle of the edge, that varies for each shape of the billi
 
 2. Particle's angle after a collision with partially inelastic collisions:  
 Upper wall:
-$$\theta_{i+1} = \alpha - \frac{\pi}{2}+\arctan(\frac{1}{e} \cot(\theta_i-\alpha))$$
+$$\theta_{i+1} = \alpha - \frac{\pi}{2}+\arctan(\frac{1}{e} \tan(\frac{\pi}{2}-\theta_i+\alpha))$$
 Lower wall:
-$$\theta_{i+1} = -\alpha + \frac{\pi}{2}+\arctan(\frac{1}{e} \cot(\theta_i+\alpha))$$
+$$\theta_{i+1} = -\alpha + \frac{\pi}{2}+\arctan(\frac{1}{e} \tan(\frac{\pi}{2}-\theta_i-\alpha))$$
 where $e$ is the restitution coefficient, $\alpha$ is the angle of the edge, that varies for each shape of the billiard, and all angles are referred to the $x$ axis.
 
 ## Straight line billiard
