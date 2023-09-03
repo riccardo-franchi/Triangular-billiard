@@ -104,7 +104,9 @@ Particle Billiard::calcLinearTrajectory(Particle particle, double alpha) const
 
 	while (std::abs(yl) > m_r2)
 	{
-		const double theta{(yl > m_r2) ? updateAngle(particle.theta, alpha) : updateAngle(particle.theta, -alpha)};
+		const bool isUpperWall{yl > m_r2};
+
+		const double theta{updateAngle(particle.theta, alpha, isUpperWall)};
 
 		if (std::abs(theta) > M_PI_2)
 		{
@@ -113,7 +115,7 @@ Particle Billiard::calcLinearTrajectory(Particle particle, double alpha) const
 		}
 
 		// True if the the collision happens with the upper wall, false with the lower wall
-		const double xi{(yl > m_r2) ? (m * particle.x + m_r1 - particle.y) / (m + ((m_r1 - m_r2) / m_l))
+		const double xi{isUpperWall ? (m * particle.x + m_r1 - particle.y) / (m + ((m_r1 - m_r2) / m_l))
 									: (m * particle.x - m_r1 - particle.y) / (m + ((m_r2 - m_r1) / m_l))};
 
 		const double yi{m * (xi - particle.x) + particle.y};
@@ -138,14 +140,16 @@ Particle Billiard::calcParabolicTrajectory(Particle particle, double k) const
 
 	while (std::abs(yl) > m_r2)
 	{
+		const bool isUpperWall{yl > m_r2};
+
 		// True if the the collision happens with the upper wall, false with the lower wall
 		const double numerator{
-			(yl > m_r2) ? k + m - std::sqrt((k + m) * (k + m) - 2. * k / m_l * (m * particle.x - particle.y + m_r1))
+			isUpperWall ? k + m - std::sqrt((k + m) * (k + m) - 2. * k / m_l * (m * particle.x - particle.y + m_r1))
 						: k - m - std::sqrt((k - m) * (k - m) + 2. * k / m_l * (m * particle.x - particle.y - m_r1))};
 		const double xi{numerator * m_l / k};
 
 		const double alpha{std::atan(k * (xi - m_l) / m_l)};
-		const double theta{(yl > m_r2) ? updateAngle(particle.theta, alpha) : updateAngle(particle.theta, -alpha)};
+		const double theta{updateAngle(particle.theta, alpha, isUpperWall)};
 
 		if (std::abs(theta) > M_PI_2)
 		{
@@ -175,8 +179,10 @@ Particle Billiard::calcCircularTrajectory(Particle particle, double R) const
 
 	while (std::abs(yl) > m_r2)
 	{
+		const bool isUpperWall{yl > m_r2};
+
 		// True if the the collision happens with the upper wall, false with the lower wall
-		const double k{(yl > m_r2) ? R + m_r2 - particle.y + m * particle.x //
+		const double k{isUpperWall ? R + m_r2 - particle.y + m * particle.x //
 								   : -R - m_r2 - particle.y + m * particle.x};
 		const double a{m * m + 1.};
 		const double b{m_l + m * k};
@@ -185,7 +191,7 @@ Particle Billiard::calcCircularTrajectory(Particle particle, double R) const
 		const double yi{m * (xi - particle.x) + particle.y};
 
 		const double alpha{std::atan((xi - m_l) / (R + m_r2 - yi))};
-		const double theta{(yl > m_r2) ? updateAngle(particle.theta, alpha) : updateAngle(particle.theta, -alpha)};
+		const double theta{updateAngle(particle.theta, alpha, isUpperWall)};
 
 		if (std::abs(theta) > M_PI_2)
 		{
@@ -207,7 +213,8 @@ Particle Billiard::calcCircularTrajectory(Particle particle, double R) const
 }
 } // namespace tb
 
-double tb::Billiard::updateAngle(double theta, double alpha) const
+double tb::Billiard::updateAngle(double theta, double alpha, bool isUpperWall) const
 {
-	return 2. * alpha - theta;
+	return isUpperWall ? 2. * alpha - theta //
+					   : -2. * alpha - theta;
 }

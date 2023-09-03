@@ -47,7 +47,7 @@ private:
 	Particle calcParabolicTrajectory(Particle particle, double k) const;
 	Particle calcCircularTrajectory(Particle particle, double R) const;
 
-	double updateAngle(double theta, double alpha) const;
+	double updateAngle(double theta, double alpha, bool isUpperWall) const;
 
 	double m_r1{5.};
 	double m_r2{3.};
