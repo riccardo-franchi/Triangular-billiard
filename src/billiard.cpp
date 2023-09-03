@@ -216,9 +216,12 @@ Particle Billiard::calcCircularTrajectory(Particle particle, double R) const
 
 double tb::Billiard::updateAngle(double theta, double alpha, bool isUpperWall) const
 {
-	if (m_e == 1)
+	if (m_e == 1.)
 	{
 		return isUpperWall ? 2. * alpha - theta //
 						   : -2. * alpha - theta;
 	}
+
+	return isUpperWall ? alpha - M_PI_2 + std::atan(1 / m_e * std::tan(M_PI_2 - theta + alpha)) //
+					   : -alpha + M_PI_2 + std::atan(1 / m_e * std::tan(M_PI_2 - theta - alpha));
 }
