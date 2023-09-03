@@ -15,12 +15,19 @@ therefore, after a collision we have:
 $$y_{i+1} = \tan\theta_i\ (x_{i+1}-x_i) + y_i $$
 
 ## Generic Billiard
-1. Particle's angle after a collision:
+1. Particle's angle after a collision with elastic collisions:
 Upper wall:
 $$\theta_{i+1} = -\theta_i + 2\alpha$$
 Lower wall:
 $$\theta_{i+1} = -\theta_i - 2\alpha$$
 where $\alpha$ is the angle of the edge, that varies for each shape of the billiard, and all angles are referred to the $x$ axis.
+
+2. Particle's angle after a collision with partially inelastic collisions:  
+Upper wall:
+$$\theta_{i+1} = \alpha - \frac{\pi}{2}+\arctan(\frac{1}{e} \cot(\theta_i-\alpha))$$
+Lower wall:
+$$\theta_{i+1} = -\alpha + \frac{\pi}{2}+\arctan(\frac{1}{e} \cot(\theta_i+\alpha))$$
+where $e$ is the restitution coefficient, $\alpha$ is the angle of the edge, that varies for each shape of the billiard, and all angles are referred to the $x$ axis.
 
 ## Straight line billiard
 1. Equation of the upper wall:
