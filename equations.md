@@ -27,7 +27,7 @@ Upper wall:
 $$\theta_{i+1} = \alpha - \frac{\pi}{2}+\arctan(\frac{1}{e} \tan(\frac{\pi}{2}-\theta_i+\alpha))$$
 Lower wall:
 $$\theta_{i+1} = -\alpha + \frac{\pi}{2}+\arctan(\frac{1}{e} \tan(\frac{\pi}{2}-\theta_i-\alpha))$$
-where $e$ is the restitution coefficient, $\alpha$ is the angle of the edge, that varies for each shape of the billiard, and all angles are referred to the $x$ axis.
+where $e$ is the coefficient of restitution, $\alpha$ is the angle of the edge, that varies for each shape of the billiard, and all angles are referred to the $x$ axis.
 
 ## Straight line billiard
 1. Equation of the upper wall:

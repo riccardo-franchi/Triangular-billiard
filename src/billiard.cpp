@@ -18,6 +18,11 @@ Billiard::Billiard(double r1, double r2, double l, BilliardType type, double e)
 	{
 		throw std::domain_error{"For semicircular billiard, r1 must be greater than r2"};
 	}
+
+	if (m_e < 0 || m_e > 1)
+	{
+		throw std::domain_error{"Coefficient of restitution must be between 0 and 1"};
+	}
 }
 
 std::vector<Particle> Billiard::getEscapedParticles() const
