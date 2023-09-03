@@ -19,7 +19,7 @@ class Billiard
 {
 public:
 	Billiard() = default;
-	Billiard(double r1, double r2, double l, BilliardType type = BilliardType::Linear);
+	Billiard(double r1, double r2, double l, BilliardType type = BilliardType::Linear, double e = 1.);
 
 	double getR1() const { return m_r1; }
 	double getL() const { return m_l; }
@@ -54,6 +54,8 @@ private:
 	double m_l{13.};
 
 	BilliardType m_type{BilliardType::Linear};
+
+	double m_e{1.};
 
 	std::vector<Particle> m_particles{};
 };

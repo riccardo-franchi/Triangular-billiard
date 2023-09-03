@@ -6,7 +6,8 @@
 
 namespace tb
 {
-Billiard::Billiard(double r1, double r2, double l, BilliardType type) : m_r1{r1}, m_r2{r2}, m_l{l}, m_type{type}
+Billiard::Billiard(double r1, double r2, double l, BilliardType type, double e)
+	: m_r1{r1}, m_r2{r2}, m_l{l}, m_type{type}, m_e{e}
 {
 	if (m_r1 <= 0 || m_r2 <= 0 || m_l <= 0)
 	{
@@ -215,6 +216,9 @@ Particle Billiard::calcCircularTrajectory(Particle particle, double R) const
 
 double tb::Billiard::updateAngle(double theta, double alpha, bool isUpperWall) const
 {
-	return isUpperWall ? 2. * alpha - theta //
-					   : -2. * alpha - theta;
+	if (m_e == 1)
+	{
+		return isUpperWall ? 2. * alpha - theta //
+						   : -2. * alpha - theta;
+	}
 }
