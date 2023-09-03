@@ -43,9 +43,11 @@ public:
 	void runSimulation();
 
 private:
-	Particle calcLinearTrajectory(Particle particle, double alpha);
-	Particle calcParabolicTrajectory(Particle particle, double k);
-	Particle calcCircularTrajectory(Particle particle, double R);
+	Particle calcLinearTrajectory(Particle particle, double alpha) const;
+	Particle calcParabolicTrajectory(Particle particle, double k) const;
+	Particle calcCircularTrajectory(Particle particle, double R) const;
+
+	double updateAngle(double theta, double alpha) const;
 
 	double m_r1{5.};
 	double m_r2{3.};

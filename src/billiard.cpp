@@ -97,15 +97,14 @@ void Billiard::runSimulation()
 	}
 }
 
-Particle Billiard::calcLinearTrajectory(Particle particle, double alpha)
+Particle Billiard::calcLinearTrajectory(Particle particle, double alpha) const
 {
 	double m{std::tan(particle.theta)};
 	double yl{m * (m_l - particle.x) + particle.y};
 
 	while (std::abs(yl) > m_r2)
 	{
-		const double theta{(yl > m_r2) ? 2. * alpha - particle.theta //
-									   : -2. * alpha - particle.theta};
+		const double theta{(yl > m_r2) ? updateAngle(particle.theta, alpha) : updateAngle(particle.theta, -alpha)};
 
 		if (std::abs(theta) > M_PI_2)
 		{
@@ -132,7 +131,7 @@ Particle Billiard::calcLinearTrajectory(Particle particle, double alpha)
 	return particle;
 }
 
-Particle Billiard::calcParabolicTrajectory(Particle particle, double k)
+Particle Billiard::calcParabolicTrajectory(Particle particle, double k) const
 {
 	double m{std::tan(particle.theta)};
 	double yl{m * (m_l - particle.x) + particle.y};
@@ -146,8 +145,7 @@ Particle Billiard::calcParabolicTrajectory(Particle particle, double k)
 		const double xi{numerator * m_l / k};
 
 		const double alpha{std::atan(k * (xi - m_l) / m_l)};
-		const double theta{(yl > m_r2) ? 2. * alpha - particle.theta //
-									   : -2. * alpha - particle.theta};
+		const double theta{(yl > m_r2) ? updateAngle(particle.theta, alpha) : updateAngle(particle.theta, -alpha)};
 
 		if (std::abs(theta) > M_PI_2)
 		{
@@ -170,7 +168,7 @@ Particle Billiard::calcParabolicTrajectory(Particle particle, double k)
 	return particle;
 }
 
-Particle Billiard::calcCircularTrajectory(Particle particle, double R)
+Particle Billiard::calcCircularTrajectory(Particle particle, double R) const
 {
 	double m{std::tan(particle.theta)};
 	double yl{m * (m_l - particle.x) + particle.y};
@@ -187,8 +185,7 @@ Particle Billiard::calcCircularTrajectory(Particle particle, double R)
 		const double yi{m * (xi - particle.x) + particle.y};
 
 		const double alpha{std::atan((xi - m_l) / (R + m_r2 - yi))};
-		const double theta{(yl > m_r2) ? 2. * alpha - particle.theta //
-									   : -2. * alpha - particle.theta};
+		const double theta{(yl > m_r2) ? updateAngle(particle.theta, alpha) : updateAngle(particle.theta, -alpha)};
 
 		if (std::abs(theta) > M_PI_2)
 		{
@@ -209,3 +206,8 @@ Particle Billiard::calcCircularTrajectory(Particle particle, double R)
 	return particle;
 }
 } // namespace tb
+
+double tb::Billiard::updateAngle(double theta, double alpha) const
+{
+	return 2. * alpha - theta;
+}
