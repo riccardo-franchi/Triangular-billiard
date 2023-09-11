@@ -4,6 +4,7 @@
 #include "particle.hpp"
 
 #include <cmath>
+#include <stdexcept>
 #include <vector>
 
 namespace tb
@@ -23,7 +24,14 @@ public:
 
 	double getR1() const { return m_r1; }
 	double getL() const { return m_l; }
-	void setL(double l) { m_l = l; }
+	void setL(double l)
+	{
+		if (l <= 0)
+		{
+			throw std::domain_error{"l must be grater than zero"};
+		}
+		m_l = l;
+	}
 
 	const std::vector<Particle>& getParticles() const { return m_particles; }
 	std::vector<Particle> getEscapedParticles() const;
