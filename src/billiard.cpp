@@ -2,15 +2,14 @@
 
 #include <algorithm>
 #include <execution>
-#include <stdexcept>
 
 namespace tb
 {
 Billiard::Billiard(double r1, double r2, double l) : m_r1{r1}, m_r2{r2}, m_l{l}
 {
-	if (m_r1 < 0 || m_r2 < 0 || m_l < 0)
+	if (m_r1 <= 0 || m_r2 <= 0 || m_l <= 0)
 	{
-		throw std::domain_error{"Negative argument in constructor"};
+		throw std::domain_error{"Non-zero argument in constructor"};
 	}
 }
 
@@ -46,18 +45,8 @@ void Billiard::runSimulation()
 	}
 	const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
-	// If the number of particles is small, don't use parallel execution
-	constexpr int maxSequentialParts{20'000};
-	if (size() < maxSequentialParts)
-	{
-		std::transform(m_particles.begin(), m_particles.end(), m_particles.begin(),
-					   [&](const Particle& p) { return calcTrajectory(p, alpha); });
-	}
-	else
-	{
-		std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
-					   [&](const Particle& p) { return calcTrajectory(p, alpha); });
-	}
+	std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
+				   [&](const Particle& p) { return calcTrajectory(p, alpha); });
 }
 
 Particle Billiard::calcTrajectory(Particle particle, double alpha)
