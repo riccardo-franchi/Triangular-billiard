@@ -20,7 +20,7 @@ Stats computeStats(const std::vector<double>& data)
 {
 	const int N{static_cast<int>(data.size())};
 
-	const double sum{std::accumulate(data.begin(), data.end(), 0., [](double s, double x) { return s += x; })};
+	const double sum{std::reduce(data.begin(), data.end(), 0., std::plus{})};
 	const double mean{sum / N};
 
 	const Moments moments{std::accumulate(data.begin(), data.end(), Moments{},
@@ -73,6 +73,19 @@ Results statistics(const std::vector<Particle>& particles)
 	assert(theta.size() == N);
 
 	return {computeStats(y), computeStats(theta), static_cast<int>(N)};
+}
+
+std::string statToString(const Stats& stats)
+{
+	constexpr int w{20};
+	std::ostringstream oss{};
+
+	oss << std::setw(w) << std::left << "y_f mean: " << stats.mean << '\n'			//
+		<< std::setw(w) << std::left << "y_f sigma: " << stats.sigma << '\n'		//
+		<< std::setw(w) << std::left << "y_f skewness: " << stats.skewness << '\n'	//
+		<< std::setw(w) << std::left << "y_f kurtosis: " << stats.kurtosis << '\n'; //
+
+	return oss.str();
 }
 
 std::string statsToString(const Results& stats)

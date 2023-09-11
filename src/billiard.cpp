@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <execution>
-#include <stdexcept>
 
 namespace tb
 {
@@ -56,51 +55,25 @@ void Billiard::runSimulation()
 		throw std::domain_error{"No particles to run"};
 	}
 
-	// If the number of particles is small, don't use parallel execution
-	constexpr int maxSequentialParts{20'000};
-
 	if (m_type == BilliardType::Linear)
 	{
 		const double alpha{std::atan((m_r2 - m_r1) / m_l)};
-		if (size() < maxSequentialParts)
-		{
-			std::transform(m_particles.begin(), m_particles.end(), m_particles.begin(),
-						   [&](const Particle& p) { return calcLinearTrajectory(p, alpha); });
-		}
-		else
-		{
 			std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
 						   [&](const Particle& p) { return calcLinearTrajectory(p, alpha); });
-		}
 	}
 	else if (m_type == BilliardType::Parabolic)
 	{
 		const double k{2. * (m_r1 - m_r2) / m_l};
-		if (size() < maxSequentialParts)
-		{
-			std::transform(m_particles.begin(), m_particles.end(), m_particles.begin(),
+	  std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
 						   [&](const Particle& p) { return calcParabolicTrajectory(p, k); });
-		}
-		else
-		{
-			std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
-						   [&](const Particle& p) { return calcParabolicTrajectory(p, k); });
-		}
 	}
 	else // Semicircular
 	{
 		const double R{(m_l * m_l + (m_r1 - m_r2) * (m_r1 - m_r2)) / (2. * (m_r1 - m_r2))};
-		if (size() < maxSequentialParts)
-		{
-			std::transform(m_particles.begin(), m_particles.end(), m_particles.begin(),
-						   [&](const Particle& p) { return calcCircularTrajectory(p, R); });
-		}
-		else
-		{
-			std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
-						   [&](const Particle& p) { return calcCircularTrajectory(p, R); });
-		}
+    std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
+					   [&](const Particle& p) { return calcCircularTrajectory(p, R); });
 	}
+
 }
 
 Particle Billiard::calcLinearTrajectory(Particle particle, double alpha) const
