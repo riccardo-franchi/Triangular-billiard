@@ -40,7 +40,11 @@ void setBilliardParams(tb::Billiard& billiard)
 	}
 	const auto billiardType{static_cast<tb::BilliardType>(type)};
 
-	billiard = tb::Billiard{r1, r2, l, billiardType};
+	std::cout << "Insert the coefficient of restitution: ";
+	double e{};
+	getInput(e);
+
+	billiard = tb::Billiard{r1, r2, l, billiardType, e};
 
 	printStars(5);
 	std::cout << "Parameters successfully entered.\n"

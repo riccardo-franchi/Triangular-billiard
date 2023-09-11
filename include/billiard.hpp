@@ -20,7 +20,7 @@ class Billiard
 {
 public:
 	Billiard() = default;
-	Billiard(double r1, double r2, double l, BilliardType type = BilliardType::Linear);
+	Billiard(double r1, double r2, double l, BilliardType type = BilliardType::Linear, double e = 1.);
 
 	double getR1() const { return m_r1; }
 	double getL() const { return m_l; }
@@ -51,15 +51,19 @@ public:
 	void runSimulation();
 
 private:
-	Particle calcLinearTrajectory(Particle particle, double alpha);
-	Particle calcParabolicTrajectory(Particle particle, double k);
-	Particle calcCircularTrajectory(Particle particle, double R);
+	Particle calcLinearTrajectory(Particle particle, double alpha) const;
+	Particle calcParabolicTrajectory(Particle particle, double k) const;
+	Particle calcCircularTrajectory(Particle particle, double R) const;
+
+	double updateAngle(double theta, double alpha, bool isUpperWall) const;
 
 	double m_r1{5.};
 	double m_r2{3.};
 	double m_l{13.};
 
 	BilliardType m_type{BilliardType::Linear};
+
+	double m_e{1.};
 
 	std::vector<Particle> m_particles{};
 };
