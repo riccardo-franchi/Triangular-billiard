@@ -60,21 +60,20 @@ void Billiard::runSimulation()
 		const double alpha{std::atan((m_r2 - m_r1) / m_l)};
 
 		std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
-						   [&](const Particle& p) { return calcLinearTrajectory(p, alpha); });
+					   [&](const Particle& p) { return calcLinearTrajectory(p, alpha); });
 	}
 	else if (m_type == BilliardType::Parabolic)
 	{
 		const double k{2. * (m_r1 - m_r2) / m_l};
 		std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
-						   [&](const Particle& p) { return calcParabolicTrajectory(p, k); });
+					   [&](const Particle& p) { return calcParabolicTrajectory(p, k); });
 	}
 	else // Semicircular
 	{
 		const double R{(m_l * m_l + (m_r1 - m_r2) * (m_r1 - m_r2)) / (2. * (m_r1 - m_r2))};
 		std::transform(std::execution::par, m_particles.begin(), m_particles.end(), m_particles.begin(),
-						   [&](const Particle& p) { return calcCircularTrajectory(p, R); });
+					   [&](const Particle& p) { return calcCircularTrajectory(p, R); });
 	}
-
 }
 
 Particle Billiard::calcLinearTrajectory(Particle particle, double alpha) const
